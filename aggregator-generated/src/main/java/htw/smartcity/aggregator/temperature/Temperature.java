@@ -9,7 +9,7 @@ public class Temperature {
 
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     protected Long id;
 
     @Column(name = "time")
@@ -32,7 +32,7 @@ public class Temperature {
         this.value = value;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -42,7 +42,7 @@ public class Temperature {
      * @param id
      *            The new id.
      */
-    protected void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
