@@ -1,10 +1,10 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.humidty.temperature;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "TEMPERATURE")
-public class Temperature {
+@Table(name = "HUMIDITY")
+public class Humidity {
     private static final long serialVersionUID = 1L;
 
 
@@ -23,11 +23,11 @@ public class Temperature {
     /**
      * Default constructor for JPA only.
      */
-    protected Temperature() {
+    protected Humidity() {
 
     }
 
-    public Temperature(String time, String value) {
+    public Humidity(String time, String value) {
         this.time = time;
         this.value = value;
     }
