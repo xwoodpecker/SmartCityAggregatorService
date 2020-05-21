@@ -21,8 +21,6 @@ public class TemperatureController {
     @Autowired
     private TemperatureResourceAssembler temperatureResourceAssembler;
 
-    private PagedResourcesAssembler<Temperature> temperaturePagedResourcesAssembler;
-
     @GetMapping("/temperature")
     CollectionModel<EntityModel<Temperature>> all()
     {
