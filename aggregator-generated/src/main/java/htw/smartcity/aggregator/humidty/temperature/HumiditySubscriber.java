@@ -5,6 +5,8 @@ import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+
 @Component
 public class HumiditySubscriber extends MQTTSubscriber {
 
@@ -19,7 +21,7 @@ public class HumiditySubscriber extends MQTTSubscriber {
     }
 
     @Override
-    protected void persistMsg(String time, String msg) {
+    protected void persistMsg(Date time, String msg) {
         try {
             Humidity humidity = new Humidity(time, msg);
             humidityRepository.save(humidity);

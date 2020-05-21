@@ -1,6 +1,10 @@
 package htw.smartcity.aggregator.temperature;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "TEMPERATURE")
@@ -13,7 +17,9 @@ public class Temperature {
     protected Long id;
 
     @Column(name = "time")
-    protected String time;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    protected Date time;
 
     @Column(name = "value")
     protected String value;
@@ -27,7 +33,7 @@ public class Temperature {
 
     }
 
-    public Temperature(String time, String value) {
+    public Temperature(Date time, String value) {
         this.time = time;
         this.value = value;
     }
@@ -46,11 +52,11 @@ public class Temperature {
         this.id = id;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

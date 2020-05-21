@@ -1,11 +1,12 @@
 package htw.smartcity.aggregator.temperature;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,18 @@ public class TemperatureController {
     CollectionModel<EntityModel<Temperature>> all()
     {
         List<EntityModel<Temperature>> temperatures = temperatureRepository.findAll().stream()
+                .map(temperatureResourceAssembler::toModel)
+                .collect(Collectors.toList());
+
+        return new CollectionModel<>(temperatures,
+                linkTo(methodOn(TemperatureController.class).all()).withSelfRel());
+    }
+
+    //todo this datetimeformat everywhere sucks, make global (https://www.baeldung.com/spring-date-parameters)
+    @GetMapping("/temperature/byDate")
+    CollectionModel<EntityModel<Temperature>> between(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date startTime, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date endTime)
+    {
+        List<EntityModel<Temperature>> temperatures = temperatureRepository.findTemperaturesByTimeBetween(startTime, endTime).stream()
                 .map(temperatureResourceAssembler::toModel)
                 .collect(Collectors.toList());
 

@@ -5,6 +5,7 @@ import htw.smartcity.aggregator.util.Utils;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 
@@ -39,13 +40,13 @@ public abstract class MQTTSubscriber implements MqttCallback {
 
     @Override
     public void messageArrived(String topic, MqttMessage message) {
-        String time = new Timestamp(System.currentTimeMillis()).toString();
+        Date time = new Date(System.currentTimeMillis());
         String msg = message.toString();
         System.out.println("Message arrived. Topic: " + topic + "  Message: " + msg);
         persistMsg(time, msg);
     }
 
-    protected abstract void persistMsg(String time, String msg);
+    protected abstract void persistMsg(Date time, String msg);
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
