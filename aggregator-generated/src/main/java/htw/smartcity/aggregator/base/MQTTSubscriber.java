@@ -43,10 +43,11 @@ public abstract class MQTTSubscriber implements MqttCallback {
         Date time = new Date(System.currentTimeMillis());
         String msg = message.toString();
         System.out.println("Message arrived. Topic: " + topic + "  Message: " + msg);
-        persistMsg(time, msg);
+        String subTopic = topic.replace(this.topic.replace("#", ""), "");
+        persistMsg(time, subTopic, msg);
     }
 
-    protected abstract void persistMsg(Date time, String msg);
+    protected abstract void persistMsg(Date time, String sensorType, String msg);
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {

@@ -16,8 +16,12 @@ import java.util.Random;
 
 public class Publisher {
 
-    public static final String TOPIC_HUMIDITY = ConfigProperties.TOPIC + "/humidity";
-    public static final String TOPIC_TEMPERATURE = ConfigProperties.TOPIC + "/temperature";
+    public static final String TOPIC_AIRQUALITY = ConfigProperties.TOPIC + "/airquality/sensor1";
+    public static final String TOPIC_TEMPERATURE_SENSOR1 = ConfigProperties.TOPIC + "/temperature/sensor1";
+    public static final String TOPIC_TEMPERATURE_SENSOR2 = ConfigProperties.TOPIC + "/temperature/sensor2";
+    public static final String TOPIC_PARKING_SENSOR1 = ConfigProperties.TOPIC + "/parking/sensor1";
+    public static final String TOPIC_PARKING_SENSOR2 = ConfigProperties.TOPIC + "/parking/sensor2";
+    public static final String TOPIC_PARKING_SENSOR3 = ConfigProperties.TOPIC + "/parking/sensor3";
 
     private MqttClient client;
     private Random random;
@@ -49,10 +53,17 @@ public class Publisher {
 
             while (true) {
 
-                publishHumidity();
+                publishAirquality();
                 Thread.sleep(500);
-                publishTemperature();
+                publishTemperature(TOPIC_TEMPERATURE_SENSOR1);
                 Thread.sleep(500);
+                publishTemperature(TOPIC_TEMPERATURE_SENSOR2);
+                Thread.sleep(500);
+                publishParking(TOPIC_PARKING_SENSOR1);
+                Thread.sleep(500);
+                publishParking(TOPIC_PARKING_SENSOR2);
+                Thread.sleep(500);
+                publishParking(TOPIC_PARKING_SENSOR3);
             }
         } catch (MqttException e) {
             e.printStackTrace();
@@ -62,8 +73,9 @@ public class Publisher {
         }
     }
 
-    private void publishTemperature() throws MqttException {
-        final MqttTopic temperatureTopic = client.getTopic(TOPIC_TEMPERATURE);
+
+    private void publishTemperature(String topic) throws MqttException {
+        final MqttTopic temperatureTopic = client.getTopic(topic);
 
         final int temperature = random.nextInt(39);
         final String temperatureString = temperature + "°C";
@@ -73,16 +85,28 @@ public class Publisher {
         System.out.println("Published data. Topic: " + temperatureTopic.getName() + "  Message: " + temperatureString);
     }
 
-    private void publishHumidity() throws MqttException {
-        final MqttTopic humidityTopic = client.getTopic(TOPIC_HUMIDITY);
+    private void publishAirquality() throws MqttException {
+        final MqttTopic airqualityTopic = client.getTopic(TOPIC_AIRQUALITY);
 
-        final int humidity = random.nextInt(79)+20;
-        final String humidityString = humidity + "%";
+        final int airquality = random.nextInt(79)+20;
+        final String airqualityString = airquality + "%";
 
-        humidityTopic.publish(new MqttMessage(humidityString.getBytes()));
+        airqualityTopic.publish(new MqttMessage(airqualityString.getBytes()));
 
-        System.out.println("Published data. Topic: " + humidityTopic.getName() + "   Message: " + humidityString);
+        System.out.println("Published data. Topic: " + airqualityTopic.getName() + "   Message: " + airqualityString);
     }
+
+    private void publishParking(String topic) throws MqttException {
+        final MqttTopic parkingTopic = client.getTopic(topic);
+
+        final boolean parking = random.nextBoolean();
+        final String parkingString = String.valueOf(parking);
+
+        parkingTopic.publish(new MqttMessage(parkingString.getBytes()));
+
+        System.out.println("Published data. Topic: " + parkingTopic.getName() + "   Message: " + parkingString);
+    }
+
 
     public static void main(String... args) {
         final Publisher publisher = new Publisher();

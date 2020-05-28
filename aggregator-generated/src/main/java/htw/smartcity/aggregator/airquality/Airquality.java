@@ -1,4 +1,4 @@
-package htw.smartcity.aggregator.humidty.temperature;
+package htw.smartcity.aggregator.airquality;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -6,33 +6,38 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "HUMIDITY")
-public class Humidity {
+@Table(name = "AIR_QUALITY")
+public class Airquality {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
 
     @Column(name = "time")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    protected Date time;
+    private Date time;
+
+
+    @Column(name ="sensor_type")
+    private String sensorType;
 
     @Column(name = "value")
-    protected String value;
+    private String value;
 
 
 
     /**
      * Default constructor for JPA only.
      */
-    protected Humidity() {
+    private Airquality() {
 
     }
 
-    public Humidity(Date time, String value) {
+    public Airquality(Date time, String sensorType, String value) {
         this.time = time;
+        this.sensorType = sensorType;
         this.value = value;
     }
 
@@ -58,6 +63,14 @@ public class Humidity {
         this.time = time;
     }
 
+    public String getSensorType() {
+        return sensorType;
+    }
+
+    public void setSensorType(String sensorType) {
+        this.sensorType = sensorType;
+    }
+
     public String getValue() {
         return value;
     }
@@ -65,6 +78,7 @@ public class Humidity {
     public void setValue(String value) {
         this.value = value;
     }
+
 
     @Override
     public String toString() {

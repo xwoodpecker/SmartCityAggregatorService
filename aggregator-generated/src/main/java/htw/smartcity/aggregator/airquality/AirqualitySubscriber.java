@@ -1,4 +1,4 @@
-package htw.smartcity.aggregator.humidty.temperature;
+package htw.smartcity.aggregator.airquality;
 
 import htw.smartcity.aggregator.base.MQTTSubscriber;
 import htw.smartcity.aggregator.util.Utils;
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 
 @Component
-public class HumiditySubscriber extends MQTTSubscriber {
+public class AirqualitySubscriber extends MQTTSubscriber {
 
-    private final String subTopic =  "/humidity/#";
+    private final String subTopic =  "/airquality/#";
 
     @Autowired
-    HumidityRepository humidityRepository;
+    AirqualityRepository airqualityRepository;
 
     @Override
     protected String getSubTopic() {
@@ -21,10 +21,10 @@ public class HumiditySubscriber extends MQTTSubscriber {
     }
 
     @Override
-    protected void persistMsg(Date time, String msg) {
+    protected void persistMsg(Date time, String sensorType, String msg) {
         try {
-            Humidity humidity = new Humidity(time, msg);
-            humidityRepository.save(humidity);
+            Airquality airquality = new Airquality(time, sensorType, msg);
+            airqualityRepository.save(airquality);
         }catch (Exception e) {
             e.printStackTrace();
         }

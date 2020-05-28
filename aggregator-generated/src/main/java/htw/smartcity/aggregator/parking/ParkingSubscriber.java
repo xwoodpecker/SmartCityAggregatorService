@@ -1,4 +1,4 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.parking;
 
 import htw.smartcity.aggregator.base.MQTTSubscriber;
 import htw.smartcity.aggregator.util.Utils;
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 
 @Component
-public class TemperatureSubscriber extends MQTTSubscriber {
+public class ParkingSubscriber extends MQTTSubscriber {
 
-    private final String subTopic =  "/temperature/#";
+    private final String subTopic =  "/parking/#";
 
     @Autowired
-    TemperatureRepository temperatureRepository;
+    ParkingRepository parkingRepository;
 
     @Override
     protected String getSubTopic() {
@@ -23,8 +23,8 @@ public class TemperatureSubscriber extends MQTTSubscriber {
     @Override
     protected void persistMsg(Date time, String sensorType, String msg) {
         try {
-            Temperature temperature = new Temperature(time, sensorType, msg);
-            temperatureRepository.save(temperature);
+            Parking parking = new Parking(time, sensorType, msg);
+            parkingRepository.save(parking);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -32,6 +32,6 @@ public class TemperatureSubscriber extends MQTTSubscriber {
 
     @Override
     protected String getClientId() {
-        return Utils.getMacAddress() + "-tem";
+        return Utils.getMacAddress() + "-hum";
     }
 }

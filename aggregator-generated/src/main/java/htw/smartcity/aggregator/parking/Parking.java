@@ -1,16 +1,14 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.parking;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "TEMPERATURE")
-public class Temperature {
+@Table(name = "PARKING")
+public class Parking {
     private static final long serialVersionUID = 1L;
-
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -18,8 +16,9 @@ public class Temperature {
 
     @Column(name = "time")
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date time;
+
 
     @Column(name ="sensor_type")
     private String sensorType;
@@ -32,14 +31,14 @@ public class Temperature {
     /**
      * Default constructor for JPA only.
      */
-    private Temperature() {
+    private Parking() {
 
     }
 
-    public Temperature(Date time, String value, String sensorType) {
+    public Parking(Date time, String sensorType, String value) {
         this.time = time;
+        this.sensorType = sensorType;
         this.value = value;
-        this.sensorType = value;
     }
 
     public Long getId() {
@@ -80,9 +79,9 @@ public class Temperature {
         this.value = value;
     }
 
+
     @Override
     public String toString() {
         return time + " [" + value + "]";
     }
-
 }
