@@ -1,14 +1,16 @@
 package htw.smartcity.aggregator.base;
 
+import htw.smartcity.aggregator.sensor.Sensor;
+import htw.smartcity.aggregator.sensor.SensorRepository;
 import htw.smartcity.aggregator.util.ConfigProperties;
 import htw.smartcity.aggregator.util.Utils;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-
-
+import java.util.List;
 
 
 public abstract class MQTTSubscriber implements MqttCallback {
@@ -25,6 +27,8 @@ public abstract class MQTTSubscriber implements MqttCallback {
     private MqttConnectOptions connectionOptions = null;
     private MemoryPersistence persistence = null;
 
+    @Autowired
+    SensorRepository sensorRepository;
 
     public MQTTSubscriber() {
         this.config();
@@ -32,6 +36,8 @@ public abstract class MQTTSubscriber implements MqttCallback {
     }
 
     protected abstract String getSubTopic();
+
+    protected abstract Sensor.SensorType getSensorType();
 
 
     @Override
@@ -43,11 +49,24 @@ public abstract class MQTTSubscriber implements MqttCallback {
         Date time = new Date(System.currentTimeMillis());
         String msg = message.toString();
         System.out.println("Message arrived. Topic: " + topic + "  Message: " + msg);
-        String subTopic = topic.replace(this.topic.replace("#", ""), "");
-        persistMsg(time, subTopic, msg);
+        String sensorName = topic.replace(this.topic.replace("#", ""), "");
+        Sensor sensor = getOrPersistSensor(sensorName);
+        persistMsg(time, sensor, msg);
     }
 
-    protected abstract void persistMsg(Date time, String sensorType, String msg);
+    private Sensor getOrPersistSensor(String sensorName) {
+        List<Sensor> sensors = sensorRepository.findByName(sensorName);
+        Sensor sensor;
+        if(sensors.isEmpty()) {
+            sensor = new Sensor(sensorName, Sensor.SensorType.AIRQUALITY, null, null, null);
+            sensor = sensorRepository.save(sensor);
+        }else {
+            sensor = sensors.get(0);
+        }
+        return sensor;
+    }
+
+    protected abstract void persistMsg(Date time, Sensor sensor, String msg);
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {

@@ -1,12 +1,13 @@
 package htw.smartcity.aggregator.parking;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "PARKING")
+@Table(name = "PARKING_DATA")
 public class Parking {
     private static final long serialVersionUID = 1L;
 
@@ -19,9 +20,9 @@ public class Parking {
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date time;
 
-
-    @Column(name ="sensor_type")
-    private String sensorType;
+    @ManyToOne
+    @JoinColumn(name = "sensor_id")
+    private Sensor sensor;
 
     @Column(name = "value")
     private String value;
@@ -31,13 +32,13 @@ public class Parking {
     /**
      * Default constructor for JPA only.
      */
-    private Parking() {
+    public Parking() {
 
     }
 
-    public Parking(Date time, String sensorType, String value) {
+    public Parking(Date time, Sensor sensor, String value) {
         this.time = time;
-        this.sensorType = sensorType;
+        this.sensor = sensor;
         this.value = value;
     }
 
@@ -63,12 +64,12 @@ public class Parking {
         this.time = time;
     }
 
-    public String getSensorType() {
-        return sensorType;
+    public Sensor getSensor() {
+        return sensor;
     }
 
-    public void setSensorType(String sensorType) {
-        this.sensorType = sensorType;
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
     }
 
     public String getValue() {

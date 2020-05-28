@@ -1,6 +1,7 @@
 package htw.smartcity.aggregator.parking;
 
 import htw.smartcity.aggregator.base.MQTTSubscriber;
+import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,9 +22,14 @@ public class ParkingSubscriber extends MQTTSubscriber {
     }
 
     @Override
-    protected void persistMsg(Date time, String sensorType, String msg) {
+    protected Sensor.SensorType getSensorType() {
+        return Sensor.SensorType.AIRQUALITY;
+    }
+
+    @Override
+    protected void persistMsg(Date time, Sensor sensor, String msg) {
         try {
-            Parking parking = new Parking(time, sensorType, msg);
+            Parking parking = new Parking(time, sensor, msg);
             parkingRepository.save(parking);
         }catch (Exception e) {
             e.printStackTrace();
@@ -32,6 +38,6 @@ public class ParkingSubscriber extends MQTTSubscriber {
 
     @Override
     protected String getClientId() {
-        return Utils.getMacAddress() + "-hum";
+        return Utils.getMacAddress() + "-par";
     }
 }

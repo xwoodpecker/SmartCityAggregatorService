@@ -2,21 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a91a439-45f4-43b3-95e8-a57b39d01af5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/sensor/Sensor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/sensor/SensorRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/publisher/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/publisher/Publisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/publisher/Publisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/publisher/Publisher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/util/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/util/Utils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/airquality/Airquality.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/airquality/Airquality.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/airquality/AirqualitySubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/airquality/AirqualitySubscriber.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/base/MQTTSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/base/MQTTSubscriber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/depracted/TemperatureSubscribeCallback.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/depracted/TemperatureSubscriber.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/humidty/temperature/Humidity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/airquality/Airquality.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/humidty/temperature/HumidityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/airquality/AirqualityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/humidty/temperature/HumiditySubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/airquality/AirqualitySubscriber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/Parking.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/Parking.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/temperature/Temperature.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/temperature/Temperature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/temperature/TemperatureSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/temperature/TemperatureSubscriber.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +107,8 @@
       <option name="presentableId" value="Default" />
       <updated>1588688698343</updated>
       <workItem from="1588688700928" duration="3536000" />
-      <workItem from="1590679326762" duration="1437000" />
+      <workItem from="1590679326762" duration="1739000" />
+      <workItem from="1590682443140" duration="692000" />
     </task>
     <servers />
   </component>
@@ -130,26 +124,34 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1056" y="503" key="#com.intellij.fileTypes.FileTypeChooser/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1588691793894" />
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1590680443891">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="1877" height="401" key="GridCell.Tab.0.bottom" timestamp="1590681627184">
+      <screen x="2560" y="0" width="1920" height="1040" />
     </state>
     <state width="2517" height="401" key="GridCell.Tab.0.bottom/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1590680443891" />
-    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1590680443891">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="1877" height="401" key="GridCell.Tab.0.bottom/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1590681627184" />
+    <state width="1877" height="401" key="GridCell.Tab.0.center" timestamp="1590681627184">
+      <screen x="2560" y="0" width="1920" height="1040" />
     </state>
     <state width="2517" height="401" key="GridCell.Tab.0.center/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1590680443891" />
-    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1590680443891">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="1877" height="401" key="GridCell.Tab.0.center/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1590681627184" />
+    <state width="1877" height="401" key="GridCell.Tab.0.left" timestamp="1590681627184">
+      <screen x="2560" y="0" width="1920" height="1040" />
     </state>
     <state width="2517" height="401" key="GridCell.Tab.0.left/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1590680443891" />
-    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1590680443891">
-      <screen x="0" y="0" width="2560" height="1400" />
+    <state width="1877" height="401" key="GridCell.Tab.0.left/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1590681627184" />
+    <state width="1877" height="401" key="GridCell.Tab.0.right" timestamp="1590681627184">
+      <screen x="2560" y="0" width="1920" height="1040" />
     </state>
     <state width="2517" height="401" key="GridCell.Tab.0.right/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1590680443891" />
+    <state width="1877" height="401" key="GridCell.Tab.0.right/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1590681627184" />
     <state x="760" y="274" key="SettingsEditor" timestamp="1588688929919">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="760" y="274" key="SettingsEditor/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1588688929919" />
+    <state x="3216" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1590682466336">
+      <screen x="2560" y="0" width="1920" height="1040" />
+    </state>
+    <state x="3216" y="344" key="com.intellij.ide.util.TipDialog/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1590682466336" />
     <state x="2560" y="0" width="1899" height="1127" key="dock-window-1" timestamp="1590680228118">
       <screen x="2560" y="0" width="1920" height="1040" />
     </state>
