@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6a91a439-45f4-43b3-95e8-a57b39d01af5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../aggregator-generated/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/base/MQTTSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/base/MQTTSubscriber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingSubscriber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/sensor/SensorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/sensor/SensorRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +105,7 @@
       <workItem from="1590679326762" duration="1739000" />
       <workItem from="1590682443140" duration="692000" />
       <workItem from="1590712407340" duration="27000" />
-      <workItem from="1590752164635" duration="563000" />
+      <workItem from="1590752164635" duration="859000" />
     </task>
     <servers />
   </component>

@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface SensorRepository extends CrudRepository<Sensor, Integer> {
     List<Sensor> findByName(String name);
+
+    List<Sensor> findByNameAndSensorType(String name, Sensor.SensorType sensorType);
 }
