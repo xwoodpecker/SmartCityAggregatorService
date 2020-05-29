@@ -23,7 +23,7 @@ public class ParkingSubscriber extends MQTTSubscriber {
 
     @Override
     protected Sensor.SensorType getSensorType() {
-        return Sensor.SensorType.AIRQUALITY;
+        return Sensor.SensorType.PARKING;
     }
 
     @Override

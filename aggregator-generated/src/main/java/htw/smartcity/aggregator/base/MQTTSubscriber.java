@@ -58,7 +58,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
         List<Sensor> sensors = sensorRepository.findByName(sensorName);
         Sensor sensor;
         if(sensors.isEmpty()) {
-            sensor = new Sensor(sensorName, Sensor.SensorType.AIRQUALITY, null, null, null);
+            sensor = new Sensor(sensorName, getSensorType(), null, null, null);
             sensor = sensorRepository.save(sensor);
         }else {
             sensor = sensors.get(0);
