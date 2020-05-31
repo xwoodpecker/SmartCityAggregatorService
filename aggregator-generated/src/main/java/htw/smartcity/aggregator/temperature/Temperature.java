@@ -19,7 +19,6 @@ public class Temperature {
 
     @Column(name = "time")
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date time;
 
     @ManyToOne

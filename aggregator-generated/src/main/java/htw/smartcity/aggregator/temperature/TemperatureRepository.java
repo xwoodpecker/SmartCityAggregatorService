@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface TemperatureRepository extends JpaRepository<Temperature, Long> {
     //should work by spring magic, doesnt
-    List<Temperature> findTemperaturesByTimeBetween (Date startTime, Date endTime);
+    List<Temperature> findTemperaturesByTimeBeforeAndTimeAfter(Date endTime, Date startTime);
+    List<Temperature> findTemperaturesByTimeBefore(Date time);
 }

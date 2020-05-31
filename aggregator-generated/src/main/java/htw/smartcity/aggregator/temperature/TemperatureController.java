@@ -15,7 +15,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class TemperatureController {
-
     @Autowired
     private TemperatureRepository temperatureRepository;
 
@@ -29,22 +28,23 @@ public class TemperatureController {
                 .map(temperatureResourceAssembler::toModel)
                 .collect(Collectors.toList());
 
-        return new CollectionModel<>(temperatures,
+        return CollectionModel.of(temperatures,
                 linkTo(methodOn(TemperatureController.class).all()).withSelfRel());
+
     }
 
-    //todo this datetimeformat everywhere sucks, make global (https://www.baeldung.com/spring-date-parameters)
     @GetMapping("/temperature/byDate")
-    CollectionModel<EntityModel<Temperature>> between(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date startTime, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date endTime)
+    CollectionModel<EntityModel<Temperature>> between(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime)
     {
-        List<EntityModel<Temperature>> temperatures = temperatureRepository.findTemperaturesByTimeBetween(startTime, endTime).stream()
+        List<EntityModel<Temperature>> temperatures = temperatureRepository.findTemperaturesByTimeBeforeAndTimeAfter(endTime, startTime).stream()
                 .map(temperatureResourceAssembler::toModel)
                 .collect(Collectors.toList());
 
-        return new CollectionModel<>(temperatures,
+        return CollectionModel.of(temperatures,
                 linkTo(methodOn(TemperatureController.class).all()).withSelfRel());
     }
 
+    //todo remove (not used)
     @PostMapping("/temperature")
     Temperature newTemperature(@RequestBody Temperature newTemperature)
     {
@@ -60,6 +60,7 @@ public class TemperatureController {
         return temperatureResourceAssembler.toModel(temperature);
     }
 
+    //todo remove (not used)
     @PutMapping("temperature/{id}")
     Temperature replaceTemperature(@RequestBody Temperature newTemperature, @PathVariable Long id)
     {
@@ -75,6 +76,7 @@ public class TemperatureController {
                 });
     }
 
+    //todo remove? (tbd)
     @DeleteMapping("/temperature/{id}")
     void deleteTemperature(@PathVariable Long id)
     {
