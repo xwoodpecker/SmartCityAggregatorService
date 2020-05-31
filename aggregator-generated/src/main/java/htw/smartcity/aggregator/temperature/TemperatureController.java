@@ -1,10 +1,17 @@
 package htw.smartcity.aggregator.temperature;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.hateoas.PagedModel;
 
 import java.util.Date;
 import java.util.List;
@@ -21,18 +28,20 @@ public class TemperatureController {
     @Autowired
     private TemperatureResourceAssembler temperatureResourceAssembler;
 
-    @GetMapping("/temperature")
-    CollectionModel<EntityModel<Temperature>> all()
-    {
-        List<EntityModel<Temperature>> temperatures = temperatureRepository.findAll().stream()
-                .map(temperatureResourceAssembler::toModel)
-                .collect(Collectors.toList());
+    @Autowired
+    private TemperaturePageResourceAssembler temperaturePageResourceAssembler;
 
-        return CollectionModel.of(temperatures,
-                linkTo(methodOn(TemperatureController.class).all()).withSelfRel());
+    @GetMapping("/temperature")
+    ResponseEntity<PagedModel<Temperature>> all(Pageable pageable)
+    {
+        Page p = temperatureRepository.findAll(pageable);
+
+        return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
 
     }
 
+    //this DateTimeFormat is still stupid. for some reason the spring.jackson.date-format
+    //property in resources/application.properties is not used for this conversion
     @GetMapping("/temperature/byDate")
     CollectionModel<EntityModel<Temperature>> between(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime)
     {
@@ -41,7 +50,7 @@ public class TemperatureController {
                 .collect(Collectors.toList());
 
         return CollectionModel.of(temperatures,
-                linkTo(methodOn(TemperatureController.class).all()).withSelfRel());
+                linkTo(methodOn(TemperatureController.class).all(Pageable.unpaged())).withSelfRel());
     }
 
     //todo remove (not used)
