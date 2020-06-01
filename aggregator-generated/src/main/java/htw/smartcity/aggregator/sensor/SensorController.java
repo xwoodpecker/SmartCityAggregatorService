@@ -24,7 +24,7 @@ public class SensorController {
     private SensorPageResourceAssembler sensorPageResourceAssembler;
 
     @GetMapping("/sensors")
-    ResponseEntity<PagedModel<Sensor>> all(Pageable pageable)
+    public ResponseEntity<PagedModel<Sensor>> all(Pageable pageable)
     {
         Page p = sensorRepository.findAll(pageable);
 
@@ -32,7 +32,7 @@ public class SensorController {
     }
 
     @GetMapping("sensors/{id}")
-    EntityModel<Sensor> one(@PathVariable Long id)
+    public EntityModel<Sensor> one(@PathVariable Long id)
     {
         Sensor sensor = sensorRepository.findById(id)
                 .orElseThrow(() -> new SensorNotFoundException(id));

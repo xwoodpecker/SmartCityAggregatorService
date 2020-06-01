@@ -1,6 +1,7 @@
 package htw.smartcity.aggregator.temperature;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "TEMPERATURE_DATA")
+@JsonIgnoreProperties({"sensor"})
 public class Temperature {
     private static final long serialVersionUID = 1L;
 
