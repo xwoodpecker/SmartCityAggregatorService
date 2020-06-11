@@ -13,8 +13,10 @@ public class ConfigProperties {
     public static final String TOPIC;
 
     static {
-
-        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        //todo wrong path when running tests, figure out better method to load this resource
+        //String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        //todo remove
+        String rootPath = "/C:/Users/phili/IdeaProjects/SmartCityAggregatorService/aggregator-generated/target/classes/";
         String configPath = rootPath + "config.properties";
 
 

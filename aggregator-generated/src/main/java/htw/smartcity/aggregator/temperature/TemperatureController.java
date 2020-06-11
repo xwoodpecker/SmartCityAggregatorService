@@ -1,5 +1,9 @@
 package htw.smartcity.aggregator.temperature;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,20 +17,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
+@RequestMapping(path = "/temperatures")
+@Tag(name = "temperatures", description = "Everything about temperatures")
 public class TemperatureController {
-    //todo
-    // "Field injection is not recommended"
-    @Autowired
     private TemperatureRepository temperatureRepository;
 
-    @Autowired
     private TemperatureResourceAssembler temperatureResourceAssembler;
 
-    @Autowired
     private TemperaturePageResourceAssembler temperaturePageResourceAssembler;
 
-    @GetMapping("/temperature")
-    ResponseEntity<PagedModel<Temperature>> all(Pageable pageable)
+    public TemperatureController(TemperatureRepository temperatureRepository, TemperatureResourceAssembler temperatureResourceAssembler, TemperaturePageResourceAssembler temperaturePageResourceAssembler) {
+        this.temperatureRepository = temperatureRepository;
+        this.temperatureResourceAssembler = temperatureResourceAssembler;
+        this.temperaturePageResourceAssembler = temperaturePageResourceAssembler;
+    }
+
+    @Operation(summary = "List all temperature measurements")
+    @PageableAsQueryParam
+    @GetMapping("/")
+    ResponseEntity<PagedModel<Temperature>> all(@Parameter(hidden = true) Pageable pageable)
     {
         Page p = temperatureRepository.findAll(pageable);
         //todo
@@ -38,21 +47,17 @@ public class TemperatureController {
     //todo
     // this DateTimeFormat is still stupid. for some reason the spring.jackson.date-format
     // property in resources/application.properties is not used for this conversion
-    @GetMapping("/temperature/byDate")
-    ResponseEntity<PagedModel<Temperature>> between(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, Pageable pageable)
+    @Operation(summary = "List all temperature measurements in a given timeframe")
+    @PageableAsQueryParam
+    @GetMapping("/timeframe")
+    ResponseEntity<PagedModel<Temperature>> between(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @Parameter(hidden = true) Pageable pageable)
     {
         Page p = temperatureRepository.findTemperaturesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
-    //todo remove (not used)
-    @PostMapping("/temperature")
-    Temperature newTemperature(@RequestBody Temperature newTemperature)
-    {
-        return temperatureRepository.save(newTemperature);
-    }
-
-    @GetMapping("/temperature/{id}")
+    @Operation(summary = "Returns a single temperature")
+    @GetMapping("/{id}")
     EntityModel<Temperature> one(@PathVariable Long id)
     {
         Temperature temperature = temperatureRepository.findById(id)
