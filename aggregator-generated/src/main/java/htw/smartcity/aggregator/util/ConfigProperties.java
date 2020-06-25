@@ -13,7 +13,7 @@ public class ConfigProperties {
     public static final String TOPIC;
 
     static {
-
+        //todo wrong path when running tests, figure out better method to load this resource
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         String configPath = rootPath + "config.properties";
 
