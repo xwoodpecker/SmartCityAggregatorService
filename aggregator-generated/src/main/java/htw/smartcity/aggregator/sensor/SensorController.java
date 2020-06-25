@@ -1,5 +1,9 @@
 package htw.smartcity.aggregator.sensor;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,36 +11,79 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping(path = "/sensors")
+@Tag(name = "Sensor Management", description = "Endpoint to manage sensors")
 public class SensorController {
-    @Autowired
     private SensorRepository sensorRepository;
-
-    @Autowired
     private SensorResourceAssembler sensorResourceAssembler;
-
-    @Autowired
     private SensorPageResourceAssembler sensorPageResourceAssembler;
 
-    @GetMapping("/sensors")
-    public ResponseEntity<PagedModel<Sensor>> all(Pageable pageable)
+    public SensorController(SensorRepository sensorRepository, SensorResourceAssembler sensorResourceAssembler, SensorPageResourceAssembler sensorPageResourceAssembler) {
+        this.sensorRepository = sensorRepository;
+        this.sensorResourceAssembler = sensorResourceAssembler;
+        this.sensorPageResourceAssembler = sensorPageResourceAssembler;
+    }
+
+    @Operation(summary = "Returns all sensors")
+    @PageableAsQueryParam
+    @GetMapping("/")
+    public ResponseEntity<PagedModel<Sensor>> all(@Parameter(hidden = true) Pageable pageable)
     {
         Page p = sensorRepository.findAll(pageable);
-
         return new ResponseEntity<PagedModel<Sensor>>(sensorPageResourceAssembler.toModel(p, sensorResourceAssembler), HttpStatus.OK);
     }
 
-    @GetMapping("sensors/{id}")
+    @Operation(summary = "Returns all sensors of given type")
+    @PageableAsQueryParam
+    @GetMapping("/byType/{sensorType}")
+    public ResponseEntity<PagedModel<Sensor>> byType(@PathVariable Sensor.SensorType sensorType, @Parameter(hidden = true) Pageable pageable)
+    {
+        //todo implement
+        Page p = sensorRepository.findAll(pageable);
+        return new ResponseEntity<PagedModel<Sensor>>(sensorPageResourceAssembler.toModel(p, sensorResourceAssembler), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Returns a specific sensor")
+    @GetMapping("/{id}")
     public EntityModel<Sensor> one(@PathVariable Long id)
     {
         Sensor sensor = sensorRepository.findById(id)
                 .orElseThrow(() -> new SensorNotFoundException(id));
 
         return sensorResourceAssembler.toModel(sensor);
+    }
+
+    @Operation(summary = "Creates a new sensor")
+    @PostMapping("/")
+    Sensor insertSensor(@RequestBody Sensor sensor)
+    {
+        return sensorRepository.save(sensor);
+    }
+
+    @Operation(summary = "Updates a specific sensor")
+    @PutMapping("/{id}")
+    Sensor replaceSensor(@RequestBody Sensor newSensor, @PathVariable Long id)
+    {
+        return sensorRepository.findById(id)
+                .map(sensor -> {
+                    sensor.setName(newSensor.getName());
+                    sensor.setInformation(newSensor.getInformation());
+                    sensor.setX(newSensor.getX());
+                    sensor.setY(newSensor.getY());
+                    sensor.setSensorType(newSensor.getSensorType());
+                    return sensorRepository.save(sensor);
+                })
+                .orElseThrow(() -> new SensorNotFoundException(id));
+    }
+
+    @Operation(summary = "Deletes a sensor")
+    @DeleteMapping("/{id}")
+    void deleteSensor(@PathVariable Long id)
+    {
+        sensorRepository.deleteById(id);
     }
 }
