@@ -1,20 +1,24 @@
 package htw.smartcity.aggregator.parking;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "PARKING_GROUP_COUNTERS")
 public class ParkingGroupCounter {
-
-    /**
-     * Default constructor for JPA only.
-     */
-
     @Id
     @OneToOne
     @PrimaryKeyJoinColumn
     private ParkingGroup parkingGroup;
+
+
+    @Column(name = "time")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    private Date time;
 
     @Column(name = "free")
     private Integer free;
@@ -23,6 +27,9 @@ public class ParkingGroupCounter {
     @Column(name = "used")
     private Integer used;
 
+    /**
+     * Default constructor for JPA only.
+     */
     public ParkingGroupCounter() {
 
     }
@@ -33,6 +40,14 @@ public class ParkingGroupCounter {
 
     public void setParkingGroup(ParkingGroup parkingGroup) {
         this.parkingGroup = parkingGroup;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 
     public Integer getFree() {
