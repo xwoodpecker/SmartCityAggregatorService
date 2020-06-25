@@ -22,6 +22,7 @@ public class Sensor {
         PARKING,
         TEMPERATURE
     }
+    
     @Column(name ="sensor_type")
     @Enumerated(EnumType.STRING)
     private SensorType sensorType;
