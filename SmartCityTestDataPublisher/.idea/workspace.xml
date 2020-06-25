@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a91a439-45f4-43b3-95e8-a57b39d01af5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingGroup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingGroupRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/publisher/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/publisher/Publisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/publisher/Publisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/publisher/Publisher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/airquality/AirqualityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/airquality/AirqualityRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/base/MQTTSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/base/MQTTSubscriber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/sensor/SensorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/sensor/SensorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingSubscriber.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,12 +111,27 @@
       <workItem from="1590679326762" duration="1739000" />
       <workItem from="1590682443140" duration="692000" />
       <workItem from="1590712407340" duration="27000" />
-      <workItem from="1590752164635" duration="859000" />
+      <workItem from="1590752164635" duration="1240000" />
+      <workItem from="1592243348360" duration="618000" />
+      <workItem from="1592403390199" duration="26000" />
+      <workItem from="1593103402628" duration="1977000" />
     </task>
+    <task id="LOCAL-00001" summary="added parking groups">
+      <created>1593103486647</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1593103486647</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added parking groups" />
+    <option name="LAST_COMMIT_MESSAGE" value="added parking groups" />
   </component>
   <component name="WindowStateProjectService">
     <state x="872" y="358" key="#Project_Structure" timestamp="1590680408765">
@@ -121,26 +142,38 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1056" y="503" key="#com.intellij.fileTypes.FileTypeChooser/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1588691793894" />
-    <state width="1877" height="401" key="GridCell.Tab.0.bottom" timestamp="1590681627184">
+    <state x="705" y="394" key="CommitChangelistDialog2" timestamp="1593103486204">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="705" y="394" key="CommitChangelistDialog2/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593103486204" />
+    <state x="248" y="122" key="DiffContextDialog" timestamp="1593103473596">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="248" y="122" key="DiffContextDialog/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593103473596" />
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom" timestamp="1593108928980">
       <screen x="2560" y="0" width="1920" height="1040" />
     </state>
+    <state width="2517" height="399" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1920.1040/-1920.0.1920.1040@0.0.2560.1400" timestamp="1592403415349" />
     <state width="2517" height="401" key="GridCell.Tab.0.bottom/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1590680443891" />
-    <state width="1877" height="401" key="GridCell.Tab.0.bottom/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1590681627184" />
-    <state width="1877" height="401" key="GridCell.Tab.0.center" timestamp="1590681627184">
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1593108928980" />
+    <state width="1877" height="280" key="GridCell.Tab.0.center" timestamp="1593108928979">
       <screen x="2560" y="0" width="1920" height="1040" />
     </state>
+    <state width="2517" height="399" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1920.1040/-1920.0.1920.1040@0.0.2560.1400" timestamp="1592403415349" />
     <state width="2517" height="401" key="GridCell.Tab.0.center/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1590680443891" />
-    <state width="1877" height="401" key="GridCell.Tab.0.center/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1590681627184" />
-    <state width="1877" height="401" key="GridCell.Tab.0.left" timestamp="1590681627184">
+    <state width="1877" height="280" key="GridCell.Tab.0.center/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1593108928979" />
+    <state width="1877" height="280" key="GridCell.Tab.0.left" timestamp="1593108928979">
       <screen x="2560" y="0" width="1920" height="1040" />
     </state>
+    <state width="2517" height="399" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1920.1040/-1920.0.1920.1040@0.0.2560.1400" timestamp="1592403415349" />
     <state width="2517" height="401" key="GridCell.Tab.0.left/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1590680443891" />
-    <state width="1877" height="401" key="GridCell.Tab.0.left/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1590681627184" />
-    <state width="1877" height="401" key="GridCell.Tab.0.right" timestamp="1590681627184">
+    <state width="1877" height="280" key="GridCell.Tab.0.left/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1593108928979" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right" timestamp="1593108928980">
       <screen x="2560" y="0" width="1920" height="1040" />
     </state>
+    <state width="2517" height="399" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1920.1040/-1920.0.1920.1040@0.0.2560.1400" timestamp="1592403415349" />
     <state width="2517" height="401" key="GridCell.Tab.0.right/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1590680443891" />
-    <state width="1877" height="401" key="GridCell.Tab.0.right/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1590681627184" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@2560.0.1920.1040" timestamp="1593108928980" />
     <state x="881" y="422" key="RollbackChangesDialog" timestamp="1590712421961">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -149,6 +182,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="760" y="274" key="SettingsEditor/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1588688929919" />
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1593103570792">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2/2560.0.1920.1040/-1920.0.1920.1040/0.0.2560.1400@0.0.2560.1400" timestamp="1593103570792" />
     <state x="875" y="463" key="com.intellij.ide.util.TipDialog" timestamp="1590712408772">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -174,11 +211,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/util/ConfigProperties.java</url>
           <line>26</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/publisher/Publisher.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

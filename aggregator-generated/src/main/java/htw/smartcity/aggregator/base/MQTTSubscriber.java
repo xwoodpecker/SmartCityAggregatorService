@@ -28,7 +28,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
     private MemoryPersistence persistence = null;
 
     @Autowired
-    SensorRepository sensorRepository;
+    protected SensorRepository sensorRepository;
 
     public MQTTSubscriber() {
         this.config();
@@ -54,15 +54,27 @@ public abstract class MQTTSubscriber implements MqttCallback {
         persistMsg(time, sensor, msg);
     }
 
-    private Sensor getOrPersistSensor(String sensorName) {
+    protected Sensor getSensor(String sensorName){
         List<Sensor> sensors = sensorRepository.findByNameAndSensorType(sensorName, getSensorType());
-        Sensor sensor;
         if(sensors.isEmpty()) {
-            sensor = new Sensor(sensorName, getSensorType(), null, null, null);
-            sensor = sensorRepository.save(sensor);
+            return null;
         }else {
-            sensor = sensors.get(0);
+            return sensors.get(0);
         }
+
+    }
+
+    protected Sensor getOrPersistSensor(String sensorName) {
+        Sensor sensor = getSensor(sensorName);
+        if(sensor == null) {
+            sensor = persistSensor(sensorName);
+        }
+        return sensor;
+    }
+
+    protected Sensor persistSensor(String sensorName){
+        Sensor sensor = new Sensor(sensorName, getSensorType(), null, null, null);
+        sensor = sensorRepository.save(sensor);
         return sensor;
     }
 

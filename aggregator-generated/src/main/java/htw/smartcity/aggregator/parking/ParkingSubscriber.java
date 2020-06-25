@@ -7,14 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class ParkingSubscriber extends MQTTSubscriber {
-
     private final String subTopic =  "/parking/#";
 
     @Autowired
     ParkingRepository parkingRepository;
+
+    @Autowired
+    ParkingGroupRepository parkingGroupRepository;
 
     @Override
     protected String getSubTopic() {
@@ -24,6 +28,35 @@ public class ParkingSubscriber extends MQTTSubscriber {
     @Override
     protected Sensor.SensorType getSensorType() {
         return Sensor.SensorType.PARKING;
+    }
+
+    @Override
+    protected Sensor getOrPersistSensor(String sensorName) {
+        boolean newSensor = false;
+        Sensor sensor = getSensor(sensorName);
+        if(sensor == null) {
+            newSensor = true;
+            sensor = persistSensor(sensorName);
+        }
+
+        String[] parts = sensorName.split("/", 2);
+
+        String groupName = parts[0];
+
+        List<ParkingGroup> parkingGroups = parkingGroupRepository.findByName(groupName);
+        ParkingGroup parkingGroup;
+        if(parkingGroups.isEmpty()) {
+            parkingGroup = new ParkingGroup(groupName, null);
+            parkingGroup = parkingGroupRepository.save(parkingGroup);
+        }else {
+            if(newSensor) {
+                parkingGroup = parkingGroups.get(0);
+                parkingGroup.addToSensors(sensor);
+                parkingGroup = parkingGroupRepository.save(parkingGroup);
+            }
+        }
+
+        return sensor;
     }
 
     @Override

@@ -23,6 +23,7 @@ public class Publisher {
     public static final String TOPIC_PARKING_SENSOR2 = ConfigProperties.TOPIC + "/parking/group2/sensor1";
     public static final String TOPIC_PARKING_SENSOR3 = ConfigProperties.TOPIC + "/parking/group2/sensor2";
     public static final String TOPIC_PARKING_SENSOR4 = ConfigProperties.TOPIC + "/parking/group2/sensor3";
+    public static final String TOPIC_PARKING_SENSOR5 = ConfigProperties.TOPIC + "/parking/group2/sensor4";
 
     private MqttClient client;
     private Random random;
@@ -67,6 +68,8 @@ public class Publisher {
                 publishParking(TOPIC_PARKING_SENSOR3);
                 Thread.sleep(500);
                 publishParking(TOPIC_PARKING_SENSOR4);
+                Thread.sleep(500);
+                publishParking(TOPIC_PARKING_SENSOR5);
             }
         } catch (MqttException e) {
             e.printStackTrace();
