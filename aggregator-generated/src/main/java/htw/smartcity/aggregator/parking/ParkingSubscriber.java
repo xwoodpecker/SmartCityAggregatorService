@@ -8,11 +8,18 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class ParkingSubscriber extends MQTTSubscriber {
     private final String subTopic =  "/parking/#";
+    private Map<Sensor, Parking> sensorHistory;
+
+    public ParkingSubscriber(){
+        sensorHistory = new HashMap<>();
+    }
 
     @Autowired
     ParkingRepository parkingRepository;
@@ -62,8 +69,16 @@ public class ParkingSubscriber extends MQTTSubscriber {
     @Override
     protected void persistMsg(Date time, Sensor sensor, String msg) {
         try {
-            Parking parking = new Parking(time, sensor, msg);
-            parkingRepository.save(parking);
+            Parking parking;
+            if (!sensorHistory.containsValue(sensor)) {
+                sensorHistory.put(sensor, parkingRepository.findFirstBySensorOrderByTimeDesc(sensor));
+            }
+            String oldMsg = sensorHistory.get(sensor).getValue();
+            if (!oldMsg.equals(msg)) {
+                parking = new Parking(time, sensor, msg);
+                sensorHistory.put(sensor, parking); //TODO: test
+                parkingRepository.save(parking);
+            }
         }catch (Exception e) {
             e.printStackTrace();
         }
