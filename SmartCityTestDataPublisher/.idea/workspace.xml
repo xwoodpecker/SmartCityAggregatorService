@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6a91a439-45f4-43b3-95e8-a57b39d01af5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/base/MQTTSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/base/MQTTSubscriber.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingGroupCounter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingGroupCounter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingGroupCounterRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingGroupCounterRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/../aggregator-generated/src/main/java/htw/smartcity/aggregator/parking/ParkingSubscriber.java" afterDir="false" />
