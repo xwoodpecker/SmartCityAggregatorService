@@ -9,10 +9,10 @@ import java.util.Date;
 @Entity
 @Table(name = "PARKING_GROUP_COUNTERS")
 public class ParkingGroupCounter {
+
     @Id
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private ParkingGroup parkingGroup;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
 
 
     @Column(name = "time")
@@ -27,6 +27,9 @@ public class ParkingGroupCounter {
     @Column(name = "used")
     private Integer used;
 
+    @ManyToOne
+    private ParkingGroup parkingGroup;
+
     /**
      * Default constructor for JPA only.
      */
@@ -34,12 +37,12 @@ public class ParkingGroupCounter {
 
     }
 
-    public ParkingGroup getParkingGroup() {
-        return parkingGroup;
+    public Long getId() {
+        return id;
     }
 
-    public void setParkingGroup(ParkingGroup parkingGroup) {
-        this.parkingGroup = parkingGroup;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getTime() {
@@ -64,5 +67,14 @@ public class ParkingGroupCounter {
 
     public void setUsed(Integer used) {
         this.used = used;
+    }
+
+
+    public ParkingGroup getParkingGroup() {
+        return parkingGroup;
+    }
+
+    public void setParkingGroup(ParkingGroup parkingGroup) {
+        this.parkingGroup = parkingGroup;
     }
 }

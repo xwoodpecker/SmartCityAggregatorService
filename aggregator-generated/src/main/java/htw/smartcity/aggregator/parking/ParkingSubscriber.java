@@ -15,17 +15,16 @@ import java.util.Map;
 @Component
 public class ParkingSubscriber extends MQTTSubscriber {
     private final String subTopic =  "/parking/#";
-    private Map<Sensor, Parking> sensorHistory;
-
-    public ParkingSubscriber(){
-        sensorHistory = new HashMap<>();
-    }
+    private Map<Sensor, Parking> sensorHistory = new HashMap<>();
 
     @Autowired
     ParkingRepository parkingRepository;
 
     @Autowired
     ParkingGroupRepository parkingGroupRepository;
+
+    @Autowired
+    ParkingGroupCounterRepository parkingGroupCounterRepository;
 
     @Override
     protected String getSubTopic() {
