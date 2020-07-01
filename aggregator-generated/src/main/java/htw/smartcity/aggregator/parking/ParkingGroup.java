@@ -1,11 +1,10 @@
 package htw.smartcity.aggregator.parking;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import htw.smartcity.aggregator.sensor.Sensor;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -26,7 +25,7 @@ public class ParkingGroup {
 
     @JoinTable(name = "PARKING_GROUP_SENSORS")
     @OneToMany(fetch=FetchType.EAGER)
-    private Set<Sensor> sensors;
+    private Set<Sensor> sensors  = new HashSet<>();;
 
     /**
      * Default constructor for JPA only.
@@ -79,8 +78,7 @@ public class ParkingGroup {
     }
 
     public void addToSensors(Sensor sensor){
-        if(sensors != null)
-            this.sensors.add(sensor);
+        this.sensors.add(sensor);
     }
 
     @Override

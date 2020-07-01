@@ -84,6 +84,14 @@ public class ParkingGroupCounter {
         this.parkingGroup = parkingGroup;
     }
 
+    public void incrementFree(){
+        this.free++;
+    }
+
+    public void incrementUsed(){
+        this.used++;
+    }
+
     public void spotFree(){
         if(this.used > 0) {
             this.used--;

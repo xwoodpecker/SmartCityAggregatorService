@@ -97,18 +97,19 @@ public class ParkingSubscriber extends MQTTSubscriber {
             else
                 parking = sensorParkingMap.get(sensor);
 
-            if(parking == null || !parking.getValue().equals(msg)){ //TODO:TEST
+            boolean newSensor = parking == null;
+            if(newSensor || !parking.getValue().equals(msg)){
                 parking = new Parking(time, sensor, msg);
                 parkingRepository.save(parking);
                 sensorParkingMap.put(sensor, parking);
-                persistParkingGroupCounter(time, sensorParkingGroupMap.get(sensor), msg);
+                persistParkingGroupCounter(time, sensorParkingGroupMap.get(sensor), msg, newSensor);
             }
         }catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void persistParkingGroupCounter(Date time, ParkingGroup parkingGroup, String msg) {
+    private void persistParkingGroupCounter(Date time, ParkingGroup parkingGroup, String msg, boolean newSensor) {
         try {
             ParkingGroupCounter parkingGroupCounter;
             if (!parkingGroupIdParkingGroupCounterMap.containsKey(parkingGroup.getId()))
@@ -116,14 +117,23 @@ public class ParkingSubscriber extends MQTTSubscriber {
             else
                 parkingGroupCounter = parkingGroupIdParkingGroupCounterMap.get(parkingGroup.getId());
 
-            if(parkingGroupCounter == null)
+            boolean newGroup = parkingGroupCounter == null;
+            if(newGroup)
                 parkingGroupCounter = new ParkingGroupCounter(time, parkingGroup.getSensors().size(), 0, parkingGroup);
 
             boolean free = Boolean.parseBoolean(msg);
-            if(free)
-                parkingGroupCounter.spotFree();
-            else
-                parkingGroupCounter.spotUsed();
+
+            if(newSensor && !newGroup) {
+                if (free)
+                    parkingGroupCounter.incrementFree();
+                else
+                    parkingGroupCounter.incrementUsed();
+            }else {
+                if (free)
+                    parkingGroupCounter.spotFree();
+                else
+                    parkingGroupCounter.spotUsed();
+            }
 
             parkingGroupCounter.setId(null);
             parkingGroupCounter = parkingGroupCounterRepository.save(parkingGroupCounter);
