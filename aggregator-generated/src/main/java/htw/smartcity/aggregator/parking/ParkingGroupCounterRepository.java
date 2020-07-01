@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ParkingGroupCounterRepository extends JpaRepository<ParkingGroupCounter, Long> {
 
-    ParkingGroupCounter findFirstByParkingGroupOrderByTimeDesc(Sensor sensor);
+    ParkingGroupCounter findFirstByParkingGroupOrderByTimeDesc(ParkingGroup parkingGroup);
 }

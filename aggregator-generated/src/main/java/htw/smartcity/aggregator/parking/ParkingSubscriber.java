@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,10 @@ import java.util.Map;
 @Component
 public class ParkingSubscriber extends MQTTSubscriber {
     private final String subTopic =  "/parking/#";
-    private Map<Sensor, Parking> sensorHistory = new HashMap<>();
+    private Map<Sensor, Parking> sensorParkingMap = new HashMap<>();
+    private Map<String, ParkingGroup> parkingGroupNameParkingGroupMap = new HashMap<>();
+    private Map<Sensor, ParkingGroup> sensorParkingGroupMap = new HashMap<>();
+    private Map<Long, ParkingGroupCounter> parkingGroupIdParkingGroupCounterMap = new HashMap<>();
 
     @Autowired
     ParkingRepository parkingRepository;
@@ -49,39 +51,98 @@ public class ParkingSubscriber extends MQTTSubscriber {
 
         String groupName = parts[0];
 
-        List<ParkingGroup> parkingGroups = parkingGroupRepository.findByName(groupName);
-        ParkingGroup parkingGroup;
-        if(parkingGroups.isEmpty()) {
-            parkingGroup = new ParkingGroup(groupName, null);
-            parkingGroup = parkingGroupRepository.save(parkingGroup);
-        }else {
-            if(newSensor) {
-                parkingGroup = parkingGroups.get(0);
-                parkingGroup.addToSensors(sensor);
-                parkingGroup = parkingGroupRepository.save(parkingGroup);
-            }
+
+        ParkingGroup parkingGroup = getParkingGroup(groupName);
+
+        if(newSensor){
+            if(parkingGroup == null )
+                parkingGroup = new ParkingGroup(groupName, null);
+
+            parkingGroup.addToSensors(sensor);
+            persistParkingGroup(parkingGroup);
         }
 
+        if(!sensorParkingGroupMap.containsKey(sensor))
+            sensorParkingGroupMap.put(sensor, parkingGroup);
+
         return sensor;
+    }
+
+    private ParkingGroup getParkingGroup(String groupName) {
+        ParkingGroup parkingGroup = null;
+        if(parkingGroupNameParkingGroupMap.containsKey(groupName)) {
+            parkingGroup = parkingGroupNameParkingGroupMap.get(groupName);
+        }else{
+            List<ParkingGroup> parkingGroups = parkingGroupRepository.findByName(groupName);
+            if(!parkingGroups.isEmpty()) {
+                parkingGroup = parkingGroups.get(0);
+                parkingGroupNameParkingGroupMap.put(groupName, parkingGroup);
+            }
+        }
+        return parkingGroup;
+    }
+
+    private ParkingGroup persistParkingGroup(ParkingGroup parkingGroup) {
+        parkingGroup = parkingGroupRepository.save(parkingGroup);
+        parkingGroupNameParkingGroupMap.put(parkingGroup.getName(), parkingGroup);
+        return parkingGroup;
     }
 
     @Override
     protected void persistMsg(Date time, Sensor sensor, String msg) {
         try {
             Parking parking;
-            if (!sensorHistory.containsValue(sensor)) {
-                sensorHistory.put(sensor, parkingRepository.findFirstBySensorOrderByTimeDesc(sensor));
-            }
-            String oldMsg = sensorHistory.get(sensor).getValue();
-            if (!oldMsg.equals(msg)) {
+            if (!sensorParkingMap.containsKey(sensor))
+                parking = parkingRepository.findFirstBySensorOrderByTimeDesc(sensor);
+            else
+                parking = sensorParkingMap.get(sensor);
+
+            boolean newSensor = parking == null;
+            if(newSensor || !parking.getValue().equals(msg)){
                 parking = new Parking(time, sensor, msg);
-                sensorHistory.put(sensor, parking); //TODO: test
                 parkingRepository.save(parking);
+                sensorParkingMap.put(sensor, parking);
+                persistParkingGroupCounter(time, sensorParkingGroupMap.get(sensor), msg, newSensor);
             }
         }catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private void persistParkingGroupCounter(Date time, ParkingGroup parkingGroup, String msg, boolean newSensor) {
+        try {
+            ParkingGroupCounter parkingGroupCounter;
+            if (!parkingGroupIdParkingGroupCounterMap.containsKey(parkingGroup.getId()))
+                parkingGroupCounter = parkingGroupCounterRepository.findFirstByParkingGroupOrderByTimeDesc(parkingGroup);
+            else
+                parkingGroupCounter = parkingGroupIdParkingGroupCounterMap.get(parkingGroup.getId());
+
+            boolean newGroup = parkingGroupCounter == null;
+            if(newGroup)
+                parkingGroupCounter = new ParkingGroupCounter(time, parkingGroup.getSensors().size(), 0, parkingGroup);
+
+            boolean free = Boolean.parseBoolean(msg);
+
+            if(newSensor && !newGroup) {
+                if (free)
+                    parkingGroupCounter.incrementFree();
+                else
+                    parkingGroupCounter.incrementUsed();
+            }else {
+                if (free)
+                    parkingGroupCounter.spotFree();
+                else
+                    parkingGroupCounter.spotUsed();
+            }
+
+            parkingGroupCounter.setId(null);
+            parkingGroupCounter = parkingGroupCounterRepository.save(parkingGroupCounter);
+            parkingGroupIdParkingGroupCounterMap.put(parkingGroup.getId(), parkingGroupCounter);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     protected String getClientId() {

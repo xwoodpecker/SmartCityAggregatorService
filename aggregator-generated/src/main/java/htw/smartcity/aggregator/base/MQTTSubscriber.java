@@ -1,5 +1,6 @@
 package htw.smartcity.aggregator.base;
 
+import htw.smartcity.aggregator.parking.Parking;
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import htw.smartcity.aggregator.util.ConfigProperties;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public abstract class MQTTSubscriber implements MqttCallback {
@@ -28,7 +31,9 @@ public abstract class MQTTSubscriber implements MqttCallback {
     private MemoryPersistence persistence = null;
 
     @Autowired
-    protected SensorRepository sensorRepository;
+    private SensorRepository sensorRepository;
+
+    protected Map<String, Sensor> sensorNameSensorMap = new HashMap<>();
 
     public MQTTSubscriber() {
         this.config();
@@ -54,16 +59,6 @@ public abstract class MQTTSubscriber implements MqttCallback {
         persistMsg(time, sensor, msg);
     }
 
-    protected Sensor getSensor(String sensorName){
-        List<Sensor> sensors = sensorRepository.findByNameAndSensorType(sensorName, getSensorType());
-        if(sensors.isEmpty()) {
-            return null;
-        }else {
-            return sensors.get(0);
-        }
-
-    }
-
     protected Sensor getOrPersistSensor(String sensorName) {
         Sensor sensor = getSensor(sensorName);
         if(sensor == null) {
@@ -72,9 +67,24 @@ public abstract class MQTTSubscriber implements MqttCallback {
         return sensor;
     }
 
+    protected Sensor getSensor(String sensorName){
+        Sensor sensor = null;
+         if (sensorNameSensorMap.containsKey(sensorName)) {
+            sensor = sensorNameSensorMap.get(sensorName);
+        }else {
+            List<Sensor> sensors = sensorRepository.findByNameAndSensorType(sensorName, getSensorType());
+            if(!sensors.isEmpty()) {
+                sensor = sensors.get(0);
+                sensorNameSensorMap.put(sensorName, sensor);
+            }
+        }
+        return sensor;
+    }
+
     protected Sensor persistSensor(String sensorName){
         Sensor sensor = new Sensor(sensorName, getSensorType(), null, null, null);
-        sensor = sensorRepository.save(sensor);
+        sensor = sensorRepository.save(sensor);;
+        sensorNameSensorMap.put(sensorName, sensor);
         return sensor;
     }
 

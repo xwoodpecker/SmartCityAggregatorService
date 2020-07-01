@@ -27,7 +27,7 @@ public class ParkingGroupCounter {
     @Column(name = "used")
     private Integer used;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private ParkingGroup parkingGroup;
 
     /**
@@ -35,6 +35,13 @@ public class ParkingGroupCounter {
      */
     public ParkingGroupCounter() {
 
+    }
+
+    public ParkingGroupCounter(Date time, Integer free, Integer used, ParkingGroup parkingGroup){
+        this.time = time;
+        this.free = free;
+        this.used = used;
+        this.parkingGroup = parkingGroup;
     }
 
     public Long getId() {
@@ -69,12 +76,33 @@ public class ParkingGroupCounter {
         this.used = used;
     }
 
-
     public ParkingGroup getParkingGroup() {
         return parkingGroup;
     }
 
     public void setParkingGroup(ParkingGroup parkingGroup) {
         this.parkingGroup = parkingGroup;
+    }
+
+    public void incrementFree(){
+        this.free++;
+    }
+
+    public void incrementUsed(){
+        this.used++;
+    }
+
+    public void spotFree(){
+        if(this.used > 0) {
+            this.used--;
+            this.free++;
+        }
+    }
+
+    public void spotUsed() {
+        if (this.free > 0) {
+            this.free--;
+            this.used++;
+        }
     }
 }
