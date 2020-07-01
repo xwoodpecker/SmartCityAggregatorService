@@ -20,7 +20,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping(path = "/temperatures")
-@Tag(name = "temperatures", description = "Everything about temperatures")
+@Tag(name = "Temperature Measures", description = "Endpoint to get temperature measures")
 public class TemperatureController {
     private TemperatureRepository temperatureRepository;
     private TemperatureResourceAssembler temperatureResourceAssembler;
@@ -32,67 +32,92 @@ public class TemperatureController {
         this.temperaturePageResourceAssembler = temperaturePageResourceAssembler;
     }
 
-    @Operation(summary = "List all temperature measurements")
+    @Operation(summary = "Get all temperature measurements")
     @PageableAsQueryParam
     @GetMapping("/")
     ResponseEntity<PagedModel<Temperature>> all(@Parameter(hidden = true) Pageable pageable)
     {
         Page p = temperatureRepository.findAll(pageable);
-        //todo
-        // Unchecked assignment: 'org.springframework.hateoas.PagedModel' to 'org.springframework.hateoas.PagedModel<htw.smartcity.aggregator.temperature.Temperature>'
-        // doesnt make sense since TemperaturePageResourceAssembler extends PagedResourcesAssembler<Temperature>
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
-
     }
-    //todo
-    // this DateTimeFormat is still stupid. for some reason the spring.jackson.date-format
-    // property in resources/application.properties is not used for this conversion
-    //todo discuss if this is even needed, possible to get same result just from pageable
-    @Operation(summary = "List all temperature measurements in a given timeframe")
+
+    @Operation(summary = "Get the latest measurements of all temperature sensors")
     @PageableAsQueryParam
-    @GetMapping("/inTimeframe")
+    @GetMapping("/latest")
+    ResponseEntity<PagedModel<Temperature>> latest(@Parameter(hidden = true) Pageable pageable)
+    {
+        //todo
+        return all(pageable);
+    }
+
+    @Operation(summary = "Get the average temperature of the latest measurements of all temperature sensors")
+    @GetMapping("/latest/average")
+    EntityModel<Temperature> latestAverage()
+    {
+        //todo
+        //todo average entity?
+        return one((long) 1);
+    }
+
+    @Operation(summary = "Get all temperature measurements of all sensors in a given timeframe")
+    @PageableAsQueryParam
+    @GetMapping("/timeframe")
     ResponseEntity<PagedModel<Temperature>> between(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @Parameter(hidden = true) Pageable pageable)
     {
         Page p = temperatureRepository.findTemperaturesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
-    @Operation(summary = "Returns a single temperature")
-    @GetMapping("/{id}")
-    EntityModel<Temperature> one(@PathVariable Long id)
+    @Operation(summary = "Get the average temperature of all sensors for the given timeframe")
+    @GetMapping("/timeframe/average")
+    EntityModel<Temperature> betweenAverage(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime)
     {
-        Temperature temperature = temperatureRepository.findById(id)
-                .orElseThrow(() -> new TemperatureNotFoundException(id));
+        //todo
+        //todo avg entity
+        return one((long) 1);
+    }
+
+    @Operation(summary = "Get a single temperature measurement")
+    @GetMapping("/{temperatureId}")
+    EntityModel<Temperature> one(@PathVariable Long temperatureId)
+    {
+        Temperature temperature = temperatureRepository.findById(temperatureId)
+                .orElseThrow(() -> new TemperatureNotFoundException(temperatureId));
 
         return temperatureResourceAssembler.toModel(temperature);
     }
 
-    @Operation(summary = "Returns all temperatures from a specific sensor")
-    @GetMapping("/bySensor/{id}")
+    @Operation(summary = "Get all temperature measurements of a specific sensor")
+    @GetMapping("/bySensor/{sensorId}")
     public ResponseEntity<PagedModel<Temperature>> bySensor(@PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable) {
         Page p = temperatureRepository.findTemperaturesBySensorId(sensorId, pageable);
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
-    @Operation(summary = "Returns the average temperature from all sensors within the given timeframe")
-    @GetMapping("/average")
-    ResponseEntity<PagedModel<Temperature>> average(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @Parameter(hidden = true) Pageable pageable)
+    @Operation(summary = "Get all temperatures measures of a specific sensor within a given timeframe")
+    @GetMapping("/bySensor/{sensorId}/timeframe")
+    public ResponseEntity<PagedModel<Temperature>> bySensorInTimeframe(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
-        //todo implement
-        Page p = temperatureRepository.findTemperaturesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
-        return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
+        //todo
+        return all(pageable);
     }
 
-    @Operation(summary = "Returns the average temperature from a specific sensor within the given timeframe")
-    @GetMapping("average/{sensorId}")
+    @Operation(summary = "Get the latest measurement of a specific sensor")
+    @GetMapping("/bySensor/{sensorId}/latest")
+    public EntityModel<Temperature> bySensorLatest(@PathVariable Long sensorId){
+        //todo implement
+        return one((long) 1);
+    }
+
+    @Operation(summary = "Get the average temperature of a specific sensor within a given timeframe")
+    @GetMapping("bySensor/{sensorId}/timeframe/average")
     ResponseEntity<PagedModel<Temperature>> averageBySensor(
             @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime,
             @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime,
             @PathVariable Long sensorId,
             @Parameter(hidden = true) Pageable pageable)
     {
-        //todo implement
-        Page p = temperatureRepository.findTemperaturesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
-        return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
+        //todo
+        return all(pageable);
     }
 }

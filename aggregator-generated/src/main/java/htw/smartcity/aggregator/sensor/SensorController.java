@@ -28,7 +28,7 @@ public class SensorController {
         this.sensorPageResourceAssembler = sensorPageResourceAssembler;
     }
 
-    @Operation(summary = "Returns all sensors")
+    @Operation(summary = "Get all sensors")
     @PageableAsQueryParam
     @GetMapping("/")
     public ResponseEntity<PagedModel<Sensor>> all(@Parameter(hidden = true) Pageable pageable)
@@ -37,7 +37,7 @@ public class SensorController {
         return new ResponseEntity<PagedModel<Sensor>>(sensorPageResourceAssembler.toModel(p, sensorResourceAssembler), HttpStatus.OK);
     }
 
-    @Operation(summary = "Returns all sensors of given type")
+    @Operation(summary = "Get all sensors of given type")
     @PageableAsQueryParam
     @GetMapping("/byType/{sensorType}")
     public ResponseEntity<PagedModel<Sensor>> byType(@PathVariable Sensor.SensorType sensorType, @Parameter(hidden = true) Pageable pageable)
@@ -47,7 +47,7 @@ public class SensorController {
         return new ResponseEntity<PagedModel<Sensor>>(sensorPageResourceAssembler.toModel(p, sensorResourceAssembler), HttpStatus.OK);
     }
 
-    @Operation(summary = "Returns a specific sensor")
+    @Operation(summary = "Get a specific sensor")
     @GetMapping("/{id}")
     public EntityModel<Sensor> one(@PathVariable Long id)
     {
@@ -57,14 +57,7 @@ public class SensorController {
         return sensorResourceAssembler.toModel(sensor);
     }
 
-    @Operation(summary = "Creates a new sensor")
-    @PostMapping("/")
-    Sensor insertSensor(@RequestBody Sensor sensor)
-    {
-        return sensorRepository.save(sensor);
-    }
-
-    @Operation(summary = "Updates a specific sensor")
+    @Operation(summary = "Update a specific sensor")
     @PutMapping("/{id}")
     Sensor replaceSensor(@RequestBody Sensor newSensor, @PathVariable Long id)
     {
@@ -80,7 +73,7 @@ public class SensorController {
                 .orElseThrow(() -> new SensorNotFoundException(id));
     }
 
-    @Operation(summary = "Deletes a sensor")
+    @Operation(summary = "Delete a specific sensor")
     @DeleteMapping("/{id}")
     void deleteSensor(@PathVariable Long id)
     {
