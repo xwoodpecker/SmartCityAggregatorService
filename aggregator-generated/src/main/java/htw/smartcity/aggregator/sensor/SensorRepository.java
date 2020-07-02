@@ -1,7 +1,10 @@
 package htw.smartcity.aggregator.sensor;
 
 import htw.smartcity.aggregator.parking.Parking;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface SensorRepository extends JpaRepository<Sensor, Long> {
-    List<Sensor> findByName(String name);
+    Page<Sensor> findByName(String name, Pageable pageable);
 
-    List<Sensor> findByNameAndSensorType(String name, Sensor.SensorType sensorType);
+    Page<Sensor> findByNameAndSensorType(String name, Sensor.SensorType sensorType, Pageable pageable);
 }

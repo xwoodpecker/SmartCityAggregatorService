@@ -72,7 +72,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
          if (sensorNameSensorMap.containsKey(sensorName)) {
             sensor = sensorNameSensorMap.get(sensorName);
         }else {
-            List<Sensor> sensors = sensorRepository.findByNameAndSensorType(sensorName, getSensorType());
+            List<Sensor> sensors = sensorRepository.findByNameAndSensorType(sensorName, getSensorType(), null).getContent();
             if(!sensors.isEmpty()) {
                 sensor = sensors.get(0);
                 sensorNameSensorMap.put(sensorName, sensor);

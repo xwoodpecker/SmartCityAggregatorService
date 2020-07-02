@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "PARKING_DATA")
+//todo rename???
 public class Parking {
     private static final long serialVersionUID = 1L;
 

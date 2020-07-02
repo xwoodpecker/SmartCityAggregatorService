@@ -24,6 +24,7 @@ public class AggregatorApplication {
 	public OpenAPI customOpenAPI() {
 		SpringDocUtils.getConfig().replaceWithClass(org.springframework.data.domain.Pageable.class, Pageable.class);
 
+
 		return new OpenAPI()
 				.info(new Info().title("SmartCity Aggregator Service").version("v0"));
 	}
