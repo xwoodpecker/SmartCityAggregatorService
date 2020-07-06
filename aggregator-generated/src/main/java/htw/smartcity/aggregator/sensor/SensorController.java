@@ -72,11 +72,4 @@ public class SensorController {
                 })
                 .orElseThrow(() -> new SensorNotFoundException(id));
     }
-
-    @Operation(summary = "Delete a specific sensor")
-    @DeleteMapping("/{id}")
-    void deleteSensor(@PathVariable Long id)
-    {
-        sensorRepository.deleteById(id);
-    }
 }
