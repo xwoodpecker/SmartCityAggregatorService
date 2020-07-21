@@ -14,4 +14,6 @@ public interface TemperatureRepository extends JpaRepository<Temperature, Long> 
 
     Page<Temperature> findTemperaturesByTimeBetween(Date endTime, Date startTime, Pageable pageable);
     Page<Temperature> findTemperaturesBySensorId(Long id, Pageable pageable);
+    Page<Temperature> findTemperaturesBySensorIdAndByTimeBetween(Long id, Date endTime, Date startTime,
+                                                                 Pageable pageable);
 }
