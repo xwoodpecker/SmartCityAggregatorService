@@ -1,5 +1,7 @@
 package htw.smartcity.aggregator.temperature;
 
+import htw.smartcity.aggregator.average.Average;
+import htw.smartcity.aggregator.sensor.SensorController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,8 +17,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Convert;
 import javax.websocket.server.PathParam;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/temperatures")
@@ -52,11 +57,11 @@ public class TemperatureController {
 
     @Operation(summary = "Get the average temperature of the latest measurements of all temperature sensors")
     @GetMapping("/latest/average")
-    EntityModel<Temperature> latestAverage()
+    ResponseEntity<PagedModel<Average>> latestAverage(@Parameter(hidden = true) Pageable pageable)
     {
         //todo
         //todo average entity?
-        return one((long) 1);
+        return null;
     }
 
     @Operation(summary = "Get all temperature measurements of all sensors in a given timeframe")
@@ -70,11 +75,22 @@ public class TemperatureController {
 
     @Operation(summary = "Get the average temperature of all sensors for the given timeframe")
     @GetMapping("/timeframe/average")
-    EntityModel<Temperature> betweenAverage(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime)
+    ResponseEntity<PagedModel<Average>> betweenAverage(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime,
+                                                       @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @Parameter(hidden = true) Pageable pageable)
     {
-        //todo
-        //todo avg entity
-        return one((long) 1);
+        Page p = temperatureRepository.findTemperaturesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
+        List l = p.getContent();
+        double sum = 0, count = 0;
+        for (var ele: l)
+        {
+            sum += Double.parseDouble(ele.toString());
+            count++;
+        }
+        Average avg = new Average(Average.SensorType.TEMPERATURE, startTime, endTime, sum/count);
+
+        // todo return
+        return new ResponseEntity<PagedModel<Average>>(temperaturePageResourceAssembler.toModel(p,
+                                                                                          temperatureResourceAssembler), HttpStatus.OK);
     }
 
     @Operation(summary = "Get a single temperature measurement")
@@ -99,7 +115,9 @@ public class TemperatureController {
     public ResponseEntity<PagedModel<Temperature>> bySensorInTimeframe(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
         //todo
-        return all(pageable);
+        Page p = temperatureRepository.findTemperaturesBySensorIdAndByTimeBetween(sensorId, startTime, endTime,
+                                                                                  pageable);
+        return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
     @Operation(summary = "Get the latest measurement of a specific sensor")
@@ -118,6 +136,19 @@ public class TemperatureController {
             @Parameter(hidden = true) Pageable pageable)
     {
         //todo
+        Page p = temperatureRepository.findTemperaturesBySensorIdAndByTimeBetween(sensorId, startTime, endTime,
+                                                                                  pageable);
+        List l = p.getContent();
+        double sum = 0, count = 0;
+        for (var ele: l)
+        {
+            sum += Double.parseDouble(ele.toString());
+            count++;
+        }
+        // todo wie auch immer Sensor obj bekommen aus sensorId
+        //Average avg = new Average(sensorId, Average.SensorType.TEMPERATURE, startTime, endTime, sum/count);
+
+        // todo return
         return all(pageable);
     }
 }
