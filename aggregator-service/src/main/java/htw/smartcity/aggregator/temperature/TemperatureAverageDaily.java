@@ -10,4 +10,15 @@ import java.util.Date;
 @Table(name = "TEMPERATURE_AVERAGE_DAILY")
 public class TemperatureAverageDaily extends TemperatureAverage
 {
+    @Column(name = "date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }
