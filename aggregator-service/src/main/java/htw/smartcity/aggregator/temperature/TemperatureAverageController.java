@@ -71,7 +71,7 @@ public class TemperatureAverageController
         temperatureAverageDaily.setSensor(sensorId);
         temperatureAverageDaily.setValue(sum/count);
 
-        temperatureAverageDaily.
+        temperatureAverageRepository.save(temperatureAverageDaily);
 
         return one((long) 1);
     }
