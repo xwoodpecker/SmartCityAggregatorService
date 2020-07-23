@@ -115,11 +115,11 @@ public class TemperatureController {
     public ResponseEntity<PagedModel<Temperature>> bySensorInTimeframe(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
         //todo
-        /*Page p = temperatureRepository.findTemperaturesBySensorIdAndByTimeBetween(sensorId, startTime, endTime,
+        Page p = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, startTime, endTime,
                                                                                   pageable);
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p,
-        temperatureResourceAssembler), HttpStatus.OK);*/
-         return all(pageable);
+        temperatureResourceAssembler), HttpStatus.OK);
+         //return all(pageable);
     }
 
     @Operation(summary = "Get the latest measurement of a specific sensor")
