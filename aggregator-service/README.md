@@ -18,9 +18,11 @@ Es müssen folgende Abhängigkeiten auf dem Rechner installiert sein:
 Anschließend kann der Buildprozess mit `mvn package` angestoßen werden. (Hinweis: Tests zum
 aktuellen Zeitpunkt nicht ausführbar, daher `mvn package -DskipTests`)
 
-Die ausführbare `.jar` befindet sich nach erfolgreichem Build im `/target`-Ordner. Das Docker-Image ist (todo).
+Die ausführbare `.jar` befindet sich nach erfolgreichem Build im `/target`-Ordner. Das Docker-Image wird
+nur lokal gespeichert.
 
 ## Deployment
+Das Docker-Image kann mit `docker run htw.smartcity/aggregator:1.0-SNAPSHOT` lokal ausgeführt werden.
 todo: Anleitung zum Deployment auf einem Remote Host
 
 ## Schnittstellenspezifikation

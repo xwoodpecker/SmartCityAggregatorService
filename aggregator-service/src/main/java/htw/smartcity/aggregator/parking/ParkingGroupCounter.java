@@ -4,7 +4,7 @@ package htw.smartcity.aggregator.parking;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "PARKING_GROUP_COUNTERS")
@@ -14,11 +14,9 @@ public class ParkingGroupCounter {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "time")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private Date time;
+    private LocalDateTime time;
 
     @Column(name = "free")
     private Integer free;
@@ -37,7 +35,7 @@ public class ParkingGroupCounter {
 
     }
 
-    public ParkingGroupCounter(Date time, Integer free, Integer used, ParkingGroup parkingGroup){
+    public ParkingGroupCounter(LocalDateTime time, Integer free, Integer used, ParkingGroup parkingGroup){
         this.time = time;
         this.free = free;
         this.used = used;
@@ -52,11 +50,11 @@ public class ParkingGroupCounter {
         this.id = id;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

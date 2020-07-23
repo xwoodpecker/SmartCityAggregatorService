@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(path = "/airqualities")
@@ -59,7 +59,7 @@ public class AirqualityController {
     @Operation(summary = "Get all air quality measurements of all sensors in a given timeframe")
     @PageableAsQueryParam
     @GetMapping("/timeframe")
-    ResponseEntity<PagedModel<Airquality>> between(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @Parameter(hidden = true) Pageable pageable)
+    ResponseEntity<PagedModel<Airquality>> between(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @Parameter(hidden = true) Pageable pageable)
     {
         Page p = airqualityRepository.findAirqualitiesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
         return new ResponseEntity<PagedModel<Airquality>>(airqualityPageResourceAssembler.toModel(p, airqualityResourceAssembler), HttpStatus.OK);
@@ -67,7 +67,7 @@ public class AirqualityController {
 
     @Operation(summary = "Get the average air quality of all sensors for the given timeframe")
     @GetMapping("/timeframe/average")
-    EntityModel<Airquality> betweenAverage(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime)
+    EntityModel<Airquality> betweenAverage(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime)
     {
         //todo
         //todo avg entity
@@ -93,7 +93,7 @@ public class AirqualityController {
 
     @Operation(summary = "Get all air quality measures of a specific sensor within a given timeframe")
     @GetMapping("/bySensor/{sensorId}/timeframe")
-    public ResponseEntity<PagedModel<Airquality>> bySensorInTimeframe(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
+    public ResponseEntity<PagedModel<Airquality>> bySensorInTimeframe(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
         //todo
         return all(pageable);
@@ -109,8 +109,8 @@ public class AirqualityController {
     @Operation(summary = "Get the average air quality of a specific sensor within a given timeframe")
     @GetMapping("bySensor/{sensorId}/timeframe/average")
     ResponseEntity<PagedModel<Airquality>> averageBySensor(
-            @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime,
-            @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime,
+            @RequestParam LocalDateTime startTime,
+            @RequestParam LocalDateTime endTime,
             @PathVariable Long sensorId,
             @Parameter(hidden = true) Pageable pageable)
     {

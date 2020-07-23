@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,8 @@ public abstract class MQTTSubscriber implements MqttCallback {
 
     @Override
     public void messageArrived(String topic, MqttMessage message) {
-        Date time = new Date(System.currentTimeMillis());
+        LocalDateTime time = LocalDateTime.now();
+
         String msg = message.toString();
         System.out.println("Message arrived. Topic: " + topic + "  Message: " + msg);
         String sensorName = topic.replace(this.topic.replace("#", ""), "");
@@ -88,7 +90,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
         return sensor;
     }
 
-    protected abstract void persistMsg(Date time, Sensor sensor, String msg);
+    protected abstract void persistMsg(LocalDateTime time, Sensor sensor, String msg);
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {

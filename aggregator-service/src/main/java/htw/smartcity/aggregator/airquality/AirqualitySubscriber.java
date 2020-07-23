@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Component
 public class AirqualitySubscriber extends MQTTSubscriber {
@@ -27,7 +28,7 @@ public class AirqualitySubscriber extends MQTTSubscriber {
     }
 
     @Override
-    protected void persistMsg(Date time, Sensor sensor, String msg) {
+    protected void persistMsg(LocalDateTime time, Sensor sensor, String msg) {
         try {
             Integer value = Integer.valueOf(msg);
             Airquality airquality = new Airquality(time, sensor, value);
