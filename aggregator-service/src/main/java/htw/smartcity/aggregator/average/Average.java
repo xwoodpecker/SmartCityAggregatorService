@@ -17,7 +17,8 @@ public class Average
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "sensor_id")
+    @ManyToOne
+    @JoinColumn(name = "sensor_id")
     private Sensor sensor;
 
     public enum SensorType {
@@ -31,10 +32,12 @@ public class Average
     private SensorType sensorType;
 
     @Column(name ="begin_time")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date beginTime;
 
 
     @Column(name ="end_time")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 
     @Column(name = "value")
