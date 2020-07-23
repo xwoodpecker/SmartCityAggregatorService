@@ -1,5 +1,8 @@
 package htw.smartcity.aggregator.util;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,7 +22,7 @@ public class ConfigProperties {
         URL root = ConfigProperties.class.getProtectionDomain().getCodeSource().getLocation();
         URL propertiesFile = null;
         try {
-            propertiesFile = new URL(root, "config.properties");
+            propertiesFile = new URL(root, "application.properties");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

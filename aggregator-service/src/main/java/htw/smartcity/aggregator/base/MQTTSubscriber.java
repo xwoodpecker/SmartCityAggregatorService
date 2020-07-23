@@ -8,6 +8,7 @@ import htw.smartcity.aggregator.util.Utils;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 
 import java.sql.Date;
 import java.util.HashMap;
@@ -116,7 +117,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
                 this.connectionOptions.setUserName(this.userName);
             }
             if (this.certifcate != null) {
-                this.connectionOptions.setSocketFactory(Utils.getSocketFactoryForCaCertificate(certifcate));
+                this.connectionOptions.setSocketFactory(Utils.getSocketFactoryForCaCertificate(this.certifcate));
             }
             this.mqttClient.connect(this.connectionOptions);
             this.mqttClient.setCallback(this);
