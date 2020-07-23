@@ -1,6 +1,7 @@
 package htw.smartcity.aggregator.airquality;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "AIR_QUALITY_DATA")
+@JsonIgnoreProperties({"sensor"})
 public class Airquality {
     private static final long serialVersionUID = 1L;
 
@@ -16,8 +18,6 @@ public class Airquality {
     private Long id;
 
     @Column(name = "time")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date time;
 
     @ManyToOne

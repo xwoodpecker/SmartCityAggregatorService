@@ -18,7 +18,6 @@ public class Temperature {
     private Long id;
 
     @Column(name = "time")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date time;
 
     @ManyToOne

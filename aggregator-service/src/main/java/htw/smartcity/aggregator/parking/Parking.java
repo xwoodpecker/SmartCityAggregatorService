@@ -1,6 +1,7 @@
 package htw.smartcity.aggregator.parking;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "PARKING_DATA")
-//todo rename???
+@JsonIgnoreProperties({"sensor"})
 public class Parking {
     private static final long serialVersionUID = 1L;
 
@@ -17,8 +18,6 @@ public class Parking {
     private Long id;
 
     @Column(name = "time")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date time;
 
     @ManyToOne

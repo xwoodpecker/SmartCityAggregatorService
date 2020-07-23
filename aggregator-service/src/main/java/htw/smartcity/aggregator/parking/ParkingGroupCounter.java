@@ -16,8 +16,6 @@ public class ParkingGroupCounter {
 
 
     @Column(name = "time")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date time;
 
     @Column(name = "free")
