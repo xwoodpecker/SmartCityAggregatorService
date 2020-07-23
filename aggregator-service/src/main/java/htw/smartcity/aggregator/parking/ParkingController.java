@@ -174,7 +174,7 @@ public class ParkingController {
 
     @Operation(summary = "Get all measurements of a specific sensor within a given timeframe")
     @GetMapping("/bySensor/{sensorId}/timeframe")
-    public ResponseEntity<PagedModel<Parking>> bySensorInTimeframe(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
+    public ResponseEntity<PagedModel<Parking>> bySensorInTimeframe(@RequestParam Date startTime, @RequestParam Date endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
         Page p = parkingRepository.findParkingsByTimeBeforeAndTimeAfterAndSensorId(endTime, startTime, sensorId, pageable);
         return new ResponseEntity<PagedModel<Parking>>(parkingPageResourceAssembler.toModel(p, parkingResourceAssembler), HttpStatus.OK);
@@ -191,8 +191,8 @@ public class ParkingController {
     @GetMapping("bySensor/{sensorId}/timeframe/average")
     ResponseEntity<PagedModel<Parking>> averageBySensor(
             //todo average entity
-            @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime,
-            @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime,
+            @RequestParam Date startTime,
+            @RequestParam Date endTime,
             @PathVariable Long sensorId,
             @Parameter(hidden = true) Pageable pageable)
     {

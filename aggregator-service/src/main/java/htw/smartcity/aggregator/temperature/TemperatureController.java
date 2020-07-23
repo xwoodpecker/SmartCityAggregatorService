@@ -67,7 +67,7 @@ public class TemperatureController {
     @Operation(summary = "Get all temperature measurements of all sensors in a given timeframe")
     @PageableAsQueryParam
     @GetMapping("/timeframe")
-    ResponseEntity<PagedModel<Temperature>> between(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @Parameter(hidden = true) Pageable pageable)
+    ResponseEntity<PagedModel<Temperature>> between(@RequestParam Date startTime, @RequestParam Date endTime, @Parameter(hidden = true) Pageable pageable)
     {
         Page p = temperatureRepository.findTemperaturesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
@@ -75,8 +75,8 @@ public class TemperatureController {
 
     @Operation(summary = "Get the average temperature of all sensors for the given timeframe")
     @GetMapping("/timeframe/average")
-    ResponseEntity<PagedModel<Average>> betweenAverage(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime,
-                                                       @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @Parameter(hidden = true) Pageable pageable)
+    ResponseEntity<PagedModel<Average>> betweenAverage(@RequestParam Date startTime,
+                                                       @RequestParam Date endTime, @Parameter(hidden = true) Pageable pageable)
     {
         Page p = temperatureRepository.findTemperaturesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
         List l = p.getContent();
@@ -112,7 +112,7 @@ public class TemperatureController {
 
     @Operation(summary = "Get all temperatures measures of a specific sensor within a given timeframe")
     @GetMapping("/bySensor/{sensorId}/timeframe")
-    public ResponseEntity<PagedModel<Temperature>> bySensorInTimeframe(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
+    public ResponseEntity<PagedModel<Temperature>> bySensorInTimeframe(@RequestParam Date startTime, @RequestParam Date endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
         //todo
         Page p = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, startTime, endTime,
@@ -132,8 +132,8 @@ public class TemperatureController {
     @Operation(summary = "Get the average temperature of a specific sensor within a given timeframe")
     @GetMapping("bySensor/{sensorId}/timeframe/average")
     ResponseEntity<PagedModel<Temperature>> averageBySensor(
-            @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date startTime,
-            @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") @RequestParam Date endTime,
+            @RequestParam Date startTime,
+            @RequestParam Date endTime,
             @PathVariable Long sensorId,
             @Parameter(hidden = true) Pageable pageable)
     {
