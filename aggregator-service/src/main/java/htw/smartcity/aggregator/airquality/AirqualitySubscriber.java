@@ -2,13 +2,11 @@ package htw.smartcity.aggregator.airquality;
 
 import htw.smartcity.aggregator.base.MQTTSubscriber;
 import htw.smartcity.aggregator.sensor.Sensor;
-import htw.smartcity.aggregator.sensor.SensorRepository;
 import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
-import java.util.List;
 
 @Component
 public class AirqualitySubscriber extends MQTTSubscriber {
@@ -31,7 +29,8 @@ public class AirqualitySubscriber extends MQTTSubscriber {
     @Override
     protected void persistMsg(Date time, Sensor sensor, String msg) {
         try {
-            Airquality airquality = new Airquality(time, sensor, msg);
+            Integer value = Integer.valueOf(msg);
+            Airquality airquality = new Airquality(time, sensor, value);
             airqualityRepository.save(airquality);
         }catch (Exception e) {
             e.printStackTrace();

@@ -26,7 +26,7 @@ public class Parking {
     private Sensor sensor;
 
     @Column(name = "value")
-    private String value;
+    private Boolean value;
 
 
 
@@ -37,7 +37,7 @@ public class Parking {
 
     }
 
-    public Parking(Date time, Sensor sensor, String value) {
+    public Parking(Date time, Sensor sensor, Boolean value) {
         this.time = time;
         this.sensor = sensor;
         this.value = value;
@@ -73,11 +73,11 @@ public class Parking {
         this.sensor = sensor;
     }
 
-    public String getValue() {
+    public Boolean getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Boolean value) {
         this.value = value;
     }
 

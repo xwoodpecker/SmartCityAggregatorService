@@ -1,6 +1,6 @@
 package htw.smartcity.aggregator.base;
 
-import htw.smartcity.aggregator.parking.Parking;
+import ch.qos.logback.core.util.Loader;
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import htw.smartcity.aggregator.util.ConfigProperties;
@@ -10,7 +10,6 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

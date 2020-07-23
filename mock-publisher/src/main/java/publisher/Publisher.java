@@ -83,8 +83,8 @@ public class Publisher {
     private void publishTemperature(String topic) throws MqttException {
         final MqttTopic temperatureTopic = client.getTopic(topic);
 
-        final int temperature = random.nextInt(39);
-        final String temperatureString = temperature + "°C";
+        final Double temperature = random.nextDouble()*40;
+        final String temperatureString = temperature.toString();
 
         temperatureTopic.publish(new MqttMessage(temperatureString.getBytes()));
 
@@ -94,8 +94,8 @@ public class Publisher {
     private void publishAirquality() throws MqttException {
         final MqttTopic airqualityTopic = client.getTopic(TOPIC_AIRQUALITY);
 
-        final int airquality = random.nextInt(79)+20;
-        final String airqualityString = airquality + "%";
+        final Integer airquality = random.nextInt(500);
+        final String airqualityString = airquality.toString();
 
         airqualityTopic.publish(new MqttMessage(airqualityString.getBytes()));
 

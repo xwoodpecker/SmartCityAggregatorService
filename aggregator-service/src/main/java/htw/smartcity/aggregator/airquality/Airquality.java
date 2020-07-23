@@ -25,7 +25,7 @@ public class Airquality {
     private Sensor sensor;
 
     @Column(name = "value")
-    private String value;
+    private Integer value;
 
 
 
@@ -36,7 +36,7 @@ public class Airquality {
 
     }
 
-    public Airquality(Date time, Sensor sensor, String value) {
+    public Airquality(Date time, Sensor sensor, Integer value) {
         this.time = time;
         this.sensor = sensor;
         this.value = value;
@@ -72,11 +72,11 @@ public class Airquality {
         this.sensor = sensor;
     }
 
-    public String getValue() {
+    public Integer getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 

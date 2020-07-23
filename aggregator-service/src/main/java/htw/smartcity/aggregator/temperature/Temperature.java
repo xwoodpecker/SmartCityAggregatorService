@@ -1,9 +1,7 @@
 package htw.smartcity.aggregator.temperature;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,7 +26,7 @@ public class Temperature {
     private Sensor sensor;
 
     @Column(name = "value")
-    private String value;
+    private Double value;
 
 
 
@@ -39,7 +37,7 @@ public class Temperature {
 
     }
 
-    public Temperature(Date time, Sensor sensor, String value) {
+    public Temperature(Date time, Sensor sensor, Double value) {
         this.time = time;
         this.sensor = sensor;
         this.value = value;
@@ -75,11 +73,11 @@ public class Temperature {
         this.sensor = sensor;
     }
 
-    public String getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

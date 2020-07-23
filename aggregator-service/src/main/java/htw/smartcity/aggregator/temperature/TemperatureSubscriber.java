@@ -29,7 +29,8 @@ public class TemperatureSubscriber extends MQTTSubscriber {
     @Override
     protected void persistMsg(Date time, Sensor sensor, String msg) {
         try {
-            Temperature temperature = new Temperature(time, sensor, msg);
+            Double value = Double.valueOf(msg);
+            Temperature temperature = new Temperature(time, sensor, value);
             temperatureRepository.save(temperature);
         }catch (Exception e) {
             e.printStackTrace();

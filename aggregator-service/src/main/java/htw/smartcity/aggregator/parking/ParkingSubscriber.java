@@ -99,17 +99,18 @@ public class ParkingSubscriber extends MQTTSubscriber {
 
             boolean newSensor = parking == null;
             if(newSensor || !parking.getValue().equals(msg)){
-                parking = new Parking(time, sensor, msg);
+                Boolean parked = Boolean.getBoolean(msg);
+                parking = new Parking(time, sensor, parked);
                 parkingRepository.save(parking);
                 sensorParkingMap.put(sensor, parking);
-                persistParkingGroupCounter(time, sensorParkingGroupMap.get(sensor), msg, newSensor);
+                persistParkingGroupCounter(time, sensorParkingGroupMap.get(sensor), parked, newSensor);
             }
         }catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void persistParkingGroupCounter(Date time, ParkingGroup parkingGroup, String msg, boolean newSensor) {
+    private void persistParkingGroupCounter(Date time, ParkingGroup parkingGroup, Boolean free, boolean newSensor) {
         try {
             ParkingGroupCounter parkingGroupCounter;
             if (!parkingGroupIdParkingGroupCounterMap.containsKey(parkingGroup.getId()))
@@ -121,7 +122,6 @@ public class ParkingSubscriber extends MQTTSubscriber {
             if(newGroup)
                 parkingGroupCounter = new ParkingGroupCounter(time, parkingGroup.getSensors().size(), 0, parkingGroup);
 
-            boolean free = Boolean.parseBoolean(msg);
 
             if(newSensor && !newGroup) {
                 if (free)
