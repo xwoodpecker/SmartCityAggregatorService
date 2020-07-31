@@ -13,5 +13,5 @@ public interface AirqualityRepository extends JpaRepository<Airquality, Long> {
 
     Page findAirqualitiesBySensorId(Long sensorId, Pageable pageable);
 
-    Page findAirqualitiesByTimeBeforeAndTimeAfter(LocalDateTime endTime, LocalDateTime startTime, Pageable pageable);
+    Page findAirqualitiesByTimeAfterAndTimeBefore(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
 }

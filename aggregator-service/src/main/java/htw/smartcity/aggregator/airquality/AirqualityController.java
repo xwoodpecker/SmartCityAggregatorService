@@ -61,7 +61,7 @@ public class AirqualityController {
     @GetMapping("/timeframe")
     ResponseEntity<PagedModel<Airquality>> between(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @Parameter(hidden = true) Pageable pageable)
     {
-        Page p = airqualityRepository.findAirqualitiesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
+        Page p = airqualityRepository.findAirqualitiesByTimeAfterAndTimeBefore(startTime, endTime, pageable);
         return new ResponseEntity<PagedModel<Airquality>>(airqualityPageResourceAssembler.toModel(p, airqualityResourceAssembler), HttpStatus.OK);
     }
 

@@ -47,7 +47,7 @@ public class ParkingController {
     @GetMapping("/bySensor/{sensorId}/timeframe")
     public ResponseEntity<PagedModel<Parking>> bySensorInTimeframe(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
-        Page p = parkingRepository.findParkingsByTimeBeforeAndTimeAfterAndSensorId(endTime, startTime, sensorId, pageable);
+        Page p = parkingRepository.findParkingsByTimeAfterAndTimeBeforeAndSensorId(startTime, endTime, sensorId, pageable);
         return new ResponseEntity<PagedModel<Parking>>(parkingPageResourceAssembler.toModel(p, parkingResourceAssembler), HttpStatus.OK);
     }
 
