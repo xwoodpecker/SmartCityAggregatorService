@@ -21,40 +21,16 @@ import java.util.List;
 @RequestMapping(path = "/parking")
 @Tag(name = "Parking Measures", description = "Endpoint to get parking measures")
 public class ParkingController {
-    private ParkingRepository parkingRepository;
-    private SensorRepository sensorRepository;
+    private final ParkingRepository parkingRepository;
 
-    private ParkingResourceAssembler parkingResourceAssembler;
-    private SensorResourceAssembler sensorResourceAssembler;
+    private final ParkingResourceAssembler parkingResourceAssembler;
 
-    private ParkingPageResourceAssembler parkingPageResourceAssembler;
-    private SensorPageResourceAssembler sensorPageResourceAssembler;
+    private final ParkingPageResourceAssembler parkingPageResourceAssembler;
 
     public ParkingController(ParkingRepository parkingRepository, SensorRepository sensorRepository, ParkingResourceAssembler parkingResourceAssembler, SensorResourceAssembler sensorResourceAssembler, ParkingPageResourceAssembler parkingPageResourceAssembler, SensorPageResourceAssembler sensorPageResourceAssembler) {
         this.parkingRepository = parkingRepository;
-        this.sensorRepository = sensorRepository;
         this.parkingResourceAssembler = parkingResourceAssembler;
-        this.sensorResourceAssembler = sensorResourceAssembler;
         this.parkingPageResourceAssembler = parkingPageResourceAssembler;
-        this.sensorPageResourceAssembler = sensorPageResourceAssembler;
-    }
-
-
-
-
-    @Operation(summary = "Get all measures of a specific sensor")
-    @PageableAsQueryParam
-    @GetMapping("/{groupId}/{sensorId}")
-    ResponseEntity<PagedModel<Parking>> byGroupAndSensor(@Parameter(hidden = true) Pageable pageable, @PathVariable Long groupId, @PathVariable Long sensorId)
-    {
-        return bySensor(pageable, sensorId);
-    }
-
-    @Operation(summary = "Get the latest measure of a specific sensor")
-    @GetMapping("/{groupId}/{sensorId}/latest")
-    EntityModel<Parking> byGroupAndSensorLatest(@PathVariable Long groupId, @PathVariable Long sensorId)
-    {
-        return bySensorLatest(sensorId);
     }
 
 
@@ -94,5 +70,7 @@ public class ParkingController {
         //todo
         return bySensor(pageable, sensorId);
     }
+
+
 
 }
