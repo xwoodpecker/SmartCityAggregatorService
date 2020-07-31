@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>htw.smartcity</groupId>
-	<artifactId>aggregator</artifactId>
+	<artifactId>aggregator-service</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>aggregator</name>
 	<description>Smart City Aggregator</description>
