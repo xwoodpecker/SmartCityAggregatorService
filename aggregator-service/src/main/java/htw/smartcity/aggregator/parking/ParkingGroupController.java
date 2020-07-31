@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,25 +24,25 @@ import java.util.List;
 @Tag(name = "Parking Measures", description = "Endpoint to get parking measures")
 public class ParkingGroupController {
 
-    private ParkingRepository parkingRepository;
-    private ParkingGroupRepository parkingGroupRepository;
-    private SensorRepository sensorRepository;
-    private ParkingGroupCounterRepository parkingGroupCounterRepository;
+    private final ParkingRepository parkingRepository;
+    private final ParkingGroupRepository parkingGroupRepository;
+    private final ParkingGroupCounterRepository parkingGroupCounterRepository;
 
-    private ParkingResourceAssembler parkingResourceAssembler;
-    private ParkingGroupResourceAssembler parkingGroupResourceAssembler;
-    private SensorResourceAssembler sensorResourceAssembler;
-    private ParkingGroupCounterResourceAssembler parkingGroupCounterResourceAssembler;
+    private final ParkingResourceAssembler parkingResourceAssembler;
+    private final ParkingGroupResourceAssembler parkingGroupResourceAssembler;
+    private final SensorResourceAssembler sensorResourceAssembler;
+    private final ParkingGroupCounterResourceAssembler parkingGroupCounterResourceAssembler;
 
-    private ParkingPageResourceAssembler parkingPageResourceAssembler;
-    private ParkingGroupPageResourceAssembler parkingGroupPageResourceAssembler;
-    private SensorPageResourceAssembler sensorPageResourceAssembler;
-    private ParkingGroupCounterPageResourceAssembler parkingGroupCounterPageResourceAssembler;
+    private final ParkingPageResourceAssembler parkingPageResourceAssembler;
+    private final ParkingGroupPageResourceAssembler parkingGroupPageResourceAssembler;
+    private final SensorPageResourceAssembler sensorPageResourceAssembler;
+    private final ParkingGroupCounterPageResourceAssembler parkingGroupCounterPageResourceAssembler;
 
-    public ParkingGroupController(ParkingRepository parkingRepository, ParkingGroupRepository parkingGroupRepository, SensorRepository sensorRepository, ParkingGroupCounterRepository parkingGroupCounterRepository, ParkingResourceAssembler parkingResourceAssembler, ParkingGroupResourceAssembler parkingGroupResourceAssembler, SensorResourceAssembler sensorResourceAssembler, ParkingGroupCounterResourceAssembler parkingGroupCounterResourceAssembler, ParkingPageResourceAssembler parkingPageResourceAssembler, ParkingGroupPageResourceAssembler parkingGroupPageResourceAssembler, SensorPageResourceAssembler sensorPageResourceAssembler, ParkingGroupCounterPageResourceAssembler parkingGroupCounterPageResourceAssembler) {
+    private final ParkingController parkingController;
+
+    public ParkingGroupController(ParkingRepository parkingRepository, ParkingGroupRepository parkingGroupRepository, SensorRepository sensorRepository, ParkingGroupCounterRepository parkingGroupCounterRepository, ParkingResourceAssembler parkingResourceAssembler, ParkingGroupResourceAssembler parkingGroupResourceAssembler, SensorResourceAssembler sensorResourceAssembler, ParkingGroupCounterResourceAssembler parkingGroupCounterResourceAssembler, ParkingPageResourceAssembler parkingPageResourceAssembler, ParkingGroupPageResourceAssembler parkingGroupPageResourceAssembler, SensorPageResourceAssembler sensorPageResourceAssembler, ParkingGroupCounterPageResourceAssembler parkingGroupCounterPageResourceAssembler, ParkingController parkingController) {
         this.parkingRepository = parkingRepository;
         this.parkingGroupRepository = parkingGroupRepository;
-        this.sensorRepository = sensorRepository;
         this.parkingGroupCounterRepository = parkingGroupCounterRepository;
         this.parkingResourceAssembler = parkingResourceAssembler;
         this.parkingGroupResourceAssembler = parkingGroupResourceAssembler;
@@ -53,6 +52,7 @@ public class ParkingGroupController {
         this.parkingGroupPageResourceAssembler = parkingGroupPageResourceAssembler;
         this.sensorPageResourceAssembler = sensorPageResourceAssembler;
         this.parkingGroupCounterPageResourceAssembler = parkingGroupCounterPageResourceAssembler;
+        this.parkingController = parkingController;
     }
 
 
@@ -123,14 +123,14 @@ public class ParkingGroupController {
     @GetMapping("/{groupId}/{sensorId}")
     ResponseEntity<PagedModel<Parking>> byGroupAndSensor(@Parameter(hidden = true) Pageable pageable, @PathVariable Long groupId, @PathVariable Long sensorId)
     {
-        return bySensor(pageable, sensorId);
+        return parkingController.bySensor(pageable, sensorId);
     }
 
     @Operation(summary = "Get the latest measure of a specific sensor")
     @GetMapping("/{groupId}/{sensorId}/latest")
     EntityModel<Parking> byGroupAndSensorLatest(@PathVariable Long groupId, @PathVariable Long sensorId)
     {
-        return bySensorLatest(sensorId);
+        return parkingController.bySensorLatest(sensorId);
     }
 
     @Operation(summary = "Get all measurements of a specific group")
@@ -166,15 +166,6 @@ public class ParkingGroupController {
         return new ResponseEntity<>(parkingList, HttpStatus.OK);
     }
 
-    public EntityModel<Parking> bySensorLatest(@PathVariable Long sensorId){
-        Parking parking = parkingRepository.findFirstBySensorIdOrderByTimeDesc(sensorId);
-        return parkingResourceAssembler.toModel(parking);
-    }
 
-    ResponseEntity<PagedModel<Parking>> bySensor(@Parameter(hidden = true) Pageable pageable, @PathVariable Long sensorId)
-    {
-        Page p = parkingRepository.findParkingsBySensorId(sensorId, pageable);
-        return new ResponseEntity<PagedModel<Parking>>(parkingPageResourceAssembler.toModel(p, parkingResourceAssembler), HttpStatus.OK);
-    }
 
 }
