@@ -46,6 +46,7 @@ public class TemperatureAverageController
     public EntityModel<TemperatureAverage> computeDaily(@PathVariable Long sensorId,
                                                         @Parameter (hidden = true) Pageable pageable)
     {
+        /*
         Date startTime = new Date();
         startTime.setHours(0);
         startTime.setMinutes(0);
@@ -74,6 +75,9 @@ public class TemperatureAverageController
         temperatureAverageDaily.
 
         return one((long) 1);
+
+         */
+        return null;
     }
 
     @Operation (summary = "Compute daily average of a sensor")
