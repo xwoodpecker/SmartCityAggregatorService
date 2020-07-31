@@ -15,10 +15,9 @@ import java.util.List;
 public interface ParkingRepository extends JpaRepository<Parking, Long> {
     Parking findFirstBySensorOrderByTimeDesc(Sensor sensor);
     Parking findFirstBySensorIdOrderByTimeDesc(Long sensorId);
-    List<Parking> findFirstBySensorInOrderByTimeDesc(List<Sensor> sensor);
 
     Page<Parking> findParkingsBySensorId(Long sensorId, Pageable pageable);
-    Page<Parking> findParkingsByTimeBeforeAndTimeAfterAndSensorId(LocalDateTime endTime, LocalDateTime startTime, Long sensorId, Pageable pageable);
+    Page<Parking> findParkingsByTimeAfterAndTimeBeforeAndSensorId(LocalDateTime startTime, LocalDateTime endTime, Long sensorId, Pageable pageable);
 
 
 }

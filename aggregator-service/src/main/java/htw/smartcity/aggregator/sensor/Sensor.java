@@ -53,6 +53,12 @@ public class Sensor {
         this.information = information;
     }
 
+
+    public Sensor(String name, SensorType sensorType) {
+        this.name = name;
+        this.sensorType = sensorType;
+    }
+
     public Long getId() {
         return id;
     }
