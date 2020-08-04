@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class AirqualityNotFoundAdvice {
+public class AirQualityNotFoundAdvice {
     @ResponseBody
-    @ExceptionHandler(AirqualityNotFoundException.class)
+    @ExceptionHandler(AirQualityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String airqualityeNotFoundHandler(AirqualityNotFoundException ex){
+    String airQualityeNotFoundHandler(AirQualityNotFoundException ex){
         return ex.getMessage();
     }
 }

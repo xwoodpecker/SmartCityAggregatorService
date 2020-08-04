@@ -23,7 +23,7 @@ public class Average
     private Sensor sensor;
 
     public enum SensorType {
-        AIRQUALITY,
+        AirQuality,
         PARKING,
         TEMPERATURE
     }

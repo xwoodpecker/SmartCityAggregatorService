@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 
 @Repository
-public interface AirqualityRepository extends JpaRepository<Airquality, Long> {
+public interface AirQualityRepository extends JpaRepository<AirQuality, Long> {
 
-    Page findAirqualitiesBySensorId(Long sensorId, Pageable pageable);
+    Page findAirQualitiesBySensorId(Long sensorId, Pageable pageable);
 
-    Page findAirqualitiesByTimeAfterAndTimeBefore(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
+    Page findAirQualitiesByTimeAfterAndTimeBefore(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
 }

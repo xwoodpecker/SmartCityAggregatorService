@@ -1,6 +1,6 @@
 
-INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (1, NULL, 'airquality_sensor1', 'AIRQUALITY', NULL, NULL);
-INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (2, NULL, 'airquality_sensor2', 'AIRQUALITY', NULL, NULL);
+INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (1, NULL, 'airQuality_sensor1', 'AirQuality', NULL, NULL);
+INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (2, NULL, 'airQuality_sensor2', 'AirQuality', NULL, NULL);
 INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (3, NULL, 'parking_sensor1', 'PARKING', NULL, NULL);
 INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (4, NULL, 'parking_sensor2', 'PARKING', NULL, NULL);
 INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (5, NULL, 'parking_sensor3', 'PARKING', NULL, NULL);
@@ -32,3 +32,18 @@ INSERT INTO parking_group_sensors(parking_group_id, sensors_id) VALUES (1, 4);
 INSERT INTO parking_group_sensors(parking_group_id, sensors_id) VALUES (1, 5);
 INSERT INTO parking_group_sensors(parking_group_id, sensors_id) VALUES (1, 6);
 INSERT INTO parking_group_sensors(parking_group_id, sensors_id) VALUES (2, 7);
+
+INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (4, '2020-07-23 15:31:46.000000', 0, 1);
+INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (3, '2020-07-23 16:42:26.000000', 1, 1);
+INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (2, '2020-07-23 7:13:16.000000', 2, 1);
+INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (3, '2020-07-23 10:22:59.000000', 1, 1);
+INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (2, '2020-07-23 14:14:13.000000', 2, 1);
+INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (3, '2020-07-23 15:36:12.000000', 1, 1);
+INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (2, '2020-07-23 16:39:16.000000', 2, 1);
+INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (3, '2020-07-23 19:41:19.000000', 1, 1);
+
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:31:46.000000', 37.2, 1);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:32:25.000000', 37.5, 1);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:36:12.000000', 23.2, 2);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:39:16.000000', 23.45, 2);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:41:19.000000', 23.7, 2);

@@ -18,7 +18,7 @@ public class Sensor {
     private String name;
 
     public enum SensorType {
-        AIRQUALITY,
+        AirQuality,
         PARKING,
         TEMPERATURE
     }

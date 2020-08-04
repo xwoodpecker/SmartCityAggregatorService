@@ -12,15 +12,15 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class AirqualityResourceAssembler implements RepresentationModelAssembler<Airquality, EntityModel<Airquality>> {
+public class AirQualityResourceAssembler implements RepresentationModelAssembler<AirQuality, EntityModel<AirQuality>> {
     @Override
-    public EntityModel<Airquality> toModel(Airquality airquality){
-        EntityModel<Airquality> entityModel = EntityModel.of(airquality,
-                linkTo(methodOn(AirqualityController.class).one(airquality.getId())).withSelfRel(),
-                linkTo(methodOn(AirqualityController.class).all(Pageable.unpaged())).withRel("airqualities"));
-        if(airquality.getSensor() != null)
+    public EntityModel<AirQuality> toModel(AirQuality airQuality){
+        EntityModel<AirQuality> entityModel = EntityModel.of(airQuality,
+                linkTo(methodOn(AirQualityController.class).one(airQuality.getId())).withSelfRel(),
+                linkTo(methodOn(AirQualityController.class).all(Pageable.unpaged())).withRel("airQualities"));
+        if(airQuality.getSensor() != null)
         {
-            entityModel.add(linkTo(methodOn(SensorController.class).one(airquality.getSensor().getId())).withRel("sensor"));
+            entityModel.add(linkTo(methodOn(SensorController.class).one(airQuality.getSensor().getId())).withRel("sensor"));
         }
         return entityModel;
     }

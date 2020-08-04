@@ -16,32 +16,32 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping(path = "/airqualities")
+@RequestMapping(path = "/airQualities")
 @Tag(name = "Air Quality Measures", description = "Endpoint to get air quality measures")
-public class AirqualityController {
-    private AirqualityRepository airqualityRepository;
-    private AirqualityResourceAssembler airqualityResourceAssembler;
-    private AirqualityPageResourceAssembler airqualityPageResourceAssembler;
+public class AirQualityController {
+    private AirQualityRepository airQualityRepository;
+    private AirQualityResourceAssembler airQualityResourceAssembler;
+    private AirQualityPageResourceAssembler airQualityPageResourceAssembler;
 
-    public AirqualityController(AirqualityRepository airqualityRepository, AirqualityResourceAssembler airqualityResourceAssembler, AirqualityPageResourceAssembler airqualityPageResourceAssembler) {
-        this.airqualityRepository = airqualityRepository;
-        this.airqualityResourceAssembler = airqualityResourceAssembler;
-        this.airqualityPageResourceAssembler = airqualityPageResourceAssembler;
+    public AirQualityController(AirQualityRepository airQualityRepository, AirQualityResourceAssembler airQualityResourceAssembler, AirQualityPageResourceAssembler airQualityPageResourceAssembler) {
+        this.airQualityRepository = airQualityRepository;
+        this.airQualityResourceAssembler = airQualityResourceAssembler;
+        this.airQualityPageResourceAssembler = airQualityPageResourceAssembler;
     }
 
     @Operation(summary = "Get all air quality measurements")
     @PageableAsQueryParam
     @GetMapping("/")
-    ResponseEntity<PagedModel<Airquality>> all(@Parameter(hidden = true) Pageable pageable)
+    ResponseEntity<PagedModel<AirQuality>> all(@Parameter(hidden = true) Pageable pageable)
     {
-        Page p = airqualityRepository.findAll(pageable);
-        return new ResponseEntity<PagedModel<Airquality>>(airqualityPageResourceAssembler.toModel(p, airqualityResourceAssembler), HttpStatus.OK);
+        Page p = airQualityRepository.findAll(pageable);
+        return new ResponseEntity<PagedModel<AirQuality>>(airQualityPageResourceAssembler.toModel(p, airQualityResourceAssembler), HttpStatus.OK);
     }
 
     @Operation(summary = "Get the latest measurements of all air quality sensors")
     @PageableAsQueryParam
     @GetMapping("/latest")
-    ResponseEntity<PagedModel<Airquality>> latest(@Parameter(hidden = true) Pageable pageable)
+    ResponseEntity<PagedModel<AirQuality>> latest(@Parameter(hidden = true) Pageable pageable)
     {
         //todo
         return all(pageable);
@@ -49,7 +49,7 @@ public class AirqualityController {
 
     @Operation(summary = "Get the average air quality of the latest measurements of all sensors")
     @GetMapping("/latest/average")
-    EntityModel<Airquality> latestAverage()
+    EntityModel<AirQuality> latestAverage()
     {
         //todo
         //todo average entity?
@@ -59,15 +59,15 @@ public class AirqualityController {
     @Operation(summary = "Get all air quality measurements of all sensors in a given timeframe")
     @PageableAsQueryParam
     @GetMapping("/timeframe")
-    ResponseEntity<PagedModel<Airquality>> between(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @Parameter(hidden = true) Pageable pageable)
+    ResponseEntity<PagedModel<AirQuality>> between(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @Parameter(hidden = true) Pageable pageable)
     {
-        Page p = airqualityRepository.findAirqualitiesByTimeAfterAndTimeBefore(startTime, endTime, pageable);
-        return new ResponseEntity<PagedModel<Airquality>>(airqualityPageResourceAssembler.toModel(p, airqualityResourceAssembler), HttpStatus.OK);
+        Page p = airQualityRepository.findAirQualitiesByTimeAfterAndTimeBefore(startTime, endTime, pageable);
+        return new ResponseEntity<PagedModel<AirQuality>>(airQualityPageResourceAssembler.toModel(p, airQualityResourceAssembler), HttpStatus.OK);
     }
 
     @Operation(summary = "Get the average air quality of all sensors for the given timeframe")
     @GetMapping("/timeframe/average")
-    EntityModel<Airquality> betweenAverage(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime)
+    EntityModel<AirQuality> betweenAverage(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime)
     {
         //todo
         //todo avg entity
@@ -75,25 +75,25 @@ public class AirqualityController {
     }
 
     @Operation(summary = "Get a single air quality measurement")
-    @GetMapping("/{airqualityId}")
-    EntityModel<Airquality> one(@PathVariable Long airqualityId)
+    @GetMapping("/{airQualityId}")
+    EntityModel<AirQuality> one(@PathVariable Long airQualityId)
     {
-        Airquality airquality = airqualityRepository.findById(airqualityId)
-                .orElseThrow(() -> new AirqualityNotFoundException(airqualityId));
+        AirQuality airQuality = airQualityRepository.findById(airQualityId)
+                .orElseThrow(() -> new AirQualityNotFoundException(airQualityId));
 
-        return airqualityResourceAssembler.toModel(airquality);
+        return airQualityResourceAssembler.toModel(airQuality);
     }
 
     @Operation(summary = "Get all air quality measurements of a specific sensor")
     @GetMapping("/bySensor/{sensorId}")
-    public ResponseEntity<PagedModel<Airquality>> bySensor(@PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable) {
-        Page p = airqualityRepository.findAirqualitiesBySensorId(sensorId, pageable);
-        return new ResponseEntity<PagedModel<Airquality>>(airqualityPageResourceAssembler.toModel(p, airqualityResourceAssembler), HttpStatus.OK);
+    public ResponseEntity<PagedModel<AirQuality>> bySensor(@PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable) {
+        Page p = airQualityRepository.findAirQualitiesBySensorId(sensorId, pageable);
+        return new ResponseEntity<PagedModel<AirQuality>>(airQualityPageResourceAssembler.toModel(p, airQualityResourceAssembler), HttpStatus.OK);
     }
 
     @Operation(summary = "Get all air quality measures of a specific sensor within a given timeframe")
     @GetMapping("/bySensor/{sensorId}/timeframe")
-    public ResponseEntity<PagedModel<Airquality>> bySensorInTimeframe(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
+    public ResponseEntity<PagedModel<AirQuality>> bySensorInTimeframe(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
         //todo
         return all(pageable);
@@ -101,14 +101,14 @@ public class AirqualityController {
 
     @Operation(summary = "Get the latest air quality measurement of a specific sensor")
     @GetMapping("/bySensor/{sensorId}/latest")
-    public EntityModel<Airquality> bySensorLatest(@PathVariable Long sensorId){
+    public EntityModel<AirQuality> bySensorLatest(@PathVariable Long sensorId){
         //todo implement
         return one((long) 1);
     }
 
     @Operation(summary = "Get the average air quality of a specific sensor within a given timeframe")
     @GetMapping("bySensor/{sensorId}/timeframe/average")
-    ResponseEntity<PagedModel<Airquality>> averageBySensor(
+    ResponseEntity<PagedModel<AirQuality>> averageBySensor(
             @RequestParam LocalDateTime startTime,
             @RequestParam LocalDateTime endTime,
             @PathVariable Long sensorId,

@@ -26,6 +26,8 @@ public class ParkingGroupRepositoryTests {
 
     private static final Long PARKING_SENSOR1_ID = 3L;
     private static final Long PARKING_SENSOR2_ID = 4L;
+    private static final Long PARKING_GROUP1_ID = 1L;
+    private static final Long PARKING_GROUP2_ID = 2L;
 
     @Autowired
     private ParkingGroupRepository parkingGroupRepository;
@@ -67,8 +69,8 @@ public class ParkingGroupRepositoryTests {
 
     @Test
     public void testFindParkingSensorsByGroupId() {
-        Page page1 = parkingGroupRepository.findParkingSensorsByGroupId(1L, null);
-        Page page2 = parkingGroupRepository.findParkingSensorsByGroupId(2L, null);
+        Page page1 = parkingGroupRepository.findParkingSensorsByGroupId(PARKING_GROUP1_ID, null);
+        Page page2 = parkingGroupRepository.findParkingSensorsByGroupId(PARKING_GROUP2_ID, null);
         List<Sensor> sensorList1 = (List<Sensor>) page1.get().collect(Collectors.toList());
         List<Sensor> sensorList2 = (List<Sensor>) page2.get().collect(Collectors.toList());
         assertEquals(sensorList1.size(), 4);

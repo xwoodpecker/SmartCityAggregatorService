@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "AIR_QUALITY_DATA")
 @JsonIgnoreProperties({"sensor"})
-public class Airquality {
+public class AirQuality {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -33,11 +33,11 @@ public class Airquality {
     /**
      * Default constructor for JPA only.
      */
-    public Airquality() {
+    public AirQuality() {
 
     }
 
-    public Airquality(LocalDateTime time, Sensor sensor, Integer value) {
+    public AirQuality(LocalDateTime time, Sensor sensor, Integer value) {
         this.time = time;
         this.sensor = sensor;
         this.value = value;

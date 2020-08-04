@@ -11,10 +11,8 @@ import java.util.List;
 
 @Repository
 public interface TemperatureRepository extends JpaRepository<Temperature, Long> {
-    Page<Temperature> findTemperaturesByTimeBeforeAndTimeAfter(LocalDateTime endTime, LocalDateTime startTime, Pageable pageable);
-
-    Page<Temperature> findTemperaturesByTimeBetween(LocalDateTime endTime, LocalDateTime startTime, Pageable pageable);
+    Page<Temperature> findTemperaturesByTimeAfterAndTimeBefore(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
     Page<Temperature> findTemperaturesBySensorId(Long id, Pageable pageable);
-    Page<Temperature> findTemperaturesBySensorIdAndTimeBetween(Long id, LocalDateTime endTime, LocalDateTime startTime, Pageable
+    Page<Temperature> findTemperaturesBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime, Pageable
             pageable);
 }

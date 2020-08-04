@@ -23,7 +23,7 @@ public class SensorResourceAssembler implements RepresentationModelAssembler<Sen
         switch(sensor.getSensorType()){
             case PARKING:
                 break;
-            case AIRQUALITY:
+            case AirQuality:
                 break;
             case TEMPERATURE:
                 entityModel.add(linkTo(methodOn(TemperatureController.class).bySensor(sensor.getId(), Pageable.unpaged())).withRel("data"));

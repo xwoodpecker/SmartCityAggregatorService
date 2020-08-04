@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Component
-public class AirqualityPageResourceAssembler extends
-        PagedResourcesAssembler<Airquality> {
+public class AirQualityPageResourceAssembler extends
+        PagedResourcesAssembler<AirQuality> {
 
-    public AirqualityPageResourceAssembler() {
-        super(null, linkTo(AirqualityResourceAssembler.class)
+    public AirQualityPageResourceAssembler() {
+        super(null, linkTo(AirQualityResourceAssembler.class)
                 .toUriComponentsBuilder().build());
     }
 }

@@ -66,7 +66,7 @@ public class TemperatureController {
     @GetMapping("/timeframe")
     ResponseEntity<PagedModel<Temperature>> between(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @Parameter(hidden = true) Pageable pageable)
     {
-        Page p = temperatureRepository.findTemperaturesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
+        Page p = temperatureRepository.findTemperaturesByTimeAfterAndTimeBefore(startTime, endTime, pageable);
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
@@ -74,7 +74,7 @@ public class TemperatureController {
     @GetMapping("/timeframe/average")
     ResponseEntity<PagedModel<Average>> betweenAverage(@RequestParam  LocalDateTime startTime, @RequestParam LocalDateTime endTime, @Parameter(hidden = true) Pageable pageable)
     {
-        Page p = temperatureRepository.findTemperaturesByTimeBeforeAndTimeAfter(endTime, startTime, pageable);
+        Page p = temperatureRepository.findTemperaturesByTimeAfterAndTimeBefore(startTime, endTime, pageable);
         List l = p.getContent();
         double sum = 0, count = 0;
         for (var ele: l)

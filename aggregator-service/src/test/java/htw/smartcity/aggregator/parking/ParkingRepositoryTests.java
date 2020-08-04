@@ -1,7 +1,7 @@
 package htw.smartcity.aggregator.parking;
 
-import htw.smartcity.aggregator.airquality.Airquality;
-import htw.smartcity.aggregator.airquality.AirqualityRepository;
+import htw.smartcity.aggregator.airquality.AirQuality;
+import htw.smartcity.aggregator.airquality.AirQualityRepository;
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import org.junit.Test;
@@ -75,16 +75,14 @@ public class ParkingRepositoryTests {
 
     @Test
     public void testFindParkingBySensorId() {
-        Sensor sensor1 = sensorRepository.findById(PARKING_SENSOR1_ID).get();
-        Sensor sensor2 = sensorRepository.findById(PARKING_SENSOR2_ID).get();
-        long elementsSensor1 = parkingRepository.findParkingsBySensorId(sensor1.getId(), null).getTotalElements();
-        long elementsSensor2 = parkingRepository.findParkingsBySensorId(sensor2.getId(), null).getTotalElements();
+        int elementsSensor1 = parkingRepository.findParkingsBySensorId(PARKING_SENSOR1_ID, null).getNumberOfElements();
+        int elementsSensor2 = parkingRepository.findParkingsBySensorId(PARKING_SENSOR2_ID, null).getNumberOfElements();
         assertEquals(elementsSensor1, 2);
         assertEquals(elementsSensor2, 6);
     }
 
     @Test
-    public void findParkingByTimeBeforeAndTimeAfterAndSensorId() {
+    public void testFindParkingByTimeBeforeAndTimeAfterAndSensorId() {
         Page parkingByTimeBeforeAndTimeAfterAndSensorId = parkingRepository.findParkingsByTimeAfterAndTimeBeforeAndSensorId(TimeFrom, TimeTo, PARKING_SENSOR2_ID, null);
         List<Parking> parkingList = (List<Parking>) parkingByTimeBeforeAndTimeAfterAndSensorId.get().collect(Collectors.toList());
         int numberOfElements = parkingByTimeBeforeAndTimeAfterAndSensorId.getNumberOfElements();

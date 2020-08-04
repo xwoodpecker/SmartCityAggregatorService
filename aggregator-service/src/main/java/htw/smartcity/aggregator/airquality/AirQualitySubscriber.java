@@ -10,12 +10,12 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Component
-public class AirqualitySubscriber extends MQTTSubscriber {
+public class AirQualitySubscriber extends MQTTSubscriber {
 
-    private final String subTopic =  "/airquality/#";
+    private final String subTopic =  "/airQuality/#";
 
     @Autowired
-    AirqualityRepository airqualityRepository;
+    AirQualityRepository airQualityRepository;
 
     @Override
     protected String getSubTopic() {
@@ -24,15 +24,15 @@ public class AirqualitySubscriber extends MQTTSubscriber {
 
     @Override
     protected Sensor.SensorType getSensorType() {
-        return Sensor.SensorType.AIRQUALITY;
+        return Sensor.SensorType.AirQuality;
     }
 
     @Override
     protected void persistMsg(LocalDateTime time, Sensor sensor, String msg) {
         try {
             Integer value = Integer.valueOf(msg);
-            Airquality airquality = new Airquality(time, sensor, value);
-            airqualityRepository.save(airquality);
+            AirQuality airQuality = new AirQuality(time, sensor, value);
+            airQualityRepository.save(airQuality);
         }catch (Exception e) {
             e.printStackTrace();
         }
