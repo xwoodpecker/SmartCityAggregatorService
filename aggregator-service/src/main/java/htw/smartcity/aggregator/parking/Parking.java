@@ -1,14 +1,15 @@
 package htw.smartcity.aggregator.parking;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "PARKING_DATA")
-//todo rename???
+@JsonIgnoreProperties({"sensor"})
 public class Parking {
     private static final long serialVersionUID = 1L;
 
@@ -16,10 +17,9 @@ public class Parking {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "time")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private Date time;
+    private LocalDateTime time;
 
     @ManyToOne
     @JoinColumn(name = "sensor_id")
@@ -37,7 +37,7 @@ public class Parking {
 
     }
 
-    public Parking(Date time, Sensor sensor, Boolean value) {
+    public Parking(LocalDateTime time, Sensor sensor, Boolean value) {
         this.time = time;
         this.sensor = sensor;
         this.value = value;
@@ -57,11 +57,11 @@ public class Parking {
         this.id = id;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

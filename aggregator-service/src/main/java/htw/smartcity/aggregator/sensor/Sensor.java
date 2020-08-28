@@ -18,7 +18,7 @@ public class Sensor {
     private String name;
 
     public enum SensorType {
-        AIRQUALITY,
+        AirQuality,
         PARKING,
         TEMPERATURE
     }
@@ -51,6 +51,12 @@ public class Sensor {
         this.x = x;
         this.y = y;
         this.information = information;
+    }
+
+
+    public Sensor(String name, SensorType sensorType) {
+        this.name = name;
+        this.sensorType = sensorType;
     }
 
     public Long getId() {

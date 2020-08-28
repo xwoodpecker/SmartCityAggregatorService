@@ -1,10 +1,11 @@
 package htw.smartcity.aggregator.average;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import htw.smartcity.aggregator.sensor.Sensor;
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import htw.smartcity.aggregator.sensor.SensorController;
 
 @Entity
 @Table(name = "AVERAGE_DATA")
@@ -22,7 +23,7 @@ public class Average
     private Sensor sensor;
 
     public enum SensorType {
-        AIRQUALITY,
+        AirQuality,
         PARKING,
         TEMPERATURE
     }
@@ -31,14 +32,13 @@ public class Average
     @Enumerated(EnumType.STRING)
     private SensorType sensorType;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name ="begin_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date beginTime;
+    private LocalDateTime beginTime;
 
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name ="end_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endTime;
+    private LocalDateTime endTime;
 
     @Column(name = "value")
     private Double value;
@@ -52,7 +52,7 @@ public class Average
     }
 
     // Average of 1 sensor in a timeframe
-    public Average(Sensor sensor, SensorType sensorType, Date beginTime, Date endTime, Double value) {
+    public Average(Sensor sensor, SensorType sensorType, LocalDateTime beginTime, LocalDateTime endTime, Double value) {
         this.sensor = sensor;
         this.sensorType = sensorType;
         this.beginTime = beginTime;
@@ -61,7 +61,7 @@ public class Average
     }
 
     // Average of all sensors in a timeframe
-    public Average(SensorType sensorType, Date beginTime, Date endTime, Double value) {
+    public Average(SensorType sensorType, LocalDateTime beginTime, LocalDateTime endTime, Double value) {
         this.sensorType = sensorType;
         this.beginTime = beginTime;
         this.endTime = endTime;
@@ -113,19 +113,19 @@ public class Average
         this.sensorType = sensorType;
     }
 
-    public Date getBeginTime() {
+    public LocalDateTime getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(LocalDateTime beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

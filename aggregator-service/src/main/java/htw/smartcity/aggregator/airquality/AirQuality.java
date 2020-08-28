@@ -1,24 +1,25 @@
 package htw.smartcity.aggregator.airquality;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "AIR_QUALITY_DATA")
-public class Airquality {
+@JsonIgnoreProperties({"sensor"})
+public class AirQuality {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "time")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private Date time;
+    private LocalDateTime time;
 
     @ManyToOne
     @JoinColumn(name = "sensor_id")
@@ -32,11 +33,11 @@ public class Airquality {
     /**
      * Default constructor for JPA only.
      */
-    public Airquality() {
+    public AirQuality() {
 
     }
 
-    public Airquality(Date time, Sensor sensor, Integer value) {
+    public AirQuality(LocalDateTime time, Sensor sensor, Integer value) {
         this.time = time;
         this.sensor = sensor;
         this.value = value;
@@ -56,11 +57,11 @@ public class Airquality {
         this.id = id;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

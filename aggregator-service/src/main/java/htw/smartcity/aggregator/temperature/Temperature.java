@@ -1,10 +1,11 @@
 package htw.smartcity.aggregator.temperature;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TEMPERATURE_DATA")
@@ -17,9 +18,9 @@ public class Temperature {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    private LocalDateTime time;
 
     @ManyToOne
     @JoinColumn(name = "sensor_id")
@@ -37,7 +38,7 @@ public class Temperature {
 
     }
 
-    public Temperature(Date time, Sensor sensor, Double value) {
+    public Temperature(LocalDateTime time, Sensor sensor, Double value) {
         this.time = time;
         this.sensor = sensor;
         this.value = value;
@@ -57,11 +58,11 @@ public class Temperature {
         this.id = id;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

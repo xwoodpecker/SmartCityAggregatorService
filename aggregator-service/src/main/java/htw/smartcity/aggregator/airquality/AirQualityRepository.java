@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Repository
-public interface AirqualityRepository extends JpaRepository<Airquality, Long> {
+public interface AirQualityRepository extends JpaRepository<AirQuality, Long> {
 
-    Page findAirqualitiesBySensorId(Long sensorId, Pageable pageable);
+    Page findAirQualitiesBySensorId(Long sensorId, Pageable pageable);
 
-    Page findAirqualitiesByTimeBeforeAndTimeAfter(Date endTime, Date startTime, Pageable pageable);
+    Page findAirQualitiesByTimeAfterAndTimeBefore(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
 }

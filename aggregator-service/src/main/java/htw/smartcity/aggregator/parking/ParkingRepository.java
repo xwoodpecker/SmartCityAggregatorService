@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +15,9 @@ import java.util.List;
 public interface ParkingRepository extends JpaRepository<Parking, Long> {
     Parking findFirstBySensorOrderByTimeDesc(Sensor sensor);
     Parking findFirstBySensorIdOrderByTimeDesc(Long sensorId);
-    List<Parking> findFirstBySensorInOrderByTimeDesc(List<Sensor> sensor);
 
     Page<Parking> findParkingsBySensorId(Long sensorId, Pageable pageable);
-    Page<Parking> findParkingsByTimeBeforeAndTimeAfterAndSensorId(Date endTime, Date startTime, Long sensorId, Pageable pageable);
+    Page<Parking> findParkingsByTimeAfterAndTimeBeforeAndSensorId(LocalDateTime startTime, LocalDateTime endTime, Long sensorId, Pageable pageable);
 
 
 }
