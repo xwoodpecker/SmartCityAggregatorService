@@ -1,6 +1,6 @@
 package htw.smartcity.aggregator.base;
 
-import ch.qos.logback.core.util.Loader;
+
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import htw.smartcity.aggregator.util.ConfigProperties;
@@ -8,9 +8,6 @@ import htw.smartcity.aggregator.util.Utils;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -58,13 +55,19 @@ public abstract class MQTTSubscriber implements MqttCallback {
         System.out.println("Message arrived. Topic: " + topic + "  Message: " + msg);
         String sensorName = topic.replace(this.topic.replace("#", ""), "");
         Sensor sensor = getOrPersistSensor(sensorName);
-        persistMsg(time, sensor, msg);
+        if(sensor != null)
+            persistMsg(time, sensor, msg);
     }
 
     protected Sensor getOrPersistSensor(String sensorName) {
-        Sensor sensor = getSensor(sensorName);
-        if(sensor == null) {
-            sensor = persistSensor(sensorName);
+        Sensor sensor = null;
+        try {
+            sensor = getSensor(sensorName);
+            if (sensor == null) {
+                sensor = persistSensor(sensorName);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
         return sensor;
     }
