@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class Publisher {
 
-    public static final String TOPIC_AIRQUALITY = ConfigProperties.TOPIC + "/airquality/sensor1";
+    public static final String TOPIC_AIRQUALITY = ConfigProperties.TOPIC + "/airQuality/sensor1";
     public static final String TOPIC_TEMPERATURE_SENSOR1 = ConfigProperties.TOPIC + "/temperature/sensor1";
     public static final String TOPIC_TEMPERATURE_SENSOR2 = ConfigProperties.TOPIC + "/temperature/sensor2";
     public static final String TOPIC_PARKING_SENSOR1 = ConfigProperties.TOPIC + "/parking/group1/sensor1";
