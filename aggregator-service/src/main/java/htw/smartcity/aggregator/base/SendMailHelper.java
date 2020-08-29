@@ -1,5 +1,7 @@
 package htw.smartcity.aggregator.base;
 
+import htw.smartcity.aggregator.util.ConfigProperties;
+
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -9,10 +11,15 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class SendMailManager {
-    public static void main(String[] args) {
-        final String username = "smartcityaggregatorservice@gmail.com";
-        final String password = "5Rup6^>t8C4u~hqP";
+public class SendMailHelper {
+    private static final String mailUsername = ConfigProperties.MAIL_USERNAME;
+    private static final String mailPassword = ConfigProperties.MAIL_PASSWORD;;
+    private static final String mailList = ConfigProperties.MAIL_LIST;
+
+
+    private SendMailHelper() {}
+
+    public static void sendMail(String subject, String messageText) {
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -23,7 +30,7 @@ public class SendMailManager {
         Session session = Session.getInstance(prop,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                        return new PasswordAuthentication(mailUsername, mailPassword);
                     }
                 });
 
@@ -33,15 +40,12 @@ public class SendMailManager {
             message.setFrom(new InternetAddress("smartcityaggregatorservice@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse("xwoodpecker95@gmail.com")
+                    InternetAddress.parse(mailList)
             );
-            message.setSubject("Testing Gmail TLS");
-            message.setText("Dear Mail Crawler,"
-                    + "\n\n Please do not spam my email!");
+            message.setSubject(subject);
+            message.setText(messageText);
 
             Transport.send(message);
-
-            System.out.println("Done");
 
         } catch (MessagingException e) {
             e.printStackTrace();

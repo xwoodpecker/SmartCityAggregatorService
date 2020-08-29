@@ -1,10 +1,10 @@
 package htw.smartcity.aggregator.base;
 
 public enum LogException {
-    MQTT_CONFIGURATION_FAILED(0, ""),
-    MQTT_SUBSCRIPTION_FAILED(1, ""),
-    MQTT_SENSOR_PERSISTENCE_FAILED(2, ""),
-    MQTT_AIR_QUALITY_PERSISTENCE_FAILED(3, "");
+    MQTT_CONFIGURATION_FAILED(0, "Could not configure MQTT Connection"),
+    MQTT_SUBSCRIPTION_FAILED(1, "MQTT Subscription failed"),
+    MQTT_SENSOR_PERSISTENCE_FAILED(2, "Sensor could not be saved in the database"),
+    MQTT_AIR_QUALITY_PERSISTENCE_FAILED(3, "Air Quality measurement could not be saved in the database");
 
     private final int code;
     private final String description;

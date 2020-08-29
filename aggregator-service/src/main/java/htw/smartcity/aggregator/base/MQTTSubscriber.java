@@ -21,7 +21,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
     private final String password = ConfigProperties.PASSWORD;
     private final String certifcate = ConfigProperties.CERTIFICATE;
     private final String topic = ConfigProperties.TOPIC + getSubTopic();
-
+    protected final ExceptionManager exceptionManager = ExceptionManager.getInstance();
 
 
     private MqttClient mqttClient = null;
@@ -68,6 +68,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
             }
         }catch(Exception e){
             e.printStackTrace();
+            exceptionManager.MQTTSensorPersistenceFailed(sensorName);
         }
         return sensor;
     }
@@ -105,6 +106,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
             this.mqttClient.subscribe(topic);
         } catch (MqttException me) {
             me.printStackTrace();
+            exceptionManager.MQTTSubscriptionFailed(topic);
         }
     }
 
@@ -130,6 +132,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
             me.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+            exceptionManager.MQTTConfigurationFailed();
         }
     }
 

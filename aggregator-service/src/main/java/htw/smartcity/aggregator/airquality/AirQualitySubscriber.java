@@ -35,6 +35,7 @@ public class AirQualitySubscriber extends MQTTSubscriber {
             airQualityRepository.save(airQuality);
         }catch (Exception e) {
             e.printStackTrace();
+            exceptionManager.MQTTAirQualityPersistenceFailed(sensor.getName(), msg);
         }
     }
 
