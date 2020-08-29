@@ -18,9 +18,24 @@ public class Sensor {
     private String name;
 
     public enum SensorType {
-        AirQuality,
-        PARKING,
-        TEMPERATURE
+        AIR_QUALITY("Air Quality"),
+        PARKING("Parking"),
+        TEMPERATURE("Temperature");
+
+        private final String description;
+
+        SensorType(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        @Override
+        public String toString() {
+            return description;
+        }
     }
     
     @Column(name ="sensor_type")

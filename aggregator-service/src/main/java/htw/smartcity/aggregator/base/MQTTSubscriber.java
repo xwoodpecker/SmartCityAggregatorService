@@ -68,7 +68,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
             }
         }catch(Exception e){
             e.printStackTrace();
-            exceptionManager.MQTTSensorPersistenceFailed(sensorName);
+            exceptionManager.MQTTSensorPersistenceFailed(sensorName, getSensorType());
         }
         return sensor;
     }

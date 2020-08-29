@@ -1,5 +1,6 @@
 package htw.smartcity.aggregator.base;
 
+import htw.smartcity.aggregator.sensor.Sensor;
 import org.junit.Test;
 
 public class ExceptionManagerTest {
@@ -15,9 +16,9 @@ public class ExceptionManagerTest {
             Thread.sleep(500);
             exceptionManager.MQTTSubscriptionFailed("hackbraten");
             Thread.sleep(500);
-            exceptionManager.MQTTSensorPersistenceFailed("sensor3derdritte");
+            exceptionManager.MQTTSensorPersistenceFailed("sensor3derdritte", Sensor.SensorType.AIR_QUALITY);
             Thread.sleep(500);
-            exceptionManager.MQTTSensorPersistenceFailed("sensordensnichtgibt");
+            exceptionManager.MQTTSensorPersistenceFailed("sensordensnichtgibt", Sensor.SensorType.AIR_QUALITY);
             Thread.sleep(500);
             exceptionManager.MQTTAirQualityPersistenceFailed("sensordensnichtgibt", "sinnfrei");
             Thread.sleep(500);

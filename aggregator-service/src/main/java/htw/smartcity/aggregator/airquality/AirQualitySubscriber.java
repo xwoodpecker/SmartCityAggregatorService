@@ -6,7 +6,6 @@ import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Component
@@ -24,7 +23,7 @@ public class AirQualitySubscriber extends MQTTSubscriber {
 
     @Override
     protected Sensor.SensorType getSensorType() {
-        return Sensor.SensorType.AirQuality;
+        return Sensor.SensorType.AIR_QUALITY;
     }
 
     @Override

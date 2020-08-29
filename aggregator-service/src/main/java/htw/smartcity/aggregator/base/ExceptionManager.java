@@ -1,5 +1,6 @@
 package htw.smartcity.aggregator.base;
 
+import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.util.ConfigProperties;
 
 import java.time.Duration;
@@ -10,7 +11,7 @@ import java.util.*;
 import static java.time.format.DateTimeFormatter.*;
 
 public class ExceptionManager {
-    private int delay = 60*60*1000;
+    private int delay = 30*1000;
     private int period = 60*60*1000;
     private List<MailException> mailExpcetions;
     private Timer timer;
@@ -24,8 +25,7 @@ public class ExceptionManager {
 
     private ExceptionManager(){
         try {
-            delay = Integer.parseInt(ConfigProperties.MAIL_SEND_PERIOD)*1000;
-            period = delay;
+            period = Integer.parseInt(ConfigProperties.MAIL_SEND_PERIOD)*60*1000;
         }catch (NumberFormatException ne) {
             ne.printStackTrace();
         }
@@ -75,15 +75,16 @@ public class ExceptionManager {
 
     }
 
-    public void MQTTSensorPersistenceFailed(String sensorName){
+    public void MQTTSensorPersistenceFailed(String sensorName, Sensor.SensorType sensorType){
         MailException mailException = new MailException(LogException.MQTT_SENSOR_PERSISTENCE_FAILED);
+        mailException.addAdditionalInfos("Sensor Type: " + sensorType);
         mailException.addAdditionalInfos("Sensor name: " + sensorName);
         mailExpcetions.add(mailException);
     }
 
     public void MQTTAirQualityPersistenceFailed(String sensorName, String msg){
         MailException mailException = new MailException(LogException.MQTT_AIR_QUALITY_PERSISTENCE_FAILED);
-        mailException.addAdditionalInfos("Sensor Type: Air Quality Sensor");
+        mailException.addAdditionalInfos("Sensor Type: " + Sensor.SensorType.AIR_QUALITY);
         mailException.addAdditionalInfos("Sensor name: " + sensorName);
         mailException.addAdditionalInfos("Message: " + msg);
         mailExpcetions.add(mailException);

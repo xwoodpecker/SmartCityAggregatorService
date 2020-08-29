@@ -1,10 +1,8 @@
 package htw.smartcity.aggregator.sensor;
 
-import htw.smartcity.aggregator.temperature.Temperature;
 import htw.smartcity.aggregator.temperature.TemperatureController;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +21,7 @@ public class SensorResourceAssembler implements RepresentationModelAssembler<Sen
         switch(sensor.getSensorType()){
             case PARKING:
                 break;
-            case AirQuality:
+            case AIR_QUALITY:
                 break;
             case TEMPERATURE:
                 entityModel.add(linkTo(methodOn(TemperatureController.class).bySensor(sensor.getId(), Pageable.unpaged())).withRel("data"));
