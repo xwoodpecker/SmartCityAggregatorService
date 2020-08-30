@@ -53,9 +53,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/temperatures/**").permitAll()
+                    .antMatchers("/temperatures/**").authenticated()
                 .and()
-                .authorizeRequests().anyRequest().authenticated()
+                .authorizeRequests().anyRequest().permitAll()
                 .and().csrf().disable();
     }
 }
