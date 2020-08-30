@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,9 +47,9 @@ public class ParkingController {
 
     @Operation(summary = "Get all measurements of a specific sensor within a given timeframe")
     @GetMapping("/bySensor/{sensorId}/timeframe")
-    public ResponseEntity<PagedModel<Parking>> bySensorInTimeframe(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
+    public ResponseEntity<PagedModel<Parking>> bySensorInTimeframe(@RequestParam Instant startTime, @RequestParam Instant endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
-        Page p = parkingRepository.findParkingsByTimeAfterAndTimeBeforeAndSensorId(startTime, endTime, sensorId, pageable);
+        Page p = parkingRepository.findParkingsByTimeAfterAndTimeBeforeAndSensorId(LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC), sensorId, pageable);
         return new ResponseEntity<PagedModel<Parking>>(parkingPageResourceAssembler.toModel(p, parkingResourceAssembler), HttpStatus.OK);
     }
 
