@@ -33,27 +33,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             throws Exception
     {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-        /*auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .withDefaultSchema()
-                .withUser("user")
-                    .password(passwordEncoder.encode(ConfigProperties.REST_USER_PASSWORD))
-                    .roles("USER")
-                .and()
-                .withUser("admin")
-                    .password(passwordEncoder.encode(REST_ADMIN_PASSWORD))
-                    .roles("USER", "ADMIN");
-         */
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        //http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/temperatures/**").authenticated()
+                    .antMatchers("/users/**").hasRole("")
                 .and()
                 .authorizeRequests().anyRequest().permitAll()
                 .and().csrf().disable();
