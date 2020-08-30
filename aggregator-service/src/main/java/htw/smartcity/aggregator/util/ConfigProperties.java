@@ -16,7 +16,7 @@ public class ConfigProperties {
     public static final String PASSWORD;
     public static final String CERTIFICATE;
     public static final String TOPIC;
-    public static final String REST_USER_PASSWORD;
+    public static final String INITIAL_ADMIN_PASSWORD;
 
     static {
         //todo wrong path when running tests, figure out better method to load this resource
@@ -39,6 +39,6 @@ public class ConfigProperties {
         PASSWORD = properties.getProperty("PASSWORD");
         CERTIFICATE = properties.getProperty("CERTIFICATE");
         TOPIC = properties.getProperty("TOPIC");
-        REST_USER_PASSWORD = properties.getProperty("REST_USER_PASSWORD");
+        INITIAL_ADMIN_PASSWORD = properties.getProperty("INITIAL_ADMIN_PASSWORD");
     }
 }

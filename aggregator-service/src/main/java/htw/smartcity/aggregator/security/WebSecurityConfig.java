@@ -43,7 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
                 .withUser("admin")
                     .password(passwordEncoder.encode(REST_ADMIN_PASSWORD))
                     .roles("USER", "ADMIN");
-                    
          */
     }
 
@@ -51,9 +50,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         //http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
-        http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
+        http.httpBasic()
                 .and()
-                .authorizeRequests().antMatchers("/temperatures**").permitAll()
+                .authorizeRequests()
+                    .antMatchers("/temperatures/**").permitAll()
+                .and()
+                .authorizeRequests().anyRequest().authenticated()
                 .and().csrf().disable();
     }
 }
