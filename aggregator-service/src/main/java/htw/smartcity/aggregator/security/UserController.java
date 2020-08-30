@@ -2,7 +2,6 @@ package htw.smartcity.aggregator.security;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,6 +38,10 @@ public class UserController {
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setEnabled(true);
+        Roles roles = new Roles();
+        roles.setRole("user");
+        roles.setUser(user);
+        user.getRoles().add(roles);
         user = userRepository.save(user);
         EntityModel<User> model = userResourceAssembler.toModel(user);
         return(model);

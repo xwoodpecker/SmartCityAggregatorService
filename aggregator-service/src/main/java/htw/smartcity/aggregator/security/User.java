@@ -1,5 +1,8 @@
 package htw.smartcity.aggregator.security;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +20,9 @@ public class User {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Authorities> authorities = new HashSet<>();
+    @JsonIgnoreProperties
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Roles> roles = new HashSet<>();
 
     public String getUsername() {
         return username;
@@ -44,11 +48,11 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Set<Authorities> getAuthorities() {
-        return authorities;
+    public Set<Roles> getRoles() {
+        return roles;
     }
 
-    public void setAuthorities(Set<Authorities> authorities) {
-        this.authorities = authorities;
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
     }
 }

@@ -20,9 +20,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             builder = org.springframework.security.core.userdetails.User.withUsername(username);
             builder.disabled(!user.isEnabled());
             builder.password(user.getPassword());
-            String[] authorities = user.getAuthorities()
-                    .stream().map(a -> a.getAuthority()).toArray(String[]::new);
-            builder.authorities(authorities);
+            String[] roles = user.getRoles().stream().map(a -> a.getRole()).toArray(String[]::new);
+            builder.roles(roles);
         } else {
             throw new UsernameNotFoundException("User not found.");
         }
