@@ -83,8 +83,14 @@ public class ParkingSubscriber extends MQTTSubscriber {
     }
 
     private ParkingGroup persistParkingGroup(ParkingGroup parkingGroup) {
-        parkingGroup = parkingGroupRepository.save(parkingGroup);
-        parkingGroupNameParkingGroupMap.put(parkingGroup.getName(), parkingGroup);
+        try{
+            parkingGroup = parkingGroupRepository.save(parkingGroup);
+            parkingGroupNameParkingGroupMap.put(parkingGroup.getName(), parkingGroup);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            exceptionManager.MQTTParkingGroupPersistenceFailed(parkingGroup.getName());
+        }
         return parkingGroup;
     }
 
@@ -107,6 +113,7 @@ public class ParkingSubscriber extends MQTTSubscriber {
             }
         }catch (Exception e) {
             e.printStackTrace();
+            exceptionManager.MQTTParkingPersistenceFailed(sensor.getName(), msg);
         }
     }
 
@@ -140,6 +147,7 @@ public class ParkingSubscriber extends MQTTSubscriber {
             parkingGroupIdParkingGroupCounterMap.put(parkingGroup.getId(), parkingGroupCounter);
         }catch (Exception e) {
             e.printStackTrace();
+            exceptionManager.MQTTParkingGroupCounterPersistenceFailed(parkingGroup.getName(), parkingGroup.getInformation());
         }
     }
 

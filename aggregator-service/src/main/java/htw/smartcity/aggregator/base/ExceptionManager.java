@@ -84,6 +84,33 @@ public class ExceptionManager {
 
     public void MQTTAirQualityPersistenceFailed(String sensorName, String msg){
         MailException mailException = new MailException(LogException.MQTT_AIR_QUALITY_PERSISTENCE_FAILED);
+        MQTTMeasurementPersistenceFailed(mailException, sensorName, msg);
+    }
+
+    public void MQTTTemperaturePersistenceFailed(String sensorName, String msg){
+        MailException mailException = new MailException(LogException.MQTT_TEMPERATURE_PERSISTENCE_FAILED);
+        MQTTMeasurementPersistenceFailed(mailException, sensorName, msg);
+    }
+
+    public void MQTTParkingPersistenceFailed(String sensorName, String msg){
+        MailException mailException = new MailException(LogException.MQTT_PARKING_PERSISTENCE_FAILED);
+        MQTTMeasurementPersistenceFailed(mailException, sensorName, msg);
+    }
+
+    public void MQTTParkingGroupPersistenceFailed(String groupName){
+        MailException mailException = new MailException(LogException.MQTT_PARKING_GROUP_PERSISTENCE_FAILED);
+        mailException.addAdditionalInfos("Group name: " + groupName);
+        mailExpcetions.add(mailException);
+    }
+
+    public void MQTTParkingGroupCounterPersistenceFailed(String groupName, String information){
+        MailException mailException = new MailException(LogException.MQTT_PARKING_GROUP_COUNTER_PERSISTENCE_FAILED);
+        mailException.addAdditionalInfos("Group name: " + groupName);
+        mailException.addAdditionalInfos("Information: " + information);
+        mailExpcetions.add(mailException);
+    }
+
+    private void MQTTMeasurementPersistenceFailed(MailException mailException, String sensorName, String msg){
         mailException.addAdditionalInfos("Sensor Type: " + Sensor.SensorType.AIR_QUALITY);
         mailException.addAdditionalInfos("Sensor name: " + sensorName);
         mailException.addAdditionalInfos("Message: " + msg);

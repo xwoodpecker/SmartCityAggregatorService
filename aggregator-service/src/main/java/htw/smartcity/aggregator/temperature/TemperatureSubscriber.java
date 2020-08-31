@@ -35,6 +35,7 @@ public class TemperatureSubscriber extends MQTTSubscriber {
             temperatureRepository.save(temperature);
         }catch (Exception e) {
             e.printStackTrace();
+            exceptionManager.MQTTTemperaturePersistenceFailed(sensor.getName(), msg);
         }
     }
 
