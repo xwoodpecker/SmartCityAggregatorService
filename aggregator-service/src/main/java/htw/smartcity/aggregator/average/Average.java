@@ -47,11 +47,11 @@ public class Average
     @Enumerated(EnumType.STRING)
     private SensorType sensorType;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(name ="begin_time")
     private LocalDateTime beginTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(name ="end_time")
     private LocalDateTime endTime;
 

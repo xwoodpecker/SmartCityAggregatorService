@@ -17,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 /**
@@ -100,9 +102,9 @@ public class TemperatureController {
     @Operation(summary = "Get all temperature measurements of all sensors in a given timeframe")
     @PageableAsQueryParam
     @GetMapping("/timeframe")
-    ResponseEntity<PagedModel<Temperature>> between(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @Parameter(hidden = true) Pageable pageable)
+    ResponseEntity<PagedModel<Temperature>> between(@RequestParam Instant startTime, @RequestParam Instant endTime, @Parameter(hidden = true) Pageable pageable)
     {
-        Page p = temperatureRepository.findTemperaturesByTimeAfterAndTimeBefore(startTime, endTime, pageable);
+        Page p = temperatureRepository.findTemperaturesByTimeAfterAndTimeBefore(LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC), pageable);
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
@@ -116,9 +118,9 @@ public class TemperatureController {
      */
     @Operation(summary = "Get the average temperature of all sensors for the given timeframe")
     @GetMapping("/timeframe/average")
-    ResponseEntity<PagedModel<Average>> betweenAverage(@RequestParam  LocalDateTime startTime, @RequestParam LocalDateTime endTime, @Parameter(hidden = true) Pageable pageable)
+    ResponseEntity<PagedModel<Average>> betweenAverage(@RequestParam Instant startTime, @RequestParam Instant endTime, @Parameter(hidden = true) Pageable pageable)
     {
-        Page p = temperatureRepository.findTemperaturesByTimeAfterAndTimeBefore(startTime, endTime, pageable);
+        Page p = temperatureRepository.findTemperaturesByTimeAfterAndTimeBefore(LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC), pageable);
         List l = p.getContent();
         double sum = 0, count = 0;
         for (var ele: l)
@@ -126,7 +128,7 @@ public class TemperatureController {
             sum += Double.parseDouble(ele.toString());
             count++;
         }
-        Average avg = new Average(Average.SensorType.TEMPERATURE, startTime, endTime, sum/count);
+        Average avg = new Average(Average.SensorType.TEMPERATURE, LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC), sum/count);
 
         // todo return
         return new ResponseEntity<PagedModel<Average>>(temperaturePageResourceAssembler.toModel(p,
@@ -174,10 +176,10 @@ public class TemperatureController {
      */
     @Operation(summary = "Get all temperatures measures of a specific sensor within a given timeframe")
     @GetMapping("/bySensor/{sensorId}/timeframe")
-    public ResponseEntity<PagedModel<Temperature>> bySensorInTimeframe(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
+    public ResponseEntity<PagedModel<Temperature>> bySensorInTimeframe(@RequestParam Instant startTime, @RequestParam Instant endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
         //todo
-        Page p = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, startTime, endTime,
+        Page p = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC),
                                                                                   pageable);
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p,
         temperatureResourceAssembler), HttpStatus.OK);
