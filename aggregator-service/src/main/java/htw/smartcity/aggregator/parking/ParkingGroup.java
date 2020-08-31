@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * The type Parking group.
+ */
 @Entity
 @Table(name = "PARKING_GROUPS")
 public class ParkingGroup {
@@ -34,11 +37,22 @@ public class ParkingGroup {
 
     }
 
+    /**
+     * Instantiates a new Parking group.
+     *
+     * @param name        the name
+     * @param information the information
+     */
     public ParkingGroup(String name, String information) {
         this.name = name;
         this.information = information;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Long getId() {
         return id;
     }
@@ -46,37 +60,71 @@ public class ParkingGroup {
     /**
      * Set JPA id - for testing and JPA only. Not intended for normal use.
      *
-     * @param id
-     *            The new id.
+     * @param id The new id.
      */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets information.
+     *
+     * @return the information
+     */
     public String getInformation() {
         return information;
     }
 
+    /**
+     * Sets information.
+     *
+     * @param information the information
+     */
     public void setInformation(String information) {
         this.information = information;
     }
 
+    /**
+     * Gets sensors.
+     *
+     * @return the sensors
+     */
     public Set<Sensor> getSensors() {
         return sensors;
     }
 
+    /**
+     * Sets sensors.
+     *
+     * @param sensors the sensors
+     */
     public void setSensors(Set<Sensor> sensors) {
         this.sensors = sensors;
     }
 
+    /**
+     * Add to sensors.
+     *
+     * @param sensor the sensor
+     */
     public void addToSensors(Sensor sensor){
         this.sensors.add(sensor);
     }

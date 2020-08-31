@@ -19,6 +19,9 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * The type Air quality repository tests.
+ */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -36,6 +39,9 @@ public class AirQualityRepositoryTests {
     @Autowired
     private SensorRepository sensorRepository;
 
+    /**
+     * Test air quality entities.
+     */
     @Test
     public void testAirQualityEntities() {
         Sensor sensor = sensorRepository.findById(AIRQUALITY_SENSOR1_ID).get();
@@ -51,6 +57,9 @@ public class AirQualityRepositoryTests {
         assertEquals(isPresent, false);
     }
 
+    /**
+     * Test find air qualities by sensor id.
+     */
     @Test
     public void testFindAirQualitiesBySensorId() {
         Sensor sensor1 = sensorRepository.findById(AIRQUALITY_SENSOR1_ID).get();
@@ -61,6 +70,9 @@ public class AirQualityRepositoryTests {
         assertEquals(elementsSensor2, 3);
     }
 
+    /**
+     * Test find air qualities by time before and time after.
+     */
     @Test
     public void testFindAirQualitiesByTimeBeforeAndTimeAfter() {
         Page airQualitiesByTimeAfterAndTimeBefore = airQualityRepository.findAirQualitiesByTimeAfterAndTimeBefore(TimeFrom, TimeTo, null);

@@ -8,11 +8,17 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type Air quality subscriber.
+ */
 @Component
 public class AirQualitySubscriber extends MQTTSubscriber {
 
     private final String subTopic =  "/airQuality/#";
 
+    /**
+     * The Air quality repository.
+     */
     @Autowired
     AirQualityRepository airQualityRepository;
 

@@ -7,6 +7,9 @@ import htw.smartcity.aggregator.sensor.Sensor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * The type Temperature.
+ */
 @Entity
 @Table(name = "TEMPERATURE_DATA")
 @JsonIgnoreProperties({"sensor"})
@@ -30,7 +33,6 @@ public class Temperature {
     private Double value;
 
 
-
     /**
      * Default constructor for JPA only.
      */
@@ -38,12 +40,24 @@ public class Temperature {
 
     }
 
+    /**
+     * Instantiates a new Temperature.
+     *
+     * @param time   the time
+     * @param sensor the sensor
+     * @param value  the value
+     */
     public Temperature(LocalDateTime time, Sensor sensor, Double value) {
         this.time = time;
         this.sensor = sensor;
         this.value = value;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Long getId() {
         return id;
     }
@@ -51,33 +65,62 @@ public class Temperature {
     /**
      * Set JPA id - for testing and JPA only. Not intended for normal use.
      *
-     * @param id
-     *            The new id.
+     * @param id The new id.
      */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Gets time.
+     *
+     * @return the time
+     */
     public LocalDateTime getTime() {
         return time;
     }
 
+    /**
+     * Sets time.
+     *
+     * @param time the time
+     */
     public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
+    /**
+     * Gets sensor.
+     *
+     * @return the sensor
+     */
     public Sensor getSensor() {
         return sensor;
     }
 
+    /**
+     * Sets sensor.
+     *
+     * @param sensor the sensor
+     */
     public void setSensor(Sensor sensor) {
         this.sensor = sensor;
     }
 
+    /**
+     * Gets value.
+     *
+     * @return the value
+     */
     public Double getValue() {
         return value;
     }
 
+    /**
+     * Sets value.
+     *
+     * @param value the value
+     */
     public void setValue(Double value) {
         this.value = value;
     }

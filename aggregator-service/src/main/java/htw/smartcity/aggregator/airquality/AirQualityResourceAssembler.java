@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * The type Air quality resource assembler.
+ */
 @Component
 public class AirQualityResourceAssembler implements RepresentationModelAssembler<AirQuality, EntityModel<AirQuality>> {
     @Override

@@ -8,13 +8,26 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * The type Aggregator application.
+ */
 @SpringBootApplication
 public class AggregatorApplication {
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(AggregatorApplication.class, args);
 	}
 
+	/**
+	 * Custom open api open api.
+	 *
+	 * @return the open api
+	 */
 	@Bean
 	public OpenAPI customOpenAPI() {
 		SpringDocUtils.getConfig().replaceWithClass(org.springframework.data.domain.Pageable.class, Pageable.class);

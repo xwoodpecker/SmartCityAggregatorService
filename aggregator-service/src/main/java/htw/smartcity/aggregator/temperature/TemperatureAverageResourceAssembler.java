@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * The type Temperature average resource assembler.
+ */
 @Component
 public class TemperatureAverageResourceAssembler implements RepresentationModelAssembler<TemperatureAverage,
         EntityModel<TemperatureAverage>>

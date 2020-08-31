@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Parking group controller.
+ */
 @RestController
 @RequestMapping(path = "/parking/group")
 @Tag(name = "Parking Measures", description = "Endpoint to get parking measures")
@@ -40,6 +43,23 @@ public class ParkingGroupController {
 
     private final ParkingController parkingController;
 
+    /**
+     * Instantiates a new Parking group controller.
+     *
+     * @param parkingRepository                        the parking repository
+     * @param parkingGroupRepository                   the parking group repository
+     * @param sensorRepository                         the sensor repository
+     * @param parkingGroupCounterRepository            the parking group counter repository
+     * @param parkingResourceAssembler                 the parking resource assembler
+     * @param parkingGroupResourceAssembler            the parking group resource assembler
+     * @param sensorResourceAssembler                  the sensor resource assembler
+     * @param parkingGroupCounterResourceAssembler     the parking group counter resource assembler
+     * @param parkingPageResourceAssembler             the parking page resource assembler
+     * @param parkingGroupPageResourceAssembler        the parking group page resource assembler
+     * @param sensorPageResourceAssembler              the sensor page resource assembler
+     * @param parkingGroupCounterPageResourceAssembler the parking group counter page resource assembler
+     * @param parkingController                        the parking controller
+     */
     public ParkingGroupController(ParkingRepository parkingRepository, ParkingGroupRepository parkingGroupRepository, SensorRepository sensorRepository, ParkingGroupCounterRepository parkingGroupCounterRepository, ParkingResourceAssembler parkingResourceAssembler, ParkingGroupResourceAssembler parkingGroupResourceAssembler, SensorResourceAssembler sensorResourceAssembler, ParkingGroupCounterResourceAssembler parkingGroupCounterResourceAssembler, ParkingPageResourceAssembler parkingPageResourceAssembler, ParkingGroupPageResourceAssembler parkingGroupPageResourceAssembler, SensorPageResourceAssembler sensorPageResourceAssembler, ParkingGroupCounterPageResourceAssembler parkingGroupCounterPageResourceAssembler, ParkingController parkingController) {
         this.parkingRepository = parkingRepository;
         this.parkingGroupRepository = parkingGroupRepository;
@@ -56,6 +76,12 @@ public class ParkingGroupController {
     }
 
 
+    /**
+     * All groups response entity.
+     *
+     * @param pageable the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get all parking groups")
     @PageableAsQueryParam
     @GetMapping("/")
@@ -65,6 +91,13 @@ public class ParkingGroupController {
         return new ResponseEntity<PagedModel<ParkingGroup>>(parkingGroupPageResourceAssembler.toModel(p, parkingGroupResourceAssembler), HttpStatus.OK);
     }
 
+    /**
+     * Sensors in group response entity.
+     *
+     * @param pageable the pageable
+     * @param groupId  the group id
+     * @return the response entity
+     */
     @Operation(summary = "Get all sensors in a specific parking group")
     @PageableAsQueryParam
     @GetMapping("/{groupId}/sensors")
@@ -74,6 +107,12 @@ public class ParkingGroupController {
         return new ResponseEntity<PagedModel<Sensor>>(sensorPageResourceAssembler.toModel(p, sensorResourceAssembler), HttpStatus.OK);
     }
 
+    /**
+     * Group overview response entity.
+     *
+     * @param pageable the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get all aggregated group counters of all groups")
     @PageableAsQueryParam
     @GetMapping("/overview")
@@ -88,6 +127,11 @@ public class ParkingGroupController {
         return new ResponseEntity<>(parkingGroupCounterList, HttpStatus.OK);
     }
 
+    /**
+     * Group overview latest response entity.
+     *
+     * @return the response entity
+     */
     @Operation(summary = "Get the latest aggregated group counter of all groups")
     @GetMapping("/overview/latest")
     ResponseEntity<List<EntityModel<ParkingGroupCounter>>> groupOverviewLatest()
@@ -101,6 +145,13 @@ public class ParkingGroupController {
         return new ResponseEntity<>(parkingGroupCounterList, HttpStatus.OK);
     }
 
+    /**
+     * One group overview response entity.
+     *
+     * @param pageable the pageable
+     * @param groupId  the group id
+     * @return the response entity
+     */
     @Operation(summary = "Get all aggregated group counters of a specific groups")
     @PageableAsQueryParam
     @GetMapping("/{groupId}/overview")
@@ -110,6 +161,12 @@ public class ParkingGroupController {
         return new ResponseEntity<>(parkingGroupCounterPageResourceAssembler.toModel(p, parkingGroupCounterResourceAssembler), HttpStatus.OK);
     }
 
+    /**
+     * One group overview latest entity model.
+     *
+     * @param groupId the group id
+     * @return the entity model
+     */
     @Operation(summary = "Get the latest aggregated group counter of a specific groups")
     @GetMapping("/{groupId}/overview/latest")
     EntityModel<ParkingGroupCounter> oneGroupOverviewLatest(@PathVariable Long groupId)
@@ -118,6 +175,14 @@ public class ParkingGroupController {
         return parkingGroupCounterResourceAssembler.toModel(parkingGroupCounter);
     }
 
+    /**
+     * By group and sensor response entity.
+     *
+     * @param pageable the pageable
+     * @param groupId  the group id
+     * @param sensorId the sensor id
+     * @return the response entity
+     */
     @Operation(summary = "Get all measures of a specific sensor")
     @PageableAsQueryParam
     @GetMapping("/{groupId}/{sensorId}")
@@ -126,6 +191,13 @@ public class ParkingGroupController {
         return parkingController.bySensor(pageable, sensorId);
     }
 
+    /**
+     * By group and sensor latest entity model.
+     *
+     * @param groupId  the group id
+     * @param sensorId the sensor id
+     * @return the entity model
+     */
     @Operation(summary = "Get the latest measure of a specific sensor")
     @GetMapping("/{groupId}/{sensorId}/latest")
     EntityModel<Parking> byGroupAndSensorLatest(@PathVariable Long groupId, @PathVariable Long sensorId)
@@ -133,6 +205,13 @@ public class ParkingGroupController {
         return parkingController.bySensorLatest(sensorId);
     }
 
+    /**
+     * Group measures response entity.
+     *
+     * @param pageable the pageable
+     * @param groupId  the group id
+     * @return the response entity
+     */
     @Operation(summary = "Get all measurements of a specific group")
     @PageableAsQueryParam
     @GetMapping("/{groupId}")
@@ -150,6 +229,13 @@ public class ParkingGroupController {
         return new ResponseEntity<>(parkingList, HttpStatus.OK);
     }
 
+    /**
+     * Group measures latest response entity.
+     *
+     * @param pageable the pageable
+     * @param groupId  the group id
+     * @return the response entity
+     */
     @Operation(summary = "Get the latest measurements of a specific group")
     @PageableAsQueryParam
     @GetMapping("/{groupId}/latest")

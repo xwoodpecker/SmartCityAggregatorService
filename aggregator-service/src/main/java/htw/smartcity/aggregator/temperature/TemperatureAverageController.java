@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Temperature average controller.
+ */
 @RestController
 @RequestMapping (path = "/temperatures/averages")
 @Tag (name = "Temperature Averages", description = "Endpoint to get temperature averages")
@@ -24,6 +27,13 @@ public class TemperatureAverageController
     private TemperatureRepository temperatureRepository;
 
 
+    /**
+     * Instantiates a new Temperature average controller.
+     *
+     * @param temperatureAverageRepository        the temperature average repository
+     * @param temperatureAverageResourceAssembler the temperature average resource assembler
+     * @param temperatureRepository               the temperature repository
+     */
     public TemperatureAverageController(TemperatureAverageRepository temperatureAverageRepository,
                                         TemperatureAverageResourceAssembler temperatureAverageResourceAssembler, TemperatureRepository temperatureRepository) {
         this.temperatureAverageRepository = temperatureAverageRepository;
@@ -31,6 +41,12 @@ public class TemperatureAverageController
         this.temperatureRepository = temperatureRepository;
     }
 
+    /**
+     * One entity model.
+     *
+     * @param temperatureaverageId the temperatureaverage id
+     * @return the entity model
+     */
     @Operation (summary = "Get a single temperature average measurement")
     @GetMapping ("/{temperatureaverageId}")
     public EntityModel<TemperatureAverage> one(@PathVariable Long temperatureaverageId)
@@ -41,6 +57,13 @@ public class TemperatureAverageController
         return temperatureAverageResourceAssembler.toModel(temperatureaverage);
     }
 
+    /**
+     * Compute daily entity model.
+     *
+     * @param sensorId the sensor id
+     * @param pageable the pageable
+     * @return the entity model
+     */
     @Operation (summary = "Compute daily average of a sensor")
     @GetMapping ("/temperatureaverage/daily")
     public EntityModel<TemperatureAverage> computeDaily(@PathVariable Long sensorId,
@@ -80,6 +103,13 @@ public class TemperatureAverageController
         return null;
     }
 
+    /**
+     * Compute weekly entity model.
+     *
+     * @param sensorId the sensor id
+     * @param pageable the pageable
+     * @return the entity model
+     */
     @Operation (summary = "Compute daily average of a sensor")
     @GetMapping ("/temperatureaverage/weekly")
     public EntityModel<TemperatureAverage> computeWeekly(@PathVariable Long sensorId, @Parameter (hidden = true) Pageable pageable)
@@ -87,6 +117,13 @@ public class TemperatureAverageController
         return one((long) 1);
     }
 
+    /**
+     * Compute monthly entity model.
+     *
+     * @param sensorId the sensor id
+     * @param pageable the pageable
+     * @return the entity model
+     */
     @Operation (summary = "Compute daily average of a sensor")
     @GetMapping ("/temperatureaverage/monthly")
     public EntityModel<TemperatureAverage> computeMonthly(@PathVariable Long sensorId, @Parameter (hidden = true) Pageable pageable)

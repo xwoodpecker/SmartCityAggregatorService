@@ -9,11 +9,17 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
+/**
+ * The type Temperature subscriber.
+ */
 @Component
 public class TemperatureSubscriber extends MQTTSubscriber {
 
     private final String subTopic =  "/temperature/#";
 
+    /**
+     * The Temperature repository.
+     */
     @Autowired
     TemperatureRepository temperatureRepository;
 

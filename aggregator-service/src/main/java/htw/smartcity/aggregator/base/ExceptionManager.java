@@ -10,6 +10,9 @@ import java.util.*;
 
 import static java.time.format.DateTimeFormatter.*;
 
+/**
+ * The type Exception manager.
+ */
 public class ExceptionManager {
     private int delay = 30*1000;
     private int period = 60*60*1000;
@@ -17,6 +20,12 @@ public class ExceptionManager {
     private Timer timer;
 
     private static ExceptionManager instance;
+
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static ExceptionManager getInstance() {
         if(instance == null)
             instance = new ExceptionManager();
@@ -34,6 +43,9 @@ public class ExceptionManager {
         timer.scheduleAtFixedRate(new ExceptionManagerTask(), delay, period);
     }
 
+    /**
+     * The type Exception manager task.
+     */
     public class ExceptionManagerTask extends TimerTask {
 
         @Override
@@ -64,10 +76,18 @@ public class ExceptionManager {
         }
     }
 
+    /**
+     * Mqtt configuration failed.
+     */
     public void MQTTConfigurationFailed(){
         mailExpcetions.add(new MailException(LogException.MQTT_CONFIGURATION_FAILED));
     }
 
+    /**
+     * Mqtt subscription failed.
+     *
+     * @param topic the topic
+     */
     public void MQTTSubscriptionFailed(String topic){
         MailException mailException = new MailException(LogException.MQTT_SUBSCRIPTION_FAILED);
         mailException.addAdditionalInfos("Tried subscribing to Topic: " + topic);
@@ -75,6 +95,12 @@ public class ExceptionManager {
 
     }
 
+    /**
+     * Mqtt sensor persistence failed.
+     *
+     * @param sensorName the sensor name
+     * @param sensorType the sensor type
+     */
     public void MQTTSensorPersistenceFailed(String sensorName, Sensor.SensorType sensorType){
         MailException mailException = new MailException(LogException.MQTT_SENSOR_PERSISTENCE_FAILED);
         mailException.addAdditionalInfos("Sensor Type: " + sensorType);
@@ -82,27 +108,56 @@ public class ExceptionManager {
         mailExpcetions.add(mailException);
     }
 
+    /**
+     * Mqtt air quality persistence failed.
+     *
+     * @param sensorName the sensor name
+     * @param msg        the msg
+     */
     public void MQTTAirQualityPersistenceFailed(String sensorName, String msg){
         MailException mailException = new MailException(LogException.MQTT_AIR_QUALITY_PERSISTENCE_FAILED);
         MQTTMeasurementPersistenceFailed(mailException, sensorName, msg);
     }
 
+    /**
+     * Mqtt temperature persistence failed.
+     *
+     * @param sensorName the sensor name
+     * @param msg        the msg
+     */
     public void MQTTTemperaturePersistenceFailed(String sensorName, String msg){
         MailException mailException = new MailException(LogException.MQTT_TEMPERATURE_PERSISTENCE_FAILED);
         MQTTMeasurementPersistenceFailed(mailException, sensorName, msg);
     }
 
+    /**
+     * Mqtt parking persistence failed.
+     *
+     * @param sensorName the sensor name
+     * @param msg        the msg
+     */
     public void MQTTParkingPersistenceFailed(String sensorName, String msg){
         MailException mailException = new MailException(LogException.MQTT_PARKING_PERSISTENCE_FAILED);
         MQTTMeasurementPersistenceFailed(mailException, sensorName, msg);
     }
 
+    /**
+     * Mqtt parking group persistence failed.
+     *
+     * @param groupName the group name
+     */
     public void MQTTParkingGroupPersistenceFailed(String groupName){
         MailException mailException = new MailException(LogException.MQTT_PARKING_GROUP_PERSISTENCE_FAILED);
         mailException.addAdditionalInfos("Group name: " + groupName);
         mailExpcetions.add(mailException);
     }
 
+    /**
+     * Mqtt parking group counter persistence failed.
+     *
+     * @param groupName   the group name
+     * @param information the information
+     */
     public void MQTTParkingGroupCounterPersistenceFailed(String groupName, String information){
         MailException mailException = new MailException(LogException.MQTT_PARKING_GROUP_COUNTER_PERSISTENCE_FAILED);
         mailException.addAdditionalInfos("Group name: " + groupName);

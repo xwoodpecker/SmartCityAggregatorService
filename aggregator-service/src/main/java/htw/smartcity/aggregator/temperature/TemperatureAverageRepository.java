@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.Optional;
 
+/**
+ * The interface Temperature average repository.
+ */
 @Repository
 public interface TemperatureAverageRepository extends JpaRepository<TemperatureAverage, Long>
 {

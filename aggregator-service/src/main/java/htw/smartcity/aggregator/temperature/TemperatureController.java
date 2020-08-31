@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * The type Temperature controller.
+ */
 @RestController
 @RequestMapping(path = "/temperatures")
 @Tag(name = "Temperature Measures", description = "Endpoint to get temperature measures")
@@ -28,12 +31,25 @@ public class TemperatureController {
     private TemperatureResourceAssembler temperatureResourceAssembler;
     private TemperaturePageResourceAssembler temperaturePageResourceAssembler;
 
+    /**
+     * Instantiates a new Temperature controller.
+     *
+     * @param temperatureRepository            the temperature repository
+     * @param temperatureResourceAssembler     the temperature resource assembler
+     * @param temperaturePageResourceAssembler the temperature page resource assembler
+     */
     public TemperatureController(TemperatureRepository temperatureRepository, TemperatureResourceAssembler temperatureResourceAssembler, TemperaturePageResourceAssembler temperaturePageResourceAssembler) {
         this.temperatureRepository = temperatureRepository;
         this.temperatureResourceAssembler = temperatureResourceAssembler;
         this.temperaturePageResourceAssembler = temperaturePageResourceAssembler;
     }
 
+    /**
+     * All response entity.
+     *
+     * @param pageable the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get all temperature measurements")
     @PageableAsQueryParam
     @GetMapping("/")
@@ -43,6 +59,12 @@ public class TemperatureController {
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
+    /**
+     * Latest response entity.
+     *
+     * @param pageable the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get the latest measurements of all temperature sensors")
     @PageableAsQueryParam
     @GetMapping("/latest")
@@ -52,6 +74,12 @@ public class TemperatureController {
         return all(pageable);
     }
 
+    /**
+     * Latest average response entity.
+     *
+     * @param pageable the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get the average temperature of the latest measurements of all temperature sensors")
     @GetMapping("/latest/average")
     ResponseEntity<PagedModel<Average>> latestAverage(@Parameter(hidden = true) Pageable pageable)
@@ -61,6 +89,14 @@ public class TemperatureController {
         return null;
     }
 
+    /**
+     * Between response entity.
+     *
+     * @param startTime the start time
+     * @param endTime   the end time
+     * @param pageable  the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get all temperature measurements of all sensors in a given timeframe")
     @PageableAsQueryParam
     @GetMapping("/timeframe")
@@ -70,6 +106,14 @@ public class TemperatureController {
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
+    /**
+     * Between average response entity.
+     *
+     * @param startTime the start time
+     * @param endTime   the end time
+     * @param pageable  the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get the average temperature of all sensors for the given timeframe")
     @GetMapping("/timeframe/average")
     ResponseEntity<PagedModel<Average>> betweenAverage(@RequestParam  LocalDateTime startTime, @RequestParam LocalDateTime endTime, @Parameter(hidden = true) Pageable pageable)
@@ -89,6 +133,12 @@ public class TemperatureController {
                                                                                           temperatureResourceAssembler), HttpStatus.OK);
     }
 
+    /**
+     * One entity model.
+     *
+     * @param temperatureId the temperature id
+     * @return the entity model
+     */
     @Operation(summary = "Get a single temperature measurement")
     @GetMapping("/{temperatureId}")
     EntityModel<Temperature> one(@PathVariable Long temperatureId)
@@ -99,6 +149,13 @@ public class TemperatureController {
         return temperatureResourceAssembler.toModel(temperature);
     }
 
+    /**
+     * By sensor response entity.
+     *
+     * @param sensorId the sensor id
+     * @param pageable the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get all temperature measurements of a specific sensor")
     @GetMapping("/bySensor/{sensorId}")
     public ResponseEntity<PagedModel<Temperature>> bySensor(@PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable) {
@@ -106,6 +163,15 @@ public class TemperatureController {
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
+    /**
+     * By sensor in timeframe response entity.
+     *
+     * @param startTime the start time
+     * @param endTime   the end time
+     * @param sensorId  the sensor id
+     * @param pageable  the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get all temperatures measures of a specific sensor within a given timeframe")
     @GetMapping("/bySensor/{sensorId}/timeframe")
     public ResponseEntity<PagedModel<Temperature>> bySensorInTimeframe(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
@@ -118,6 +184,12 @@ public class TemperatureController {
          //return all(pageable);
     }
 
+    /**
+     * By sensor latest entity model.
+     *
+     * @param sensorId the sensor id
+     * @return the entity model
+     */
     @Operation(summary = "Get the latest measurement of a specific sensor")
     @GetMapping("/bySensor/{sensorId}/latest")
     public EntityModel<Temperature> bySensorLatest(@PathVariable Long sensorId){
@@ -125,6 +197,15 @@ public class TemperatureController {
         return one((long) 1);
     }
 
+    /**
+     * Average by sensor response entity.
+     *
+     * @param startTime the start time
+     * @param endTime   the end time
+     * @param sensorId  the sensor id
+     * @param pageable  the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get the average temperature of a specific sensor within a given timeframe")
     @GetMapping("bySensor/{sensorId}/timeframe/average")
     ResponseEntity<PagedModel<Temperature>> averageBySensor(

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * The type Temperature resource assembler.
+ */
 @Component
 public class TemperatureResourceAssembler implements RepresentationModelAssembler<Temperature, EntityModel<Temperature>> {
     @Override

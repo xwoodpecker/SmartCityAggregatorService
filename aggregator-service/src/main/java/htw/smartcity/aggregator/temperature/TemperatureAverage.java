@@ -5,6 +5,9 @@ import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
 
+/**
+ * The type Temperature average.
+ */
 @MappedSuperclass
 @JsonIgnoreProperties({"sensor"})
 public class TemperatureAverage {
@@ -30,6 +33,11 @@ public class TemperatureAverage {
 
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Long getId() {
         return id;
     }
@@ -37,25 +45,44 @@ public class TemperatureAverage {
     /**
      * Set JPA id - for testing and JPA only. Not intended for normal use.
      *
-     * @param id
-     *            The new id.
+     * @param id The new id.
      */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Gets sensor.
+     *
+     * @return the sensor
+     */
     public Sensor getSensor() {
         return sensor;
     }
 
+    /**
+     * Sets sensor.
+     *
+     * @param sensor the sensor
+     */
     public void setSensor(Sensor sensor) {
         this.sensor = sensor;
     }
 
+    /**
+     * Gets value.
+     *
+     * @return the value
+     */
     public Double getValue() {
         return value;
     }
 
+    /**
+     * Sets value.
+     *
+     * @param value the value
+     */
     public void setValue(Double value) {
         this.value = value;
     }

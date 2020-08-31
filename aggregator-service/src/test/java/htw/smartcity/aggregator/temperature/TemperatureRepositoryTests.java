@@ -22,6 +22,9 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * The type Temperature repository tests.
+ */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -39,6 +42,9 @@ public class TemperatureRepositoryTests {
     @Autowired
     private SensorRepository sensorRepository;
 
+    /**
+     * Test temperature entities.
+     */
     @Test
     public void testTemperatureEntities() {
         Sensor sensor = sensorRepository.findById(TEMPERATURE_SENSOR1_ID).get();
@@ -54,6 +60,9 @@ public class TemperatureRepositoryTests {
         assertEquals(isPresent, false);
     }
 
+    /**
+     * Test find temperatures by time before and time after.
+     */
     @Test
     public void testFindTemperaturesByTimeBeforeAndTimeAfter() {
         Page temperaturesByTimeAfterAndTimeBefore = temperatureRepository.findTemperaturesByTimeAfterAndTimeBefore(TimeFrom, TimeTo, null);
@@ -66,6 +75,9 @@ public class TemperatureRepositoryTests {
         assertEquals(valueTemperature2, 23.45, 0);
     }
 
+    /**
+     * Test find temperatures by sensor id.
+     */
     @Test
     public void testFindTemperaturesBySensorId() {
         Sensor sensor1 = sensorRepository.findById(TEMPERATURE_SENSOR1_ID).get();
@@ -76,6 +88,9 @@ public class TemperatureRepositoryTests {
         assertEquals(elementsSensor2, 3);
     }
 
+    /**
+     * Test find temperatures by sensor id and time between.
+     */
     @Test
     public void testFindTemperaturesBySensorIdAndTimeBetween() {
         Page temperaturesByTimeAfterAndTimeBefore = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(TEMPERATURE_SENSOR2_ID, TimeFrom, TimeTo, null);

@@ -10,7 +10,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * The interface Sensor repository.
+ */
 @Repository
 public interface SensorRepository extends JpaRepository<Sensor, Long> {
+    /**
+     * Find by name and sensor type page.
+     *
+     * @param name       the name
+     * @param sensorType the sensor type
+     * @param pageable   the pageable
+     * @return the page
+     */
     Page<Sensor> findByNameAndSensorType(String name, Sensor.SensorType sensorType, Pageable pageable);
 }

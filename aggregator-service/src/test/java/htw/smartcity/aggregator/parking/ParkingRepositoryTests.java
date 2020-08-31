@@ -21,6 +21,9 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * The type Parking repository tests.
+ */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -39,6 +42,9 @@ public class ParkingRepositoryTests {
     @Autowired
     private SensorRepository sensorRepository;
 
+    /**
+     * Test parking entities.
+     */
     @Test
     public void testParkingEntities() {
         Sensor sensor = sensorRepository.findById(PARKING_SENSOR1_ID).get();
@@ -54,6 +60,9 @@ public class ParkingRepositoryTests {
         assertEquals(isPresent, false);
     }
 
+    /**
+     * Test find first by sensor order by time desc.
+     */
     @Test
     public void testFindFirstBySensorOrderByTimeDesc(){
         Sensor sensor1 = sensorRepository.findById(PARKING_SENSOR2_ID).get();
@@ -64,6 +73,9 @@ public class ParkingRepositoryTests {
     }
 
 
+    /**
+     * Test find first by sensor id order by time desc.
+     */
     @Test
     public void testFindFirstBySensorIdOrderByTimeDesc(){
         Sensor sensor1 = sensorRepository.findById(PARKING_SENSOR2_ID).get();
@@ -73,6 +85,9 @@ public class ParkingRepositoryTests {
         assertEquals(firstParking.getSensor(), sensor1);
     }
 
+    /**
+     * Test find parking by sensor id.
+     */
     @Test
     public void testFindParkingBySensorId() {
         int elementsSensor1 = parkingRepository.findParkingsBySensorId(PARKING_SENSOR1_ID, null).getNumberOfElements();
@@ -81,6 +96,9 @@ public class ParkingRepositoryTests {
         assertEquals(elementsSensor2, 6);
     }
 
+    /**
+     * Test find parking by time before and time after and sensor id.
+     */
     @Test
     public void testFindParkingByTimeBeforeAndTimeAfterAndSensorId() {
         Page parkingByTimeBeforeAndTimeAfterAndSensorId = parkingRepository.findParkingsByTimeAfterAndTimeBeforeAndSensorId(TimeFrom, TimeTo, PARKING_SENSOR2_ID, null);

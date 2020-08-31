@@ -11,6 +11,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * The type Send mail helper.
+ */
 public class SendMailHelper {
     private static final String mailUsername = ConfigProperties.MAIL_USERNAME;
     private static final String mailPassword = ConfigProperties.MAIL_PASSWORD;;
@@ -19,6 +22,12 @@ public class SendMailHelper {
 
     private SendMailHelper() {}
 
+    /**
+     * Send mail.
+     *
+     * @param subject     the subject
+     * @param messageText the message text
+     */
     public static void sendMail(String subject, String messageText) {
 
         Properties prop = new Properties();

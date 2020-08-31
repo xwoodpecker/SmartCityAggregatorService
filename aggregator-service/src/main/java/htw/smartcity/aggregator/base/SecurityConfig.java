@@ -10,11 +10,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * The type Security config.
+ */
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     private final String REST_ADMIN_PASSWORD = "Ebp4Uw5UfajpHJvv";
 
+    /**
+     * The Password encoder.
+     */
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -24,6 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
     }
 
+    /**
+     * Configure global.
+     *
+     * @param auth the auth
+     * @throws Exception the exception
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception
@@ -35,6 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .withUser("admin").password(passwordEncoder.encode(REST_ADMIN_PASSWORD)).roles("USER", "ADMIN");
     }
 
+    /**
+     * Password encoder password encoder.
+     *
+     * @return the password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

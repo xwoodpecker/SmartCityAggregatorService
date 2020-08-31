@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * The type Sensor resource assembler.
+ */
 @Component
 public class SensorResourceAssembler implements RepresentationModelAssembler<Sensor, EntityModel<Sensor>> {
     @Override

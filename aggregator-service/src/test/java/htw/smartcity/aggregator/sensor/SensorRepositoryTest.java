@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * The type Sensor repository test.
+ */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -33,6 +36,9 @@ public class SensorRepositoryTest {
     @Autowired
     private SensorRepository sensorRepository;
 
+    /**
+     * Test sensor entities.
+     */
     @Test
     public void testSensorEntities() {
         Sensor sensor = new Sensor(SENSOR_NAME, Sensor.SensorType.TEMPERATURE, SENSOR_X, SENSOR_Y, SENSOR_INFORMATION);
@@ -50,6 +56,9 @@ public class SensorRepositoryTest {
     }
 
 
+    /**
+     * Test find by name and sensor type.
+     */
     @Test
     public void testFindByNameAndSensorType() {
         Page page = sensorRepository.findByNameAndSensorType(FIND_SENSOR_NAME1, Sensor.SensorType.PARKING, null);

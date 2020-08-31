@@ -17,6 +17,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Parking controller.
+ */
 @RestController
 @RequestMapping(path = "/parking")
 @Tag(name = "Parking Measures", description = "Endpoint to get parking measures")
@@ -27,6 +30,16 @@ public class ParkingController {
 
     private final ParkingPageResourceAssembler parkingPageResourceAssembler;
 
+    /**
+     * Instantiates a new Parking controller.
+     *
+     * @param parkingRepository            the parking repository
+     * @param sensorRepository             the sensor repository
+     * @param parkingResourceAssembler     the parking resource assembler
+     * @param sensorResourceAssembler      the sensor resource assembler
+     * @param parkingPageResourceAssembler the parking page resource assembler
+     * @param sensorPageResourceAssembler  the sensor page resource assembler
+     */
     public ParkingController(ParkingRepository parkingRepository, SensorRepository sensorRepository, ParkingResourceAssembler parkingResourceAssembler, SensorResourceAssembler sensorResourceAssembler, ParkingPageResourceAssembler parkingPageResourceAssembler, SensorPageResourceAssembler sensorPageResourceAssembler) {
         this.parkingRepository = parkingRepository;
         this.parkingResourceAssembler = parkingResourceAssembler;
@@ -34,6 +47,13 @@ public class ParkingController {
     }
 
 
+    /**
+     * By sensor response entity.
+     *
+     * @param pageable the pageable
+     * @param sensorId the sensor id
+     * @return the response entity
+     */
     @Operation(summary = "Get all parking measurements of a specific sensor")
     @PageableAsQueryParam
     @GetMapping("/bySensor/{sensorId}")
@@ -43,6 +63,15 @@ public class ParkingController {
         return new ResponseEntity<PagedModel<Parking>>(parkingPageResourceAssembler.toModel(p, parkingResourceAssembler), HttpStatus.OK);
     }
 
+    /**
+     * By sensor in timeframe response entity.
+     *
+     * @param startTime the start time
+     * @param endTime   the end time
+     * @param sensorId  the sensor id
+     * @param pageable  the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get all measurements of a specific sensor within a given timeframe")
     @GetMapping("/bySensor/{sensorId}/timeframe")
     public ResponseEntity<PagedModel<Parking>> bySensorInTimeframe(@RequestParam LocalDateTime startTime, @RequestParam LocalDateTime endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
@@ -51,6 +80,12 @@ public class ParkingController {
         return new ResponseEntity<PagedModel<Parking>>(parkingPageResourceAssembler.toModel(p, parkingResourceAssembler), HttpStatus.OK);
     }
 
+    /**
+     * By sensor latest entity model.
+     *
+     * @param sensorId the sensor id
+     * @return the entity model
+     */
     @Operation(summary = "Get the latest measurement of a specific sensor")
     @GetMapping("/bySensor/{sensorId}/latest")
     public EntityModel<Parking> bySensorLatest(@PathVariable Long sensorId){
@@ -58,6 +93,15 @@ public class ParkingController {
         return parkingResourceAssembler.toModel(parking);
     }
 
+    /**
+     * Average by sensor response entity.
+     *
+     * @param startTime the start time
+     * @param endTime   the end time
+     * @param sensorId  the sensor id
+     * @param pageable  the pageable
+     * @return the response entity
+     */
     @Operation(summary = "Get the average occupancy of a specific sensor within a given timeframe")
     @GetMapping("bySensor/{sensorId}/timeframe/average")
     ResponseEntity<PagedModel<Parking>> averageBySensor(

@@ -19,6 +19,9 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * The type Parking group repository tests.
+ */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -35,6 +38,9 @@ public class ParkingGroupRepositoryTests {
     @Autowired
     private SensorRepository sensorRepository;
 
+    /**
+     * Test parking group entities.
+     */
     @Test
     public void testParkingGroupEntities() {
         Sensor sensor1 = sensorRepository.findById(PARKING_SENSOR1_ID).get();
@@ -55,6 +61,9 @@ public class ParkingGroupRepositoryTests {
         assertEquals(isPresent, false);
     }
 
+    /**
+     * Test find by name.
+     */
     @Test
     public void testFindByName() {
         List<ParkingGroup> parkingGroups = parkingGroupRepository.findByName("parking_group1");
@@ -67,6 +76,9 @@ public class ParkingGroupRepositoryTests {
         assertEquals(numberOfSensors, 4);
     }
 
+    /**
+     * Test find parking sensors by group id.
+     */
     @Test
     public void testFindParkingSensorsByGroupId() {
         Page page1 = parkingGroupRepository.findParkingSensorsByGroupId(PARKING_GROUP1_ID, null);

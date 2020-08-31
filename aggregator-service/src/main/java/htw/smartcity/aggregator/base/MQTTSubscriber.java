@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * The type Mqtt subscriber.
+ */
 public abstract class MQTTSubscriber implements MqttCallback {
 
     private final String brokerUrl = ConfigProperties.BROKER;
@@ -21,6 +24,9 @@ public abstract class MQTTSubscriber implements MqttCallback {
     private final String password = ConfigProperties.PASSWORD;
     private final String certifcate = ConfigProperties.CERTIFICATE;
     private final String topic = ConfigProperties.TOPIC + getSubTopic();
+    /**
+     * The Exception manager.
+     */
     protected final ExceptionManager exceptionManager = ExceptionManager.getInstance();
 
 
@@ -31,15 +37,31 @@ public abstract class MQTTSubscriber implements MqttCallback {
     @Autowired
     private SensorRepository sensorRepository;
 
+    /**
+     * The Sensor name sensor map.
+     */
     protected Map<String, Sensor> sensorNameSensorMap = new HashMap<>();
 
+    /**
+     * Instantiates a new Mqtt subscriber.
+     */
     public MQTTSubscriber() {
         this.config();
         this.subscribeMessage(this.topic);
     }
 
+    /**
+     * Gets sub topic.
+     *
+     * @return the sub topic
+     */
     protected abstract String getSubTopic();
 
+    /**
+     * Gets sensor type.
+     *
+     * @return the sensor type
+     */
     protected abstract Sensor.SensorType getSensorType();
 
 
@@ -59,6 +81,12 @@ public abstract class MQTTSubscriber implements MqttCallback {
             persistMsg(time, sensor, msg);
     }
 
+    /**
+     * Gets or persist sensor.
+     *
+     * @param sensorName the sensor name
+     * @return the or persist sensor
+     */
     protected Sensor getOrPersistSensor(String sensorName) {
         Sensor sensor = null;
         try {
@@ -73,6 +101,12 @@ public abstract class MQTTSubscriber implements MqttCallback {
         return sensor;
     }
 
+    /**
+     * Get sensor sensor.
+     *
+     * @param sensorName the sensor name
+     * @return the sensor
+     */
     protected Sensor getSensor(String sensorName){
         Sensor sensor = null;
          if (sensorNameSensorMap.containsKey(sensorName)) {
@@ -87,6 +121,12 @@ public abstract class MQTTSubscriber implements MqttCallback {
         return sensor;
     }
 
+    /**
+     * Persist sensor sensor.
+     *
+     * @param sensorName the sensor name
+     * @return the sensor
+     */
     protected Sensor persistSensor(String sensorName){
         Sensor sensor = new Sensor(sensorName, getSensorType(), null, null, null);
         sensor = sensorRepository.save(sensor);;
@@ -94,6 +134,13 @@ public abstract class MQTTSubscriber implements MqttCallback {
         return sensor;
     }
 
+    /**
+     * Persist msg.
+     *
+     * @param time   the time
+     * @param sensor the sensor
+     * @param msg    the msg
+     */
     protected abstract void persistMsg(LocalDateTime time, Sensor sensor, String msg);
 
     @Override
@@ -101,6 +148,11 @@ public abstract class MQTTSubscriber implements MqttCallback {
     }
 
 
+    /**
+     * Subscribe message.
+     *
+     * @param topic the topic
+     */
     public void subscribeMessage(String topic) {
         try {
             this.mqttClient.subscribe(topic);
@@ -111,6 +163,9 @@ public abstract class MQTTSubscriber implements MqttCallback {
     }
 
 
+    /**
+     * Config.
+     */
     protected void config() {
         this.persistence = new MemoryPersistence();
         this.connectionOptions = new MqttConnectOptions();
@@ -136,6 +191,11 @@ public abstract class MQTTSubscriber implements MqttCallback {
         }
     }
 
+    /**
+     * Gets client id.
+     *
+     * @return the client id
+     */
     protected abstract String getClientId();
 }
 

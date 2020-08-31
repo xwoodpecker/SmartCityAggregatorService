@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * The type Average resource assembler.
+ */
 @Component
 public class AverageResourceAssembler implements RepresentationModelAssembler<Average, EntityModel<Average>>
 {

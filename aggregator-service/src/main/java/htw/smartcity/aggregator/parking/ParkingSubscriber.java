@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Parking subscriber.
+ */
 @Component
 public class ParkingSubscriber extends MQTTSubscriber {
     private final String subTopic =  "/parking/#";
@@ -19,12 +22,21 @@ public class ParkingSubscriber extends MQTTSubscriber {
     private Map<Sensor, ParkingGroup> sensorParkingGroupMap = new HashMap<>();
     private Map<Long, ParkingGroupCounter> parkingGroupIdParkingGroupCounterMap = new HashMap<>();
 
+    /**
+     * The Parking repository.
+     */
     @Autowired
     ParkingRepository parkingRepository;
 
+    /**
+     * The Parking group repository.
+     */
     @Autowired
     ParkingGroupRepository parkingGroupRepository;
 
+    /**
+     * The Parking group counter repository.
+     */
     @Autowired
     ParkingGroupCounterRepository parkingGroupCounterRepository;
 

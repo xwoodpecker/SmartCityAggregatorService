@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * The type Parking group counter repository tests.
+ */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -35,6 +38,9 @@ public class ParkingGroupCounterRepositoryTests {
     @Autowired
     private ParkingGroupCounterRepository parkingGroupCounterRepository;
 
+    /**
+     * Test parking group counter entities.
+     */
     @Test
     public void testParkingGroupCounterEntities() {
         ParkingGroup parkingGroup = parkingGroupRepository.findById(PARKING_GROUP2_ID).get();
@@ -52,6 +58,9 @@ public class ParkingGroupCounterRepositoryTests {
     }
 
 
+    /**
+     * Test find first by parking group order by time desc.
+     */
     @Test
     public void testFindFirstByParkingGroupOrderByTimeDesc() {
         ParkingGroup parkingGroup = parkingGroupRepository.findById(PARKING_GROUP1_ID).get();
@@ -66,6 +75,9 @@ public class ParkingGroupCounterRepositoryTests {
     }
 
 
+    /**
+     * Test find first by parking group id order by time desc.
+     */
     @Test
     public void testFindFirstByParkingGroupIdOrderByTimeDesc() {
         ParkingGroup parkingGroup = parkingGroupRepository.findById(PARKING_GROUP1_ID).get();
@@ -79,6 +91,9 @@ public class ParkingGroupCounterRepositoryTests {
         assertEquals(firstCounter.getParkingGroup().getId(), parkingGroup.getId());
     }
 
+    /**
+     * Test find all by parking group id.
+     */
     @Test
     public void testFindAllByParkingGroupId() {
         int elementsSensor1 = parkingGroupCounterRepository.findAllByParkingGroupId(null, PARKING_GROUP1_ID).getNumberOfElements();
