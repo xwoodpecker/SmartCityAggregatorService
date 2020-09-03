@@ -1,37 +1,26 @@
 package htw.smartcity.aggregator.temperature;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
-/**
- * The type Temperature average daily.
- */
 @Entity
 @Table(name = "TEMPERATURE_AVERAGE_DAILY")
 public class TemperatureAverageDaily extends TemperatureAverage
 {
     @Column(name = "date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    @JsonFormat (pattern = "yyyy-MM-dd")
+    private LocalDateTime time;
 
-    /**
-     * Gets date.
-     *
-     * @return the date
-     */
-    public Date getDate() {
-        return date;
+    public LocalDateTime getDate() {
+        return time;
     }
 
-    /**
-     * Sets date.
-     *
-     * @param date the date
-     */
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(LocalDateTime time) {
+        this.time = time;
     }
 }

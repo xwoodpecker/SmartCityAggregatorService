@@ -14,5 +14,5 @@ import java.util.Optional;
 @Repository
 public interface TemperatureAverageRepository extends JpaRepository<TemperatureAverage, Long>
 {
-
+    TemperatureAverage save(TemperatureAverage temperatureaverage);
 }
