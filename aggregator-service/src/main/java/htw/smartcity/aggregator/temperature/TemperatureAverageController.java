@@ -3,6 +3,7 @@ package htw.smartcity.aggregator.temperature;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +11,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -42,19 +45,13 @@ public class TemperatureAverageController
     }
 
     @Operation (summary = "Compute daily average of a sensor")
-    @GetMapping ("/temperatureaverage/daily")
+    @GetMapping ("/temperatureaverage/daily/{sensorId}")
     public EntityModel<TemperatureAverage> computeDaily(@PathVariable Long sensorId,
                                                         @Parameter (hidden = true) Pageable pageable)
     {
-        /*
-        Date startTime = new Date();
-        startTime.setHours(0);
-        startTime.setMinutes(0);
-        startTime.setSeconds(0);
-        Date endTime = new Date();
-        endTime.setHours(23);
-        endTime.setMinutes(59);
-        endTime.setSeconds(59);
+        LocalDateTime startTime = LocalDateTime.now().with(LocalTime.MIN);
+        LocalDateTime endTime = LocalDateTime.now().with(LocalTime.MAX);
+
 
         Page p = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, startTime, endTime,
                                                                                 pageable);
@@ -68,16 +65,14 @@ public class TemperatureAverageController
         }
 
         TemperatureAverageDaily temperatureAverageDaily = new TemperatureAverageDaily();
-        temperatureAverageDaily.setDate(new Date());
-        temperatureAverageDaily.setSensor(sensorId);
+        temperatureAverageDaily.setDate(LocalDateTime.now());
+        //temperatureAverageDaily.setSensor(sensorId);
         temperatureAverageDaily.setValue(sum/count);
 
         temperatureAverageRepository.save(temperatureAverageDaily);
 
         return one((long) 1);
 
-         */
-        return null;
     }
 
     @Operation (summary = "Compute daily average of a sensor")
