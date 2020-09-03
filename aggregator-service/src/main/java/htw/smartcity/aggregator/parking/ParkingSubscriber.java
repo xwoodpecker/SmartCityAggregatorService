@@ -2,6 +2,7 @@ package htw.smartcity.aggregator.parking;
 
 import htw.smartcity.aggregator.base.MQTTSubscriber;
 import htw.smartcity.aggregator.sensor.Sensor;
+import htw.smartcity.aggregator.sensor.SensorType;
 import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -46,8 +47,8 @@ public class ParkingSubscriber extends MQTTSubscriber {
     }
 
     @Override
-    protected Sensor.SensorType getSensorType() {
-        return Sensor.SensorType.PARKING;
+    protected SensorType getSensorType() {
+        return SensorType.PARKING;
     }
 
     @Override

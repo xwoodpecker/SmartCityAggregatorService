@@ -41,7 +41,7 @@ public class SensorRepositoryTest {
      */
     @Test
     public void testSensorEntities() {
-        Sensor sensor = new Sensor(SENSOR_NAME, Sensor.SensorType.TEMPERATURE, SENSOR_X, SENSOR_Y, SENSOR_INFORMATION);
+        Sensor sensor = new Sensor(SENSOR_NAME, SensorType.TEMPERATURE, SENSOR_X, SENSOR_Y, SENSOR_INFORMATION);
         Long id = sensorRepository.save(sensor).getId();
         Sensor sensor2 = sensorRepository.findById(id).get();
         assertNotNull(sensor2);
@@ -61,14 +61,14 @@ public class SensorRepositoryTest {
      */
     @Test
     public void testFindByNameAndSensorType() {
-        Page page = sensorRepository.findByNameAndSensorType(FIND_SENSOR_NAME1, Sensor.SensorType.PARKING, null);
+        Page page = sensorRepository.findByNameAndSensorType(FIND_SENSOR_NAME1, SensorType.PARKING, null);
         Sensor firstSensor = (Sensor) page.get().findFirst().get();
         assertEquals(firstSensor.getName(), FIND_SENSOR_NAME1);
-        assertEquals(firstSensor.getSensorType(), Sensor.SensorType.PARKING);
-        page = sensorRepository.findByNameAndSensorType(FIND_SENSOR_NAME2, Sensor.SensorType.TEMPERATURE, null);
+        assertEquals(firstSensor.getSensorType(), SensorType.PARKING);
+        page = sensorRepository.findByNameAndSensorType(FIND_SENSOR_NAME2, SensorType.TEMPERATURE, null);
         firstSensor = (Sensor) page.get().findFirst().get();
         assertEquals(firstSensor.getName(), FIND_SENSOR_NAME2);
-        assertEquals(firstSensor.getSensorType(), Sensor.SensorType.TEMPERATURE);
+        assertEquals(firstSensor.getSensorType(), SensorType.TEMPERATURE);
     }
 
 }

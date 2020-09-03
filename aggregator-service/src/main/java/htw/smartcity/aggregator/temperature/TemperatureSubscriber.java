@@ -2,6 +2,7 @@ package htw.smartcity.aggregator.temperature;
 
 import htw.smartcity.aggregator.base.MQTTSubscriber;
 import htw.smartcity.aggregator.sensor.Sensor;
+import htw.smartcity.aggregator.sensor.SensorType;
 import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,8 +30,8 @@ public class TemperatureSubscriber extends MQTTSubscriber {
     }
 
     @Override
-    protected Sensor.SensorType getSensorType() {
-        return Sensor.SensorType.TEMPERATURE;
+    protected SensorType getSensorType() {
+        return SensorType.TEMPERATURE;
     }
 
     @Override

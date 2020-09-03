@@ -25,9 +25,9 @@ public class ExceptionManagerTest {
             Thread.sleep(500);
             exceptionManager.MQTTSubscriptionFailed("hackbraten");
             Thread.sleep(500);
-            exceptionManager.MQTTSensorPersistenceFailed("sensor3derdritte", Sensor.SensorType.AIR_QUALITY);
+            exceptionManager.MQTTSensorPersistenceFailed("sensor3derdritte", SensorType.AIR_QUALITY);
             Thread.sleep(500);
-            exceptionManager.MQTTSensorPersistenceFailed("sensordensnichtgibt", Sensor.SensorType.AIR_QUALITY);
+            exceptionManager.MQTTSensorPersistenceFailed("sensordensnichtgibt", SensorType.AIR_QUALITY);
             Thread.sleep(500);
             exceptionManager.MQTTAirQualityPersistenceFailed("sensordensnichtgibt", "sinnfrei");
             Thread.sleep(500);
