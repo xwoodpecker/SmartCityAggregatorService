@@ -32,8 +32,9 @@ public class AggregatorApplication {
 	public OpenAPI customOpenAPI() {
 		SpringDocUtils.getConfig().replaceWithClass(org.springframework.data.domain.Pageable.class, Pageable.class);
 
-
 		return new OpenAPI()
-				.info(new Info().title("SmartCity Aggregator Service").version("v0"));
+				.components(new Components().addSecuritySchemes("basic", new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic").in(SecurityScheme.In.HEADER).name("Authorization")))
+						.info(new Info().title("SmartCity Aggregator Service").version("v0"));
+
 	}
 }

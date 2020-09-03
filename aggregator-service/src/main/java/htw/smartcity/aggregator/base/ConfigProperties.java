@@ -14,7 +14,7 @@ public class ConfigProperties {
     public static final String PASSWORD;
     public static final String CERTIFICATE;
     public static final String TOPIC;
-    public static final String REST_USER_PASSWORD;
+    public static final String INITIAL_ADMIN_PASSWORD;
     public static final String MAIL_USERNAME;
     public static final String MAIL_PASSWORD;
     public static final String MAIL_LIST;
@@ -43,10 +43,10 @@ public class ConfigProperties {
         PASSWORD = properties.getProperty("PASSWORD");
         CERTIFICATE = properties.getProperty("CERTIFICATE");
         TOPIC = properties.getProperty("TOPIC");
-        REST_USER_PASSWORD = properties.getProperty("REST_USER_PASSWORD");
         MAIL_USERNAME = properties.getProperty("MAIL_USERNAME");
         MAIL_PASSWORD = properties.getProperty("MAIL_PASSWORD");
         MAIL_LIST = properties.getProperty("MAIL_LIST");
         MAIL_SEND_PERIOD = properties.getProperty("MAIL_SEND_PERIOD");
+        INITIAL_ADMIN_PASSWORD = properties.getProperty("INITIAL_ADMIN_PASSWORD");
     }
 }

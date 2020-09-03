@@ -6,6 +6,7 @@ import htw.smartcity.aggregator.sensor.SensorRepository;
 import htw.smartcity.aggregator.sensor.SensorResourceAssembler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = "/parking/group")
+@SecurityRequirement(name = "basic")
 @Tag(name = "Parking Measures", description = "Endpoint to get parking measures")
 public class ParkingGroupController {
 

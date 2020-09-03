@@ -3,6 +3,7 @@ package htw.smartcity.aggregator.temperature;
 import htw.smartcity.aggregator.sensor.SensorController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = "/temperatures")
+@SecurityRequirement(name = "basic")
 @Tag(name = "Temperature Measures", description = "Endpoint to get temperature measures")
 public class TemperatureController {
     private TemperatureRepository temperatureRepository;

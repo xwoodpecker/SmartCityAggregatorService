@@ -2,6 +2,7 @@ package htw.smartcity.aggregator.airquality;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,7 @@ import java.time.ZoneOffset;
  */
 @RestController
 @RequestMapping(path = "/airQualities")
+@SecurityRequirement(name = "basic")
 @Tag(name = "Air Quality Measures", description = "Endpoint to get air quality measures")
 public class AirQualityController {
     private AirQualityRepository airQualityRepository;
