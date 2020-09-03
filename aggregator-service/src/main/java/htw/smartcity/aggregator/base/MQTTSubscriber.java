@@ -3,7 +3,6 @@ package htw.smartcity.aggregator.base;
 
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
-import htw.smartcity.aggregator.util.ConfigProperties;
 import htw.smartcity.aggregator.util.Utils;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;

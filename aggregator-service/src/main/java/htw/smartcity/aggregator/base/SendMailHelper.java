@@ -1,7 +1,5 @@
 package htw.smartcity.aggregator.base;
 
-import htw.smartcity.aggregator.util.ConfigProperties;
-
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;

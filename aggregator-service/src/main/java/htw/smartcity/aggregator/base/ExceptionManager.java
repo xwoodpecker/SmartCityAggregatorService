@@ -1,7 +1,6 @@
 package htw.smartcity.aggregator.base;
 
 import htw.smartcity.aggregator.sensor.Sensor;
-import htw.smartcity.aggregator.util.ConfigProperties;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
