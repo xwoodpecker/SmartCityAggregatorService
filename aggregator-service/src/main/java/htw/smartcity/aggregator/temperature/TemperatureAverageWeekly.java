@@ -1,10 +1,7 @@
 package htw.smartcity.aggregator.temperature;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import htw.smartcity.aggregator.sensor.Sensor;
-
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * The type Temperature average weekly.
@@ -15,18 +12,18 @@ public class TemperatureAverageWeekly extends TemperatureAverage
 {
     @Column(name = "begin_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date beginDate;
+    private LocalDateTime beginDate;
 
     @Column(name = "end_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
+    private LocalDateTime endDate;
 
     /**
      * Gets begin date.
      *
      * @return the begin date
      */
-    public Date getBeginDate() {
+    public LocalDateTime getBeginDate() {
         return beginDate;
     }
 
@@ -35,7 +32,7 @@ public class TemperatureAverageWeekly extends TemperatureAverage
      *
      * @param beginDate the begin date
      */
-    public void setBeginDate(Date beginDate) {
+    public void setBeginDate(LocalDateTime beginDate) {
         this.beginDate = beginDate;
     }
 
@@ -44,7 +41,7 @@ public class TemperatureAverageWeekly extends TemperatureAverage
      *
      * @return the end date
      */
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
@@ -53,7 +50,7 @@ public class TemperatureAverageWeekly extends TemperatureAverage
      *
      * @param endDate the end date
      */
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 }

@@ -1,5 +1,8 @@
 package htw.smartcity.aggregator.temperature;
 
+import htw.smartcity.aggregator.sensor.Sensor;
+import htw.smartcity.aggregator.sensor.SensorRepository;
+import htw.smartcity.aggregator.sensor.SensorType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 
 @RunWith (SpringRunner.class)
 @DataJpaTest
@@ -16,16 +21,39 @@ import java.time.LocalDateTime;
 public class TemperatureAverageRepositoryTests
 {
     @Autowired
-    private TemperatureAverageRepository temperatureAverageRepository;
+    SensorRepository sensorRepository;
+
+    @Autowired
+    TemperatureRepository temperatureRepository;
+
+    @Autowired
+    TemperatureAverageRepository temperatureAverageRepository;
 
     @Test
     public void gradmoentest()
     {
-        TemperatureAverageDaily temperatureAverageDaily = new TemperatureAverageDaily();
-        temperatureAverageDaily.setDate(LocalDateTime.now());
-        //temperatureAverageDaily.setSensor(sensorId);
-        temperatureAverageDaily.setValue(1.0);
+        List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.TEMPERATURE);
+        double       sum     = 0;
+        int          count   = 0;
 
-        temperatureAverageRepository.save(temperatureAverageDaily);
+        for(Sensor s : sensors)
+        {
+            List<Temperature> tList = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(s.getId(),
+                                                                                                     LocalDateTime.now().minusDays(1).with(LocalTime.MIN),
+                                                                                                     LocalDateTime.now().minusDays(1).with(LocalTime.MAX));
+            sum = 0;
+            count = 0;
+            for(Temperature t : tList)
+            {
+                sum += t.getValue();
+                count++;
+            }
+            TemperatureAverageDaily temperatureAverageDaily = new TemperatureAverageDaily();
+            temperatureAverageDaily.setValue(sum/count);
+            temperatureAverageDaily.setSensor(sensorRepository.getOne(s.getId()));
+            temperatureAverageDaily.setDate(LocalDateTime.now().minusDays(1));
+
+            temperatureAverageRepository.save(temperatureAverageDaily);
+        }
     }
 }

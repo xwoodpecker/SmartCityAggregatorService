@@ -1,5 +1,6 @@
 package htw.smartcity.aggregator.temperature;
 
+import htw.smartcity.aggregator.sensor.SensorRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +29,7 @@ public class TemperatureAverageController
     private TemperatureAverageRepository temperatureAverageRepository;
     private TemperatureAverageResourceAssembler temperatureAverageResourceAssembler;
     private TemperatureRepository temperatureRepository;
-
+    private SensorRepository sr;
 
     /**
      * Instantiates a new Temperature average controller.
@@ -38,10 +39,12 @@ public class TemperatureAverageController
      * @param temperatureRepository               the temperature repository
      */
     public TemperatureAverageController(TemperatureAverageRepository temperatureAverageRepository,
-                                        TemperatureAverageResourceAssembler temperatureAverageResourceAssembler, TemperatureRepository temperatureRepository) {
+                                        TemperatureAverageResourceAssembler temperatureAverageResourceAssembler,
+                                        TemperatureRepository temperatureRepository, SensorRepository sr) {
         this.temperatureAverageRepository = temperatureAverageRepository;
         this.temperatureAverageResourceAssembler = temperatureAverageResourceAssembler;
         this.temperatureRepository = temperatureRepository;
+        this.sr = sr;
     }
 
     /**
@@ -89,7 +92,7 @@ public class TemperatureAverageController
 
         TemperatureAverageDaily temperatureAverageDaily = new TemperatureAverageDaily();
         temperatureAverageDaily.setDate(LocalDateTime.now());
-        //temperatureAverageDaily.setSensor(sensorId);
+        temperatureAverageDaily.setSensor(sr.getOne(sensorId));
         temperatureAverageDaily.setValue(sum/count);
 
         temperatureAverageRepository.save(temperatureAverageDaily);
