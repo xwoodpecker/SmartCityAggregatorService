@@ -2,6 +2,7 @@ package htw.smartcity.aggregator.airquality;
 
 import htw.smartcity.aggregator.base.MQTTSubscriber;
 import htw.smartcity.aggregator.sensor.Sensor;
+import htw.smartcity.aggregator.sensor.SensorType;
 import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,8 +29,8 @@ public class AirQualitySubscriber extends MQTTSubscriber {
     }
 
     @Override
-    protected Sensor.SensorType getSensorType() {
-        return Sensor.SensorType.AIR_QUALITY;
+    protected SensorType getSensorType() {
+        return SensorType.AIR_QUALITY;
     }
 
     @Override

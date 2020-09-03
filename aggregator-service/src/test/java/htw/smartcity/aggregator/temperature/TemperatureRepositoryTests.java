@@ -92,7 +92,7 @@ public class TemperatureRepositoryTests {
      * Test find temperatures by sensor id and time between.
      */
     @Test
-    public void testFindTemperaturesBySensorIdAndTimeBetween() {
+    public void testFindTemperaturesBySensorIdAndTimeBetweenPaging() {
         Page temperaturesByTimeAfterAndTimeBefore = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(TEMPERATURE_SENSOR2_ID, TimeFrom, TimeTo, null);
         List<Temperature> temperatures = (List<Temperature>) temperaturesByTimeAfterAndTimeBefore.get().collect(Collectors.toList());
         int numberOfElements = temperaturesByTimeAfterAndTimeBefore.getNumberOfElements();
@@ -107,5 +107,21 @@ public class TemperatureRepositoryTests {
         assertEquals(numberOfElements, 0);
 
     }
+
+    @Test
+    public void testFindTemperaturesBySensorIdAndTimeBetween() {
+        List<Temperature> temperatures = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(TEMPERATURE_SENSOR2_ID, TimeFrom, TimeTo);
+        int numberOfElements = temperatures.size();
+        assertEquals(numberOfElements, 2);
+        double valueTemperature1 = temperatures.get(0).getValue();
+        double valueTemperature2 = temperatures.get(1).getValue();
+        assertEquals(valueTemperature1, 23.2, 0);
+        assertEquals(valueTemperature2, 23.45, 0);
+
+        temperatures = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(TEMPERATURE_SENSOR1_ID, TimeFrom, TimeTo);
+        numberOfElements = temperatures.size();
+        assertEquals(numberOfElements, 0);
+    }
+
 
 }

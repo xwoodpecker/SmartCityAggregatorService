@@ -63,7 +63,7 @@ public class SensorController {
     @Operation(summary = "Get all sensors of given type")
     @PageableAsQueryParam
     @GetMapping("/byType/{sensorType}")
-    public ResponseEntity<PagedModel<Sensor>> byType(@PathVariable Sensor.SensorType sensorType, @Parameter(hidden = true) Pageable pageable)
+    public ResponseEntity<PagedModel<Sensor>> byType(@PathVariable SensorType sensorType, @Parameter(hidden = true) Pageable pageable)
     {
         //todo implement
         Page p = sensorRepository.findAll(pageable);

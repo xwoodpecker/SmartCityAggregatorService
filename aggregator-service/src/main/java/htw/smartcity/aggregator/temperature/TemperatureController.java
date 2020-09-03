@@ -1,6 +1,5 @@
 package htw.smartcity.aggregator.temperature;
 
-import htw.smartcity.aggregator.average.Average;
 import htw.smartcity.aggregator.sensor.SensorController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -77,21 +76,6 @@ public class TemperatureController {
     }
 
     /**
-     * Latest average response entity.
-     *
-     * @param pageable the pageable
-     * @return the response entity
-     */
-    @Operation(summary = "Get the average temperature of the latest measurements of all temperature sensors")
-    @GetMapping("/latest/average")
-    ResponseEntity<PagedModel<Average>> latestAverage(@Parameter(hidden = true) Pageable pageable)
-    {
-        //todo
-        //todo average entity?
-        return null;
-    }
-
-    /**
      * Between response entity.
      *
      * @param startTime the start time
@@ -108,32 +92,6 @@ public class TemperatureController {
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
-    /**
-     * Between average response entity.
-     *
-     * @param startTime the start time
-     * @param endTime   the end time
-     * @param pageable  the pageable
-     * @return the response entity
-     */
-    @Operation(summary = "Get the average temperature of all sensors for the given timeframe")
-    @GetMapping("/timeframe/average")
-    ResponseEntity<PagedModel<Average>> betweenAverage(@RequestParam Instant startTime, @RequestParam Instant endTime, @Parameter(hidden = true) Pageable pageable)
-    {
-        Page p = temperatureRepository.findTemperaturesByTimeAfterAndTimeBefore(LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC), pageable);
-        List l = p.getContent();
-        double sum = 0, count = 0;
-        for (var ele: l)
-        {
-            sum += Double.parseDouble(ele.toString());
-            count++;
-        }
-        Average avg = new Average(Average.SensorType.TEMPERATURE, LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC), sum/count);
-
-        // todo return
-        return new ResponseEntity<PagedModel<Average>>(temperaturePageResourceAssembler.toModel(p,
-                                                                                          temperatureResourceAssembler), HttpStatus.OK);
-    }
 
     /**
      * One entity model.

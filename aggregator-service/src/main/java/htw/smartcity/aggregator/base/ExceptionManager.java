@@ -1,7 +1,7 @@
 package htw.smartcity.aggregator.base;
 
 import htw.smartcity.aggregator.sensor.Sensor;
-import htw.smartcity.aggregator.util.ConfigProperties;
+import htw.smartcity.aggregator.sensor.SensorType;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -101,7 +101,7 @@ public class ExceptionManager {
      * @param sensorName the sensor name
      * @param sensorType the sensor type
      */
-    public void MQTTSensorPersistenceFailed(String sensorName, Sensor.SensorType sensorType){
+    public void MQTTSensorPersistenceFailed(String sensorName, SensorType sensorType){
         MailException mailException = new MailException(LogException.MQTT_SENSOR_PERSISTENCE_FAILED);
         mailException.addAdditionalInfos("Sensor Type: " + sensorType);
         mailException.addAdditionalInfos("Sensor name: " + sensorName);
@@ -166,7 +166,7 @@ public class ExceptionManager {
     }
 
     private void MQTTMeasurementPersistenceFailed(MailException mailException, String sensorName, String msg){
-        mailException.addAdditionalInfos("Sensor Type: " + Sensor.SensorType.AIR_QUALITY);
+        mailException.addAdditionalInfos("Sensor Type: " + SensorType.AIR_QUALITY);
         mailException.addAdditionalInfos("Sensor name: " + sensorName);
         mailException.addAdditionalInfos("Message: " + msg);
         mailExpcetions.add(mailException);

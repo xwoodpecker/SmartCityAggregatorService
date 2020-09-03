@@ -1,6 +1,6 @@
 
-INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (1, NULL, 'airQuality_sensor1', 'AirQuality', NULL, NULL);
-INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (2, NULL, 'airQuality_sensor2', 'AirQuality', NULL, NULL);
+INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (1, NULL, 'airQuality_sensor1', 'AIR_QUALITY', NULL, NULL);
+INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (2, NULL, 'airQuality_sensor2', 'AIR_QUALITY', NULL, NULL);
 INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (3, NULL, 'parking_sensor1', 'PARKING', NULL, NULL);
 INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (4, NULL, 'parking_sensor2', 'PARKING', NULL, NULL);
 INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (5, NULL, 'parking_sensor3', 'PARKING', NULL, NULL);

@@ -1,9 +1,5 @@
-package htw.smartcity.aggregator.util;
+package htw.smartcity.aggregator.base;
 
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
