@@ -1,20 +1,27 @@
 package htw.smartcity.aggregator.security;
 
+import htw.smartcity.aggregator.temperature.TemperatureNotFoundException;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.annotation.security.RolesAllowed;
 import java.security.Principal;
 
 @RestController
 @RequestMapping(path="/users")
+@SecurityRequirement(name = "basic")
 @Tag(name = "User Management", description = "Endpoint to manage Users")
 public class UserController {
     private UserDetailsService userDetailsService;
@@ -29,43 +36,43 @@ public class UserController {
         this.userResourceAssembler = userResourceAssembler;
     }
 
-    @GetMapping("/")
-    Boolean hi(Principal principal){
-        UserDetails userDetails = (UserDetails) principal;
-        System.out.println(userDetails);
-        return true;
-    }
-
-    @SecurityRequirement(name = "basic")
+    @Operation(summary = "Create a new User")
     @Secured("ROLE_ADMIN")
     @PostMapping("/")
-    EntityModel<User> createNewUser(@RequestParam String username, @RequestParam String password){
+    EntityModel<User> createNewUser(@RequestParam String username, @RequestParam String password, @RequestParam String email, @RequestParam boolean isAdmin){
         User user = new User();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setEnabled(true);
-        Roles roles = new Roles();
-        roles.setRole("USER");
-        roles.setUser(user);
-        user.getRoles().add(roles);
+        user.setEmail(email);
+        Roles userRole = new Roles();
+        userRole.setRole("USER");
+        user.getRoles().add(userRole);
+        if(isAdmin){
+            Roles adminRole = new Roles();
+            adminRole.setRole("ADMIN");
+            user.getRoles().add(adminRole);
+        }
         user = userRepository.save(user);
         EntityModel<User> model = userResourceAssembler.toModel(user);
         return(model);
     }
 
-    /*
-    @PostMapping("/password")
-    EntityModel<User> changeOwnPassword(Principal principal, @RequestParam String newPassword){
-        String username = principal.getName();
-        return changePassword(principal, username, newPassword);
+    @Operation(summary = "Change the password of a user")
+    @PostMapping("/password/own")
+    EntityModel<User> changeOwnPassword(UsernamePasswordAuthenticationToken principal, @RequestParam String newPassword){
+        //todo return status code instead of entitymodel
+        UserDetails userDetails = (UserDetails) principal.getPrincipal();
+        User user = userRepository.findUserByUsername(userDetails.getUsername());
+        user.setPassword(passwordEncoder.encode(newPassword));
+        return(userResourceAssembler.toModel(userRepository.save(user)));
     }
-     */
 
-    @PostMapping("/password")
-    EntityModel<User> changePassword(Principal principal, @RequestParam String username, @RequestParam String newPassword){
-        UserDetails userDetails = (UserDetails) principal;
-
-        //find out if user is admin
+    @Operation(summary = "Change password of a specified user. Admin Role required.")
+    @Secured("ROLE_ADMIN")
+    @PostMapping("/password/other")
+    EntityModel<User> changeSomeonesPassword(String username, String newPassword){
+        //todo return status code instead of entitymodel
         User user = userRepository.findUserByUsername(username);
         user.setPassword(passwordEncoder.encode(newPassword));
         return(userResourceAssembler.toModel(userRepository.save(user)));

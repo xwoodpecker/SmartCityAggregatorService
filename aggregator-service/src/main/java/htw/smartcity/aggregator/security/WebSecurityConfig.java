@@ -8,20 +8,24 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
+import java.util.HashSet;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
-    private final String REST_ADMIN_PASSWORD = "Ebp4Uw5UfajpHJvv";
+    private final String INITIAL_ADMIN_PASSWORD = ConfigProperties.INITIAL_ADMIN_PASSWORD;
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -33,17 +37,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             throws Exception
     {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        try {
+            userDetailsService.loadUserByUsername("admin");
+        } catch (UsernameNotFoundException e) {
+            User admin = new User();
+            admin.setUsername("admin");
+            admin.setPassword(passwordEncoder().encode(INITIAL_ADMIN_PASSWORD));
+            admin.setEnabled(true);
+            Roles adminRole = new Roles();
+            Roles userRole = new Roles();
+            adminRole.setUser(admin);
+            userRole.setUser(admin);
+            adminRole.setRole("ADMIN");
+            userRole.setRole("USER");
+            admin.getRoles().add(adminRole);
+            admin.getRoles().add(userRole);
+            userRepository.save(admin);
+        }
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
         http.httpBasic()
-                .and()
-                .authorizeRequests()
-                    .antMatchers("/users/**").hasRole("")
-                .and()
-                .authorizeRequests().anyRequest().permitAll()
+                .and().authorizeRequests().antMatchers("/swagger**").permitAll()
+                .and().authorizeRequests().anyRequest().authenticated()
                 .and().csrf().disable();
     }
 }

@@ -1,9 +1,12 @@
 package htw.smartcity.aggregator.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
+@JsonIgnoreProperties(value = "user")
 public class Roles {
     @Id
     @Column(name = "role")

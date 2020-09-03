@@ -2,6 +2,7 @@ package htw.smartcity.aggregator.sensor;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,13 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping(path = "/sensors")
+@SecurityRequirement(name = "basic")
 @Tag(name = "Sensor Management", description = "Endpoint to manage sensors")
 public class SensorController {
     private SensorRepository sensorRepository;
@@ -57,7 +60,8 @@ public class SensorController {
         return sensorResourceAssembler.toModel(sensor);
     }
 
-    @Operation(summary = "Update a specific sensor")
+    @Operation(summary = "Update a specific sensor. Admin Role required.")
+    @Secured("ROLE_ADMIN")
     @PutMapping("/{id}")
     Sensor replaceSensor(@RequestBody Sensor newSensor, @PathVariable Long id)
     {
