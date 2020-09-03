@@ -11,11 +11,9 @@ import java.time.LocalDateTime;
 public class TemperatureAverageMonthly extends TemperatureAverage
 {
     @Column(name = "begin_date")
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime beginDate;
 
     @Column(name = "end_date")
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime endDate;
 
     /**

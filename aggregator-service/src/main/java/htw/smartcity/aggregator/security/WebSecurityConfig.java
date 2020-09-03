@@ -1,6 +1,6 @@
 package htw.smartcity.aggregator.security;
 
-import htw.smartcity.aggregator.util.ConfigProperties;
+import htw.smartcity.aggregator.base.ConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
