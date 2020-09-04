@@ -22,18 +22,12 @@ import java.util.List;
 public class TemperatureAggregateComputationSchedulerTests
 {
     @Autowired
-    SensorRepository sensorRepository;
-
-    @Autowired
-    TemperatureRepository temperatureRepository;
-
-    @Autowired
-    TemperatureAggregateRepository temperatureAggregateRepository;
+    TemperatureAggregateComputationScheduler scheduler;
 
     @Test
     public void dailyAggregation()
     {
-        TemperatureAggregateComputationScheduler scheduler = new TemperatureAggregateComputationScheduler();
+        //TemperatureAggregateComputationScheduler scheduler = new TemperatureAggregateComputationScheduler();
 
         scheduler.computeAggregatesDaily((long) 8, LocalDateTime.of(2020, Month.SEPTEMBER, 1, 0, 0, 0),
                                          LocalDateTime.of(2020, Month.SEPTEMBER, 1, 23, 59, 59));
@@ -43,7 +37,7 @@ public class TemperatureAggregateComputationSchedulerTests
     @Test
     public void weeklyAggregation()
     {
-        TemperatureAggregateComputationScheduler scheduler = new TemperatureAggregateComputationScheduler();
+        //TemperatureAggregateComputationScheduler scheduler = new TemperatureAggregateComputationScheduler();
 
         scheduler.computeAggregatesWeekly((long) 8, LocalDateTime.of(2020, Month.AUGUST, 31, 0, 0, 0),
                                          LocalDateTime.of(2020, Month.SEPTEMBER, 6, 23, 59, 59));
@@ -53,7 +47,7 @@ public class TemperatureAggregateComputationSchedulerTests
     @Test
     public void monthlyAggregation()
     {
-        TemperatureAggregateComputationScheduler scheduler = new TemperatureAggregateComputationScheduler();
+        //TemperatureAggregateComputationScheduler scheduler = new TemperatureAggregateComputationScheduler();
 
         scheduler.computeAggregatesMonthly((long) 8, LocalDateTime.of(2020, Month.SEPTEMBER, 1, 0, 0, 0),
                                           LocalDateTime.of(2020, Month.OCTOBER, 1, 23, 59, 59));
