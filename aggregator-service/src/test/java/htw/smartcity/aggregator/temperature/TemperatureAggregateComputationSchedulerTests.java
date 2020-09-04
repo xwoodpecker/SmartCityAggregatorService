@@ -36,4 +36,28 @@ public class TemperatureAggregateComputationSchedulerTests
 
     }
 
+    @Test
+    public void weeklyAggregation()
+    {
+
+        temperatureAggregateComputationScheduler.computeAggregatesWeekly((long) 8, LocalDateTime.of(2020,
+                                                                                                   Month.AUGUST, 31, 0
+                , 0,
+                                                                                                    0),
+                                                                        LocalDateTime.of(2020, Month.SEPTEMBER, 6, 23
+                                                                                , 59, 59));
+
+    }
+
+    @Test
+    public void monthlyAggregation()
+    {
+
+        temperatureAggregateComputationScheduler.computeAggregatesMonthly((long) 8, LocalDateTime.of(2020,
+                                                                                                    Month.SEPTEMBER, 1, 0, 0, 0),
+                                                                         LocalDateTime.of(2020, Month.OCTOBER, 1, 23, 59,
+                                                                                          59));
+
+    }
+
 }
