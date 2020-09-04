@@ -4,19 +4,11 @@ import htw.smartcity.aggregator.sensor.SensorRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.tomcat.jni.Local;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.List;
 
 /**
  * The type Temperature average controller.
@@ -26,7 +18,7 @@ import java.util.List;
 @Tag (name = "Temperature Averages", description = "Endpoint to get temperature averages")
 public class TemperatureAverageController
 {
-    private TemperatureAverageRepository temperatureAverageRepository;
+    private TemperatureAggregateRepository temperatureAggregateRepository;
     private TemperatureAverageResourceAssembler temperatureAverageResourceAssembler;
     private TemperatureRepository temperatureRepository;
     private SensorRepository sr;
@@ -34,14 +26,14 @@ public class TemperatureAverageController
     /**
      * Instantiates a new Temperature average controller.
      *
-     * @param temperatureAverageRepository        the temperature average repository
+     * @param temperatureAggregateRepository        the temperature aggregate repository
      * @param temperatureAverageResourceAssembler the temperature average resource assembler
      * @param temperatureRepository               the temperature repository
      */
-    public TemperatureAverageController(TemperatureAverageRepository temperatureAverageRepository,
+    public TemperatureAverageController(TemperatureAggregateRepository temperatureAggregateRepository,
                                         TemperatureAverageResourceAssembler temperatureAverageResourceAssembler,
                                         TemperatureRepository temperatureRepository, SensorRepository sr) {
-        this.temperatureAverageRepository = temperatureAverageRepository;
+        this.temperatureAggregateRepository = temperatureAggregateRepository;
         this.temperatureAverageResourceAssembler = temperatureAverageResourceAssembler;
         this.temperatureRepository = temperatureRepository;
         this.sr = sr;
@@ -57,7 +49,7 @@ public class TemperatureAverageController
     @GetMapping ("/{temperatureaverageId}")
     public EntityModel<TemperatureAggregate> one(@PathVariable Long temperatureaverageId)
     {
-        TemperatureAggregate temperatureaverage = temperatureAverageRepository.findById(temperatureaverageId)
+        TemperatureAggregate temperatureaverage = temperatureAggregateRepository.findById(temperatureaverageId)
                 .orElseThrow(() -> new TemperatureNotFoundException(temperatureaverageId));
 
         return temperatureAverageResourceAssembler.toModel(temperatureaverage);
@@ -76,7 +68,7 @@ public class TemperatureAverageController
                                                         @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureAverageDaily temperatureAverageDaily =
-                temperatureAverageRepository.findTemperatureAverageDailyBySensorIdAndTime(sensorId, date);
+                temperatureAggregateRepository.findTemperatureAverageDailyBySensorIdAndTime(sensorId, date);
 
         return one((long) 1);
 
@@ -95,7 +87,7 @@ public class TemperatureAverageController
                                                          @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureAverageWeekly temperatureAverageWeekly =
-                temperatureAverageRepository.findTemperatureAverageWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
+                temperatureAggregateRepository.findTemperatureAverageWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
         return one((long) 1);
     }
 
@@ -112,7 +104,7 @@ public class TemperatureAverageController
                                                           @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureAverageMonthly temperatureAverageMonthly =
-                temperatureAverageRepository.findTemperatureAverageMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
+                temperatureAggregateRepository.findTemperatureAverageMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
         return one((long) 1);
     }
 

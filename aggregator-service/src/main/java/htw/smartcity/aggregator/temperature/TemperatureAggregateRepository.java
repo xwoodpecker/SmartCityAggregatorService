@@ -13,4 +13,12 @@ import java.util.List;
 public interface TemperatureAggregateRepository extends JpaRepository<TemperatureAggregate, Long>
 {
     TemperatureAggregate save(TemperatureAggregate temperatureAggregate);
+
+    List<TemperatureMaximumDaily> findTemperatureMaximumsDailyBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime);
+
+    TemperatureAverageDaily findTemperatureAverageDailyBySensorIdAndTime(Long SensorId, LocalDateTime time);
+
+    TemperatureAverageWeekly findTemperatureAverageWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
+
+    TemperatureAverageMonthly findTemperatureAverageMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
 }
