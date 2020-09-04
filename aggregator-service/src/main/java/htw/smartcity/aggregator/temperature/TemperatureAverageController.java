@@ -55,9 +55,9 @@ public class TemperatureAverageController
      */
     @Operation (summary = "Get a single temperature average measurement")
     @GetMapping ("/{temperatureaverageId}")
-    public EntityModel<TemperatureAverage> one(@PathVariable Long temperatureaverageId)
+    public EntityModel<TemperatureAggregate> one(@PathVariable Long temperatureaverageId)
     {
-        TemperatureAverage temperatureaverage = temperatureAverageRepository.findById(temperatureaverageId)
+        TemperatureAggregate temperatureaverage = temperatureAverageRepository.findById(temperatureaverageId)
                 .orElseThrow(() -> new TemperatureNotFoundException(temperatureaverageId));
 
         return temperatureAverageResourceAssembler.toModel(temperatureaverage);
@@ -72,7 +72,7 @@ public class TemperatureAverageController
      */
     @Operation (summary = "Get daily average of a sensor at a given date")
     @GetMapping ("/temperatureaverage/daily/{sensorId}")
-    public EntityModel<TemperatureAverage> getDaily(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
+    public EntityModel<TemperatureAggregate> getDaily(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
                                                         @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureAverageDaily temperatureAverageDaily =
@@ -91,7 +91,7 @@ public class TemperatureAverageController
      */
     @Operation (summary = "Get weekly average of a sensor of a given date in the week")
     @GetMapping ("/temperatureaverage/weekly/{sensorId}")
-    public EntityModel<TemperatureAverage> getWeekly(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
+    public EntityModel<TemperatureAggregate> getWeekly(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
                                                          @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureAverageWeekly temperatureAverageWeekly =
@@ -108,7 +108,7 @@ public class TemperatureAverageController
      */
     @Operation (summary = "Get monthly average of a sensor of a given date in the month")
     @GetMapping ("/temperatureaverage/monthly")
-    public EntityModel<TemperatureAverage> getMonthly(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
+    public EntityModel<TemperatureAggregate> getMonthly(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
                                                           @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureAverageMonthly temperatureAverageMonthly =

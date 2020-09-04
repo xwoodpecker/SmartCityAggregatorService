@@ -14,9 +14,9 @@ import java.util.Optional;
  * The interface Temperature average repository.
  */
 @Repository
-public interface TemperatureAverageRepository extends JpaRepository<TemperatureAverage, Long>
+public interface TemperatureAverageRepository extends JpaRepository<TemperatureAggregate, Long>
 {
-    TemperatureAverage save(TemperatureAverage temperatureaverage);
+    TemperatureAggregate save(TemperatureAggregate temperatureaverage);
 
     List<TemperatureMaximumDaily> findTemperatureMaximumsDailyBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime);
 
