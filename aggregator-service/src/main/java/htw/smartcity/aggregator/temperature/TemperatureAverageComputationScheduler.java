@@ -44,7 +44,7 @@ public class TemperatureAverageComputationScheduler
             }
             TemperatureAverageDaily temperatureAverageDaily = new TemperatureAverageDaily();
             temperatureAverageDaily.setValue(sum/count);
-            temperatureAverageDaily.setSensor(sensorRepository.getOne(s.getId()));
+            temperatureAverageDaily.setSensor(s);
             temperatureAverageDaily.setDate(LocalDateTime.now().minusDays(1));
 
             temperatureAverageRepository.save(temperatureAverageDaily);
@@ -73,7 +73,7 @@ public class TemperatureAverageComputationScheduler
             }
             TemperatureAverageWeekly temperatureAverageWeekly = new TemperatureAverageWeekly();
             temperatureAverageWeekly.setValue(sum/count);
-            temperatureAverageWeekly.setSensor(sensorRepository.getOne(s.getId()));
+            temperatureAverageWeekly.setSensor(s);
             temperatureAverageWeekly.setBeginDate(LocalDateTime.now().minusWeeks(1).with(LocalTime.MIN));
             temperatureAverageWeekly.setEndDate(LocalDateTime.now().minusDays(1).with(LocalTime.MAX));
 
@@ -102,7 +102,7 @@ public class TemperatureAverageComputationScheduler
             }
             TemperatureAverageMonthly temperatureAverageMonthly = new TemperatureAverageMonthly();
             temperatureAverageMonthly.setValue(sum/count);
-            temperatureAverageMonthly.setSensor(sensorRepository.getOne(s.getId()));
+            temperatureAverageMonthly.setSensor(s);
             temperatureAverageMonthly.setBeginDate(LocalDateTime.now().minusMonths(1).with(LocalTime.MIN));
             temperatureAverageMonthly.setEndDate(LocalDateTime.now().minusDays(1).with(LocalTime.MAX));
 

@@ -19,4 +19,11 @@ public interface TemperatureAverageRepository extends JpaRepository<TemperatureA
     TemperatureAverage save(TemperatureAverage temperatureaverage);
 
     List<TemperatureMaximumDaily> findTemperatureMaximumsDailyBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime);
+
+    TemperatureAverageDaily findTemperatureAverageDailyBySensorIdAndTime(Long SensorId, LocalDateTime time);
+
+    TemperatureAverageWeekly findTemperatureAverageWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
+
+    TemperatureAverageMonthly findTemperatureAverageMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
 }
+

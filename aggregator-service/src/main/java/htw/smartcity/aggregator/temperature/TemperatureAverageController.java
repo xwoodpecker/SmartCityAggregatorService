@@ -70,32 +70,13 @@ public class TemperatureAverageController
      * @param pageable the pageable
      * @return the entity model
      */
-    @Operation (summary = "Compute daily average of a sensor")
+    @Operation (summary = "Get daily average of a sensor at a given date")
     @GetMapping ("/temperatureaverage/daily/{sensorId}")
-    public EntityModel<TemperatureAverage> computeDaily(@PathVariable Long sensorId,
+    public EntityModel<TemperatureAverage> getDaily(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
                                                         @Parameter (hidden = true) Pageable pageable)
     {
-        LocalDateTime startTime = LocalDateTime.now().with(LocalTime.MIN);
-        LocalDateTime endTime = LocalDateTime.now().with(LocalTime.MAX);
-
-
-        Page p = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, startTime, endTime,
-                                                                                pageable);
-
-        List   l   = p.getContent();
-        double sum = 0, count = 0;
-        for (var ele: l)
-        {
-            sum += Double.parseDouble(ele.toString());
-            count++;
-        }
-
-        TemperatureAverageDaily temperatureAverageDaily = new TemperatureAverageDaily();
-        temperatureAverageDaily.setDate(LocalDateTime.now());
-        temperatureAverageDaily.setSensor(sr.getOne(sensorId));
-        temperatureAverageDaily.setValue(sum/count);
-
-        temperatureAverageRepository.save(temperatureAverageDaily);
+        TemperatureAverageDaily temperatureAverageDaily =
+                temperatureAverageRepository.findTemperatureAverageDailyBySensorIdAndTime(sensorId, date);
 
         return one((long) 1);
 
@@ -108,10 +89,13 @@ public class TemperatureAverageController
      * @param pageable the pageable
      * @return the entity model
      */
-    @Operation (summary = "Compute daily average of a sensor")
-    @GetMapping ("/temperatureaverage/weekly")
-    public EntityModel<TemperatureAverage> computeWeekly(@PathVariable Long sensorId, @Parameter (hidden = true) Pageable pageable)
+    @Operation (summary = "Get weekly average of a sensor of a given date in the week")
+    @GetMapping ("/temperatureaverage/weekly/{sensorId}")
+    public EntityModel<TemperatureAverage> getWeekly(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
+                                                         @Parameter (hidden = true) Pageable pageable)
     {
+        TemperatureAverageWeekly temperatureAverageWeekly =
+                temperatureAverageRepository.findTemperatureAverageWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
         return one((long) 1);
     }
 
@@ -122,10 +106,13 @@ public class TemperatureAverageController
      * @param pageable the pageable
      * @return the entity model
      */
-    @Operation (summary = "Compute daily average of a sensor")
+    @Operation (summary = "Get monthly average of a sensor of a given date in the month")
     @GetMapping ("/temperatureaverage/monthly")
-    public EntityModel<TemperatureAverage> computeMonthly(@PathVariable Long sensorId, @Parameter (hidden = true) Pageable pageable)
+    public EntityModel<TemperatureAverage> getMonthly(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
+                                                          @Parameter (hidden = true) Pageable pageable)
     {
+        TemperatureAverageMonthly temperatureAverageMonthly =
+                temperatureAverageRepository.findTemperatureAverageMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
         return one((long) 1);
     }
 

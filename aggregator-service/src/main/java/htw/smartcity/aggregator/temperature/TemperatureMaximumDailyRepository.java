@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TemperatureMaximumDailyRepository<TemperatureMaximumDaily, Long> extends TemperatureAverageRepository
 {
-
+    TemperatureAverage save(TemperatureAverage temperatureMaximum);
 }
