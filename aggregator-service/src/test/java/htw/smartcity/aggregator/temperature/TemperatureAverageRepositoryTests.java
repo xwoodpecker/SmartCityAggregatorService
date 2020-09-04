@@ -27,7 +27,7 @@ public class TemperatureAverageRepositoryTests
     TemperatureRepository temperatureRepository;
 
     @Autowired
-    TemperatureAverageRepository temperatureAverageRepository;
+    TemperatureAggregateRepository temperatureAggregateRepository;
 
     @Test
     public void gradmoentest()
@@ -53,7 +53,7 @@ public class TemperatureAverageRepositoryTests
             temperatureAverageDaily.setSensor(sensorRepository.getOne(s.getId()));
             temperatureAverageDaily.setDate(LocalDateTime.now().minusDays(1));
 
-            temperatureAverageRepository.save(temperatureAverageDaily);
+            temperatureAggregateRepository.save(temperatureAverageDaily);
         }
     }
 }
