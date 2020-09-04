@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * The type Temperature average monthly.
+ * The type Temperature maximum monthly.
  */
 @Entity
 @Table(name = "TEMPERATURE_MAXIMUM_MONTHLY")
-public class TemperatureMaximumMonthly extends TemperatureAverage
+public class TemperatureMaximumMonthly extends TemperatureAggregate
 {
     @Column(name = "begin_date")
     private LocalDateTime beginDate;

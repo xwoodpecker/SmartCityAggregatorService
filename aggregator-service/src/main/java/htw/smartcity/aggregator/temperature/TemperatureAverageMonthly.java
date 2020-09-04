@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "TEMPERATURE_AVERAGE_MONTHLY")
-public class TemperatureAverageMonthly extends TemperatureAverage
+public class TemperatureAverageMonthly extends TemperatureAggregate
 {
     @Column(name = "begin_date")
     private LocalDateTime beginDate;
