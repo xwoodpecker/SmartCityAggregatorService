@@ -1,5 +1,6 @@
 package htw.smartcity.aggregator.temperature;
 
+import htw.smartcity.aggregator.base.ExceptionManager;
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import htw.smartcity.aggregator.sensor.SensorType;
@@ -25,20 +26,29 @@ public class TemperatureAggregateComputationScheduler
     @Autowired
     TemperatureAggregateRepository temperatureAggregateRepository;
 
+    final ExceptionManager exceptionManager = ExceptionManager.getInstance();
+
     @Scheduled (cron="0 1 * * *")
-    public void computeDaily()
+    private void computeDaily()
     {
         List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.TEMPERATURE);
 
         for(Sensor sensor : sensors)
         {
-            List<Temperature> tList = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensor.getId(),
-                                                                           LocalDateTime.now().minusDays(1).with(LocalTime.MIN),
-                                                                           LocalDateTime.now().minusDays(1).with(LocalTime.MAX));
+            LocalDateTime start = LocalDateTime.now().minusDays(1).with(LocalTime.MIN);
+            LocalDateTime end = LocalDateTime.now().minusDays(1).with(LocalTime.MAX);
+            computeAggregatesDaily(sensor.getId(), start, end);
+        }
+    }
+
+    public void computeAggregatesDaily(Long sensorId, LocalDateTime start, LocalDateTime end){
+        try {
+            List<Temperature> tList = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, start, end);
+            Sensor sensor = sensorRepository.getOne(sensorId);
 
             Optional<Double> sum = tList.stream().map(t -> t.getValue()).reduce((v1, v2) -> v1 + v2);
             Integer count = tList.size();
-            if(count > 0) {
+            if (count > 0) {
                 if (sum.isPresent()) {
                     TemperatureAverageDaily temperatureAverageDaily = new TemperatureAverageDaily();
                     temperatureAverageDaily.setValue(sum.get() / count);
@@ -67,24 +77,33 @@ public class TemperatureAggregateComputationScheduler
                     temperatureAggregateRepository.save(minimum);
                 }
             }
+        }catch (Exception e) {
+            e.printStackTrace();
+            exceptionManager.DailyAggregationFailed();
         }
     }
 
-
     @Scheduled (cron="0 1 */7 * *")
-    public void computeWeekly()
+    private void computeWeekly()
     {
         List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.TEMPERATURE);
 
         for(Sensor sensor : sensors)
         {
-            List<Temperature> tList = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensor.getId(),
-                                                                                                     LocalDateTime.now().minusWeeks(1).with(LocalTime.MIN),
-                                                                                                     LocalDateTime.now().minusDays(1).with(LocalTime.MAX));
+            LocalDateTime start = LocalDateTime.now().minusWeeks(1).with(LocalTime.MIN);
+            LocalDateTime end = LocalDateTime.now().minusDays(1).with(LocalTime.MAX);
+            computeAggregatesWeekly(sensor.getId(), start, end);
+        }
+    }
+
+    public void computeAggregatesWeekly(Long sensorId, LocalDateTime start, LocalDateTime end){
+        try {
+            List<Temperature> tList = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, start, end);
+            Sensor sensor = sensorRepository.getOne(sensorId);
 
             Optional<Double> sum = tList.stream().map(t -> t.getValue()).reduce((v1, v2) -> v1 + v2);
             Integer count = tList.size();
-            if(count > 0) {
+            if (count > 0) {
                 if (sum.isPresent()) {
                     TemperatureAverageWeekly temperatureAverageWeekly = new TemperatureAverageWeekly();
                     temperatureAverageWeekly.setValue(sum.get() / count);
@@ -116,23 +135,33 @@ public class TemperatureAggregateComputationScheduler
                     temperatureAggregateRepository.save(minimum);
                 }
             }
+        }catch (Exception e) {
+            e.printStackTrace();
+            exceptionManager.WeeklyAggregationFailed();
         }
     }
 
     @Scheduled (cron="0 1 1 * *")
-    public void computeMonthly()
+    private void computeMonthly()
     {
         List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.TEMPERATURE);
 
         for(Sensor sensor : sensors)
         {
-            List<Temperature> tList = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensor.getId(),
-                                                                                                    LocalDateTime.now().minusMonths(1).with(LocalTime.MIN),
-                                                                                                    LocalDateTime.now().minusDays(1).with(LocalTime.MAX));
+            LocalDateTime start = LocalDateTime.now().minusMonths(1).with(LocalTime.MIN);
+            LocalDateTime end = LocalDateTime.now().minusDays(1).with(LocalTime.MAX);
+            computeAggregatesMonthly(sensor.getId(), start, end);
+        }
+    }
+
+    public void computeAggregatesMonthly(Long sensorId, LocalDateTime start, LocalDateTime end) {
+        try {
+            List<Temperature> tList = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, start, end);
+            Sensor sensor = sensorRepository.getOne(sensorId);
 
             Optional<Double> sum = tList.stream().map(t -> t.getValue()).reduce((v1, v2) -> v1 + v2);
             Integer count = tList.size();
-            if(count > 0) {
+            if (count > 0) {
                 if (sum.isPresent()) {
                     TemperatureAverageMonthly temperatureAverageMonthly = new TemperatureAverageMonthly();
                     temperatureAverageMonthly.setValue(sum.get() / count);
@@ -164,6 +193,9 @@ public class TemperatureAggregateComputationScheduler
                     temperatureAggregateRepository.save(minimum);
                 }
             }
+        }catch (Exception e) {
+            e.printStackTrace();
+            exceptionManager.MonthlyAggregationFailed();
         }
     }
 

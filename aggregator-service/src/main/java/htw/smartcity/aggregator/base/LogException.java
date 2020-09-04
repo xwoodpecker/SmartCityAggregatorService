@@ -35,7 +35,14 @@ public enum LogException {
     /**
      * The Mqtt parking group counter persistence failed.
      */
-    MQTT_PARKING_GROUP_COUNTER_PERSISTENCE_FAILED(4, "Parking group counter could not be saved in the database");
+    MQTT_PARKING_GROUP_COUNTER_PERSISTENCE_FAILED(4, "Parking group counter could not be saved in the database"),
+
+    DAILY_AGGREGATION_FAILED(5, "Failed computing daily aggregates"),
+
+    WEEKLY_AGGREGATION_FAILED(6, "Failed computing weekly aggregates"),
+
+    MONTHLY_AGGREGATION_FAILED(7, "Failed computing monthly aggregates");
+
 
     private final int code;
     private final String description;
