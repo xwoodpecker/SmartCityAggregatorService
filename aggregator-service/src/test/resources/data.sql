@@ -42,8 +42,28 @@ INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (3
 INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (2, '2020-07-23 16:39:16.000000', 2, 1);
 INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (3, '2020-07-23 19:41:19.000000', 1, 1);
 
-INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-02 15:31:46.000000', 37.2, 8);
-INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-02 15:32:25.000000', 37.5, 9);
-INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-02 15:36:12.000000', 23.2, 8);
-INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-02 15:39:16.000000', 23.45, 9);
-INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-02 15:41:19.000000', 23.7, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:31:46.000000', 37.2, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:32:25.000000', 37.5, 9);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:36:12.000000', 23.2, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:39:16.000000', 23.45, 9);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:41:19.000000', 23.7, 8);
+
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-01 15:31:46.000000', 13.2, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-01 15:32:25.000000', 15.5, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-01 15:36:12.000000', 18.2, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-01 15:39:16.000000', 19.45, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-03 15:41:19.000000', 22.7, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-02 15:31:46.000000', 21.2, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-02 15:32:25.000000', 19.5, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-02 15:36:12.000000', 19.2, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-02 15:39:16.000000', 20.45, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-02 15:41:19.000000', 20.7, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-03 15:31:46.000000', 20.2, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-03 15:32:25.000000', 20.5, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-03 15:36:12.000000', 21.2, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-03 15:39:16.000000', 22.45, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-03 15:41:19.000000', 23.7, 8);
+
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-07 15:36:12.000000', 42.2, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-07 15:39:16.000000', 43.45, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-07 15:41:19.000000', 45.7, 8);
