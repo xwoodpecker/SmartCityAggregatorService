@@ -1,5 +1,8 @@
 package htw.smartcity.aggregator.temperature;
 
+import htw.smartcity.aggregator.airquality.AirQuality;
+import htw.smartcity.aggregator.temperature.Temperature;
+import htw.smartcity.aggregator.temperature.TemperatureRepository;
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import org.junit.Test;
@@ -13,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +48,7 @@ public class TemperatureRepositoryTests {
     @Test
     public void testTemperatureEntities() {
         Sensor sensor = sensorRepository.findById(TEMPERATURE_SENSOR1_ID).get();
-        Temperature temperature = new Temperature(OffsetDateTime.now(), sensor, 37.25);
+        Temperature temperature = new Temperature(LocalDateTime.now(), sensor, 37.25);
         Long id = temperatureRepository.save(temperature).getId();
         Temperature temperature2 = temperatureRepository.findById(id).get();
         assertNotNull(temperature);

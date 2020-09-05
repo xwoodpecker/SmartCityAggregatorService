@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public interface TemperatureRepository extends JpaRepository<Temperature, Long> 
      * @param pageable  the pageable
      * @return the page
      */
-    Page<Temperature> findTemperaturesByTimeAfterAndTimeBefore(OffsetDateTime startTime, OffsetDateTime endTime, Pageable pageable);
+    Page<Temperature> findTemperaturesByTimeAfterAndTimeBefore(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
 
     /**
      * Find temperatures by sensor id page.
@@ -43,9 +42,9 @@ public interface TemperatureRepository extends JpaRepository<Temperature, Long> 
      * @param pageable  the pageable
      * @return the page
      */
-    Page<Temperature> findTemperaturesBySensorIdAndTimeBetween(Long id, OffsetDateTime startTime, OffsetDateTime endTime, Pageable
+    Page<Temperature> findTemperaturesBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime, Pageable
             pageable);
 
 
-    List<Temperature> findTemperaturesBySensorIdAndTimeBetween(Long id, OffsetDateTime startTime, OffsetDateTime endTime);
+    List<Temperature> findTemperaturesBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime);
 }

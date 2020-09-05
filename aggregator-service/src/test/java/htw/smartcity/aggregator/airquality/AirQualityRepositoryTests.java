@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +45,7 @@ public class AirQualityRepositoryTests {
     @Test
     public void testAirQualityEntities() {
         Sensor sensor = sensorRepository.findById(AIRQUALITY_SENSOR1_ID).get();
-        AirQuality airQuality = new AirQuality(OffsetDateTime.now(), sensor, 100);
+        AirQuality airQuality = new AirQuality(LocalDateTime.now(), sensor, 100);
         Long id = airQualityRepository.save(airQuality).getId();
         AirQuality airQuality2 = airQualityRepository.findById(id).get();
         assertNotNull(airQuality2);

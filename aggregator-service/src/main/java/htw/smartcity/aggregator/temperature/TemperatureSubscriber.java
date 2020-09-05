@@ -7,7 +7,8 @@ import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.OffsetDateTime;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * The type Temperature subscriber.
@@ -34,7 +35,7 @@ public class TemperatureSubscriber extends MQTTSubscriber {
     }
 
     @Override
-    protected void persistMsg(OffsetDateTime time, Sensor sensor, String msg) {
+    protected void persistMsg(LocalDateTime time, Sensor sensor, String msg) {
         try {
             Double value = Double.valueOf(msg);
             Temperature temperature = new Temperature(time, sensor, value);

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 /**
  * The type Air quality.
@@ -22,7 +22,7 @@ public class AirQuality {
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(name = "time")
-    private OffsetDateTime time;
+    private LocalDateTime time;
 
     @ManyToOne
     @JoinColumn(name = "sensor_id")
@@ -46,7 +46,7 @@ public class AirQuality {
      * @param sensor the sensor
      * @param value  the value
      */
-    public AirQuality(OffsetDateTime time, Sensor sensor, Integer value) {
+    public AirQuality(LocalDateTime time, Sensor sensor, Integer value) {
         this.time = time;
         this.sensor = sensor;
         this.value = value;
@@ -75,7 +75,7 @@ public class AirQuality {
      *
      * @return the time
      */
-    public OffsetDateTime getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
@@ -84,7 +84,7 @@ public class AirQuality {
      *
      * @param time the time
      */
-    public void setTime(OffsetDateTime time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

@@ -11,7 +11,7 @@
 	<groupId>htw.smartcity</groupId>
 	<artifactId>aggregator-service</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>aggregator-service</name>
+	<name>aggregator</name>
 	<description>Smart City Aggregator</description>
 
 	<properties>
