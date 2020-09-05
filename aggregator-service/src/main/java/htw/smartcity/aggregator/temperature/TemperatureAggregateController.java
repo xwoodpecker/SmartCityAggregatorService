@@ -4,7 +4,6 @@ import htw.smartcity.aggregator.sensor.SensorRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import javafx.scene.input.DataFormat;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The type Temperature average controller.
@@ -23,25 +21,25 @@ import java.time.format.DateTimeFormatter;
 @Tag (name = "Temperature Aggregations", description = "Endpoint to get temperature averages, maximum and minimum")
 public class TemperatureAggregateController
 {
-    private TemperatureAggregateRepository temperatureAggregateRepository;
-    private TemperatureAverageResourceAssembler temperatureAverageResourceAssembler;
-    private TemperatureRepository temperatureRepository;
-    private SensorRepository sr;
+    private TemperatureAggregateRepository        temperatureAggregateRepository;
+    private TemperatureAggregateResourceAssembler temperatureAggregateResourceAssembler;
+    private TemperatureRepository                 temperatureRepository;
+    private SensorRepository                      sr;
 
     /**
      * Instantiates a new Temperature average controller.
      *
      * @param temperatureAggregateRepository        the temperature aggregate repository
-     * @param temperatureAverageResourceAssembler the temperature average resource assembler
+     * @param temperatureAggregateResourceAssembler the temperature average resource assembler
      * @param temperatureRepository               the temperature repository
      */
     public TemperatureAggregateController(TemperatureAggregateRepository temperatureAggregateRepository,
-                                          TemperatureAverageResourceAssembler temperatureAverageResourceAssembler,
+                                          TemperatureAggregateResourceAssembler temperatureAggregateResourceAssembler,
                                           TemperatureRepository temperatureRepository, SensorRepository sr) {
-        this.temperatureAggregateRepository = temperatureAggregateRepository;
-        this.temperatureAverageResourceAssembler = temperatureAverageResourceAssembler;
-        this.temperatureRepository = temperatureRepository;
-        this.sr = sr;
+        this.temperatureAggregateRepository        = temperatureAggregateRepository;
+        this.temperatureAggregateResourceAssembler = temperatureAggregateResourceAssembler;
+        this.temperatureRepository                 = temperatureRepository;
+        this.sr                                    = sr;
     }
 
     /**
@@ -57,7 +55,7 @@ public class TemperatureAggregateController
         TemperatureAggregate temperatureaverage = temperatureAggregateRepository.findById(temperatureaggregatorId)
                 .orElseThrow(() -> new TemperatureNotFoundException(temperatureaggregatorId));
 
-        return temperatureAverageResourceAssembler.toModel(temperatureaverage);
+        return temperatureAggregateResourceAssembler.toModel(temperatureaverage);
     }
 
     /**
@@ -79,9 +77,9 @@ public class TemperatureAggregateController
                             LocalDateTime.ofInstant(date, ZoneOffset.UTC).with(LocalTime.MIN));
 
             if (temperatureAverageDaily == null)
-                throw new TemperatureNotFoundException(sensorId);
+                throw new TemperatureAggregateNotFoundException(sensorId);
 
-        return temperatureAverageResourceAssembler.toModel(temperatureAverageDaily);
+        return temperatureAggregateResourceAssembler.toModel(temperatureAverageDaily);
 
     }
 
@@ -102,9 +100,9 @@ public class TemperatureAggregateController
                 temperatureAggregateRepository.findTemperatureAverageWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
         if (temperatureAverageWeekly == null)
-            throw new TemperatureNotFoundException(sensorId);
+            throw new TemperatureAggregateNotFoundException(sensorId);
 
-        return temperatureAverageResourceAssembler.toModel(temperatureAverageWeekly);
+        return temperatureAggregateResourceAssembler.toModel(temperatureAverageWeekly);
     }
 
     /**
@@ -124,9 +122,9 @@ public class TemperatureAggregateController
                 temperatureAggregateRepository.findTemperatureAverageMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
         if (temperatureAverageMonthly == null)
-            throw new TemperatureNotFoundException(sensorId);
+            throw new TemperatureAggregateNotFoundException(sensorId);
 
-        return temperatureAverageResourceAssembler.toModel(temperatureAverageMonthly);
+        return temperatureAggregateResourceAssembler.toModel(temperatureAverageMonthly);
     }
 
     @Operation (summary = "Get daily maximum of a sensor at a given date")
@@ -135,12 +133,13 @@ public class TemperatureAggregateController
                                                       @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMaximumDaily temperatureMaximumDaily =
-                temperatureAggregateRepository.findTemperatureMaxiumumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
+                temperatureAggregateRepository.findTemperatureMaxiumumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC).with(LocalTime.MAX),
+                                                                                                                                 LocalDateTime.ofInstant(date, ZoneOffset.UTC).with(LocalTime.MIN));
 
         if (temperatureMaximumDaily == null)
-            throw new TemperatureNotFoundException(sensorId);
+            throw new TemperatureAggregateNotFoundException(sensorId);
 
-        return temperatureAverageResourceAssembler.toModel(temperatureMaximumDaily);
+        return temperatureAggregateResourceAssembler.toModel(temperatureMaximumDaily);
     }
 
     @Operation (summary = "Get weekly maximum of a sensor of a given date in the week")
@@ -152,9 +151,9 @@ public class TemperatureAggregateController
                 temperatureAggregateRepository.findTemperatureMaximumWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
         if (temperatureMaximumWeekly == null)
-            throw new TemperatureNotFoundException(sensorId);
+            throw new TemperatureAggregateNotFoundException(sensorId);
 
-        return temperatureAverageResourceAssembler.toModel(temperatureMaximumWeekly);
+        return temperatureAggregateResourceAssembler.toModel(temperatureMaximumWeekly);
     }
 
     @Operation (summary = "Get monthly maximum of a sensor of a given date in the week")
@@ -167,9 +166,9 @@ public class TemperatureAggregateController
                 temperatureAggregateRepository.findTemperatureMaximumMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
         if (temperatureMaximumMonthly == null)
-            throw new TemperatureNotFoundException(sensorId);
+            throw new TemperatureAggregateNotFoundException(sensorId);
 
-        return temperatureAverageResourceAssembler.toModel(temperatureMaximumMonthly);
+        return temperatureAggregateResourceAssembler.toModel(temperatureMaximumMonthly);
     }
 
     @Operation (summary = "Get daily minimum of a sensor at a given date")
@@ -178,12 +177,13 @@ public class TemperatureAggregateController
                                                          @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMinimumDaily temperatureMinimumDaily =
-                temperatureAggregateRepository.findTemperatureMinimumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
+                temperatureAggregateRepository.findTemperatureMinimumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC).with(LocalTime.MAX),
+                                                                                                                                LocalDateTime.ofInstant(date, ZoneOffset.UTC).with(LocalTime.MIN));
 
         if (temperatureMinimumDaily == null)
-            throw new TemperatureNotFoundException(sensorId);
+            throw new TemperatureAggregateNotFoundException(sensorId);
 
-        return temperatureAverageResourceAssembler.toModel(temperatureMinimumDaily);
+        return temperatureAggregateResourceAssembler.toModel(temperatureMinimumDaily);
     }
 
     @Operation (summary = "Get weekly minimum of a sensor of a given date in the week")
@@ -195,9 +195,9 @@ public class TemperatureAggregateController
                 temperatureAggregateRepository.findTemperatureMinimumWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
         if (temperatureMinimumWeekly == null)
-            throw new TemperatureNotFoundException(sensorId);
+            throw new TemperatureAggregateNotFoundException(sensorId);
 
-        return temperatureAverageResourceAssembler.toModel(temperatureMinimumWeekly);
+        return temperatureAggregateResourceAssembler.toModel(temperatureMinimumWeekly);
     }
 
     @Operation (summary = "Get monthly minimum of a sensor of a given date in the week")
@@ -210,9 +210,9 @@ public class TemperatureAggregateController
                 temperatureAggregateRepository.findTemperatureMinimumMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
         if (temperatureMinimumMonthly == null)
-            throw new TemperatureNotFoundException(sensorId);
+            throw new TemperatureAggregateNotFoundException(sensorId);
 
-        return temperatureAverageResourceAssembler.toModel(temperatureMinimumMonthly);
+        return temperatureAggregateResourceAssembler.toModel(temperatureMinimumMonthly);
     }
 
 }
