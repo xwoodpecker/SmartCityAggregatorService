@@ -78,4 +78,8 @@ public class AirQualityAverageWeekly extends AirQualityAggregate
     }
 
 
+    @Override
+    public String toString() {
+        return "[" + value + "]";
+    }
 }

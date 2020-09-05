@@ -46,4 +46,8 @@ public class AirQualityMaximumDaily extends AirQualityAggregate
     }
 
 
+    @Override
+    public String toString() {
+        return "[" + value + "]";
+    }
 }

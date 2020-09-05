@@ -19,8 +19,6 @@ public class AirQualityAggregate
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
 
-    @Column(name = "value")
-    private Number value;
 
     /**
      * Default constructor for JPA only.
@@ -65,9 +63,4 @@ public class AirQualityAggregate
         this.sensor = sensor;
     }
 
-
-    @Override
-    public String toString() {
-        return "[" + value + "]";
-    }
 }

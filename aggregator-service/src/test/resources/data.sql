@@ -68,6 +68,8 @@ INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-07 15:36:
 INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-07 15:39:16.000000', 43.45, 8);
 INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-07 15:41:19.000000', 45.7, 8);
 
+
+-- Temperature Aggregate
 INSERT INTO temperature_average_daily (value, time, sensor_id) VALUES (20.25, '2020-08-20 01:00:00.000000', 8);
 INSERT INTO temperature_average_daily (value, time, sensor_id) VALUES (32.01, '2020-08-20 01:00:00.000000', 9);
 INSERT INTO temperature_average_daily (value, time, sensor_id) VALUES (5.0, '2020-08-21 01:00:00.000000', 8);
@@ -112,3 +114,49 @@ INSERT INTO temperature_minimum_monthly (value, begin_date, end_date, sensor_id)
 INSERT INTO temperature_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (12.02, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 9);
 INSERT INTO temperature_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (-3.1, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 8);
 INSERT INTO temperature_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (5.04, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 9);
+
+-- Air Quality Aggregate
+INSERT INTO air_quality_average_daily (value, time, sensor_id) VALUES (20.01, '2020-08-20 01:00:00.000000', 1);
+INSERT INTO air_quality_average_daily (value, time, sensor_id) VALUES (32, '2020-08-20 01:00:00.000000', 2);
+INSERT INTO air_quality_average_daily (value, time, sensor_id) VALUES (5, '2020-08-21 01:00:00.000000', 1);
+INSERT INTO air_quality_average_daily (value, time, sensor_id) VALUES (10.57, '2020-08-21 01:00:00.000000', 2);
+
+INSERT INTO air_quality_average_weekly (value, begin_date, end_date, sensor_id) VALUES (18, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 1);
+INSERT INTO air_quality_average_weekly (value, begin_date, end_date, sensor_id) VALUES (45.87, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 2);
+INSERT INTO air_quality_average_weekly (value, begin_date, end_date, sensor_id) VALUES (-6.71, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 1);
+INSERT INTO air_quality_average_weekly (value, begin_date, end_date, sensor_id) VALUES (8, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 2);
+
+INSERT INTO air_quality_average_monthly (value, begin_date, end_date, sensor_id) VALUES (65.43, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 1);
+INSERT INTO air_quality_average_monthly (value, begin_date, end_date, sensor_id) VALUES (12, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 2);
+INSERT INTO air_quality_average_monthly (value, begin_date, end_date, sensor_id) VALUES (-3, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 1);
+INSERT INTO air_quality_average_monthly (value, begin_date, end_date, sensor_id) VALUES (5.66, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 2);
+
+INSERT INTO air_quality_maximum_daily (value, time, sensor_id) VALUES (20, '2020-08-20 01:00:00.000000', 1);
+INSERT INTO air_quality_maximum_daily (value, time, sensor_id) VALUES (32, '2020-08-20 01:00:00.000000', 2);
+INSERT INTO air_quality_maximum_daily (value, time, sensor_id) VALUES (5, '2020-08-21 01:00:00.000000', 1);
+INSERT INTO air_quality_maximum_daily (value, time, sensor_id) VALUES (10, '2020-08-21 01:00:00.000000', 2);
+
+INSERT INTO air_quality_maximum_weekly (value, begin_date, end_date, sensor_id) VALUES (18, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 1);
+INSERT INTO air_quality_maximum_weekly (value, begin_date, end_date, sensor_id) VALUES (45, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 2);
+INSERT INTO air_quality_maximum_weekly (value, begin_date, end_date, sensor_id) VALUES (-6, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 1);
+INSERT INTO air_quality_maximum_weekly (value, begin_date, end_date, sensor_id) VALUES (8, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 2);
+
+INSERT INTO air_quality_maximum_monthly (value, begin_date, end_date, sensor_id) VALUES (65, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 1);
+INSERT INTO air_quality_maximum_monthly (value, begin_date, end_date, sensor_id) VALUES (12, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 2);
+INSERT INTO air_quality_maximum_monthly (value, begin_date, end_date, sensor_id) VALUES (-3, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 1);
+INSERT INTO air_quality_maximum_monthly (value, begin_date, end_date, sensor_id) VALUES (5, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 2);
+
+INSERT INTO air_quality_minimum_daily (value, time, sensor_id) VALUES (20, '2020-08-20 01:00:00.000000', 1);
+INSERT INTO air_quality_minimum_daily (value, time, sensor_id) VALUES (32, '2020-08-20 01:00:00.000000', 2);
+INSERT INTO air_quality_minimum_daily (value, time, sensor_id) VALUES (5, '2020-08-21 01:00:00.000000', 1);
+INSERT INTO air_quality_minimum_daily (value, time, sensor_id) VALUES (10, '2020-08-21 01:00:00.000000', 2);
+
+INSERT INTO air_quality_minimum_weekly (value, begin_date, end_date, sensor_id) VALUES (18, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 1);
+INSERT INTO air_quality_minimum_weekly (value, begin_date, end_date, sensor_id) VALUES (45, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 2);
+INSERT INTO air_quality_minimum_weekly (value, begin_date, end_date, sensor_id) VALUES (-6, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 1);
+INSERT INTO air_quality_minimum_weekly (value, begin_date, end_date, sensor_id) VALUES (8, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 2);
+
+INSERT INTO air_quality_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (65, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 1);
+INSERT INTO air_quality_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (12, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 2);
+INSERT INTO air_quality_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (-3, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 1);
+INSERT INTO air_quality_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (5, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 2);

@@ -78,4 +78,8 @@ public class AirQualityAverageMonthly extends AirQualityAggregate
     }
 
 
+    @Override
+    public String toString() {
+        return "[" + value + "]";
+    }
 }
