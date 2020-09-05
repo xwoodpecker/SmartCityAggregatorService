@@ -1,4 +1,4 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.temperatureaggregate;
 
 /**
  * The type Temperature average not found exception.

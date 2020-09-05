@@ -1,23 +1,16 @@
 package htw.smartcity.aggregator.temperature;
 
-import htw.smartcity.aggregator.sensor.Sensor;
-import htw.smartcity.aggregator.sensor.SensorRepository;
-import htw.smartcity.aggregator.sensor.SensorType;
+import htw.smartcity.aggregator.temperatureaggregate.TemperatureAggregateComputationScheduler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.Month;
-import java.util.List;
 
 @RunWith (SpringRunner.class)
 @SpringBootTest

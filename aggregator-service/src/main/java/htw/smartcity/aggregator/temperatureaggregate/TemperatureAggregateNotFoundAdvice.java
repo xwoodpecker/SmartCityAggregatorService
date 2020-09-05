@@ -1,5 +1,6 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.temperatureaggregate;
 
+import htw.smartcity.aggregator.temperature.TemperatureNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,4 +1,4 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.temperatureaggregate;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

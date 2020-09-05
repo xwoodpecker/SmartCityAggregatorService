@@ -1,9 +1,11 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.temperatureaggregate;
 
 import htw.smartcity.aggregator.base.ExceptionManager;
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import htw.smartcity.aggregator.sensor.SensorType;
+import htw.smartcity.aggregator.temperature.Temperature;
+import htw.smartcity.aggregator.temperature.TemperatureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -43,8 +45,8 @@ public class TemperatureAggregateComputationScheduler
 
     public void computeAggregatesDaily(Long sensorId, LocalDateTime start, LocalDateTime end){
         try {
-            List<Temperature> tList = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, start, end);
-            Sensor sensor = sensorRepository.getOne(sensorId);
+            List<Temperature> tList  = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, start, end);
+            Sensor            sensor = sensorRepository.getOne(sensorId);
 
             Optional<Double> sum = tList.stream().map(t -> t.getValue()).reduce((v1, v2) -> v1 + v2);
             Integer count = tList.size();

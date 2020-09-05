@@ -1,6 +1,8 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.temperatureaggregate;
 
 import htw.smartcity.aggregator.sensor.SensorRepository;
+import htw.smartcity.aggregator.temperature.TemperatureNotFoundException;
+import htw.smartcity.aggregator.temperature.TemperatureRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

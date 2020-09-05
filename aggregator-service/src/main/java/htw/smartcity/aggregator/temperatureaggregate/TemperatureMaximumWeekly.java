@@ -1,14 +1,16 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.temperatureaggregate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
- * The type Temperature maximum monthly.
+ * The type Temperature maximum weekly.
  */
 @Entity
-@Table(name = "TEMPERATURE_MAXIMUM_MONTHLY")
-public class TemperatureMaximumMonthly extends TemperatureAggregate
+@Table(name = "TEMPERATURE_MAXIMUM_WEEKLY")
+public class TemperatureMaximumWeekly extends TemperatureAggregate
 {
     @Column(name = "begin_date")
     private LocalDateTime beginDate;
