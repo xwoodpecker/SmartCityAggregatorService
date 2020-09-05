@@ -21,9 +21,6 @@ public class ConfigProperties {
     public static final String MAIL_SEND_PERIOD;
 
     static {
-
-        // is this still a todo ? @David
-        //todo wrong path when running tests, figure out better method to load this resource
         URL root = ConfigProperties.class.getProtectionDomain().getCodeSource().getLocation();
         URL propertiesFile = null;
         try {

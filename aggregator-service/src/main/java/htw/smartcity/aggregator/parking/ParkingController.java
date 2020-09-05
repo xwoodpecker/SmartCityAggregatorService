@@ -97,28 +97,4 @@ public class ParkingController {
         return parkingResourceAssembler.toModel(parking);
     }
 
-    /**
-     * Average by sensor response entity.
-     *
-     * @param startTime the start time
-     * @param endTime   the end time
-     * @param sensorId  the sensor id
-     * @param pageable  the pageable
-     * @return the response entity
-     */
-    @Operation(summary = "Get the average occupancy of a specific sensor within a given timeframe")
-    @GetMapping("bySensor/{sensorId}/timeframe/average")
-    ResponseEntity<PagedModel<Parking>> averageBySensor(
-            //todo average entity
-            @RequestParam LocalDateTime startTime,
-            @RequestParam LocalDateTime endTime,
-            @PathVariable Long sensorId,
-            @Parameter(hidden = true) Pageable pageable)
-    {
-        //todo
-        return bySensor(pageable, sensorId);
-    }
-
-
-
 }
