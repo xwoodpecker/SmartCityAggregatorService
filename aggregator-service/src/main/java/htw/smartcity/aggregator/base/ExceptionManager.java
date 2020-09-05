@@ -1,7 +1,8 @@
 package htw.smartcity.aggregator.base;
 
-import htw.smartcity.aggregator.sensor.Sensor;
+import htw.smartcity.aggregator.security.UserRepository;
 import htw.smartcity.aggregator.sensor.SensorType;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -20,6 +21,9 @@ public class ExceptionManager {
     private Timer timer;
 
     private static ExceptionManager instance;
+
+    @Autowired
+    UserRepository userRepository;
 
     /**
      * Gets instance.
@@ -71,7 +75,9 @@ public class ExceptionManager {
                 }
                 String subject = String.format("%d errors during AggregatorService execution", errorCount);
                 String text = sb.toString();
-                SendMailHelper.sendMail(subject, text);
+                Optional<String> optionalMailList = userRepository.findAdmins().stream().map(a -> a.getEmail()).reduce((a1, a2) -> a1 + "," + a2);
+                String mailList = optionalMailList.get();
+                SendMailHelper.sendMail(subject, text, mailList);
             }
         }
     }
