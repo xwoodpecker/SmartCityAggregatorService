@@ -1,7 +1,6 @@
 package htw.smartcity.aggregator.temperature;
 
 import htw.smartcity.aggregator.sensor.SensorController;
-import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
@@ -13,14 +12,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
  * The type Temperature average resource assembler.
  */
 @Component
-public class TemperatureAverageResourceAssembler implements RepresentationModelAssembler<TemperatureAverage,
-        EntityModel<TemperatureAverage>>
+public class TemperatureAverageResourceAssembler implements RepresentationModelAssembler<TemperatureAggregate,
+        EntityModel<TemperatureAggregate>>
 {
     @Override
-    public EntityModel<TemperatureAverage> toModel(TemperatureAverage entity)
+    public EntityModel<TemperatureAggregate> toModel(TemperatureAggregate entity)
     {
-        EntityModel<TemperatureAverage> entityModel = EntityModel.of(entity,
-                                  linkTo(methodOn(TemperatureAverageController.class).one(entity.getId())).withSelfRel());
+        EntityModel<TemperatureAggregate> entityModel = EntityModel.of(entity,
+                                  linkTo(methodOn(TemperatureAggregateController.class).one(entity.getId())).withSelfRel());
         if(entity.getSensor() != null)
         {
             entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));

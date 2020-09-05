@@ -172,6 +172,17 @@ public class ExceptionManager {
         mailExpcetions.add(mailException);
     }
 
+    public void DailyAggregationFailed() {
+        mailExpcetions.add(new MailException(LogException.DAILY_AGGREGATION_FAILED));
+    }
+
+    public void WeeklyAggregationFailed() {
+        mailExpcetions.add(new MailException(LogException.WEEKLY_AGGREGATION_FAILED));
+    }
+    public void MonthlyAggregationFailed() {
+        mailExpcetions.add(new MailException(LogException.MONTHLY_AGGREGATION_FAILED));
+    }
+
     //can we do sth generic?
     private void addMailException(LogException type, List<String> additionalInfos){
         MailException mailException = new MailException(type);

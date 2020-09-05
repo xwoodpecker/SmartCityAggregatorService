@@ -8,8 +8,8 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "TEMPERATURE_MAXIMUM_DAILY")
-public class TemperatureMaximumDaily extends TemperatureAggregate
+@Table(name = "TEMPERATURE_MINIMUM_DAILY")
+public class TemperatureMinimumDaily extends TemperatureAggregate
 {
     @Column(name = "date")
     @JsonFormat (pattern = "yyyy-MM-dd")

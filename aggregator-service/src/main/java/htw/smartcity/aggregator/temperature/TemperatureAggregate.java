@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @MappedSuperclass
 @JsonIgnoreProperties({"sensor"})
-public class TemperatureAverage {
+public class TemperatureAggregate {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -29,7 +29,7 @@ public class TemperatureAverage {
     /**
      * Default constructor for JPA only.
      */
-    public TemperatureAverage() {
+    public TemperatureAggregate() {
 
     }
 
