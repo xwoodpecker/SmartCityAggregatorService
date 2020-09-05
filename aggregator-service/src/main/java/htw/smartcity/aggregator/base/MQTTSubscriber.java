@@ -27,7 +27,8 @@ public abstract class MQTTSubscriber implements MqttCallback {
     /**
      * The Exception manager.
      */
-    protected final ExceptionManager exceptionManager = ExceptionManager.getInstance();
+    @Autowired
+    protected ExceptionManager exceptionManager;
 
 
     private MqttClient mqttClient = null;
@@ -71,6 +72,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
 
     @Override
     public void messageArrived(String topic, MqttMessage message) {
+        exceptionManager.MonthlyAggregationFailed();
         LocalDateTime time = LocalDateTime.now();
 
         String msg = message.toString();

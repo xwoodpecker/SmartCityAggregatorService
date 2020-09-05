@@ -1,5 +1,8 @@
 package htw.smartcity.aggregator.base;
 
+import htw.smartcity.aggregator.security.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -26,7 +29,7 @@ public class SendMailHelper {
      * @param subject     the subject
      * @param messageText the message text
      */
-    public static void sendMail(String subject, String messageText) {
+    public static void sendMail(String subject, String messageText, String adminList) {
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -41,21 +44,26 @@ public class SendMailHelper {
                     }
                 });
 
-        try {
+        String finalMailList = mailList;
+        if(adminList != null)
+            finalMailList += "," + adminList;
+        if(!finalMailList.isEmpty()) {
+            try {
 
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("smartcityaggregatorservice@gmail.com"));
-            message.setRecipients(
-                    Message.RecipientType.TO,
-                    InternetAddress.parse(mailList)
-            );
-            message.setSubject(subject);
-            message.setText(messageText);
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("smartcityaggregatorservice@gmail.com"));
+                message.setRecipients(
+                        Message.RecipientType.TO,
+                        InternetAddress.parse(finalMailList)
+                );
+                message.setSubject(subject);
+                message.setText(messageText);
 
-            Transport.send(message);
+                Transport.send(message);
 
-        } catch (MessagingException e) {
-            e.printStackTrace();
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
         }
     }
 

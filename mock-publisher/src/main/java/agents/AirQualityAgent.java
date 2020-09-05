@@ -8,9 +8,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The type Air quality agent.
+ */
 public class AirQualityAgent extends Agent {
     private final String TOPIC_PREFIX = ConfigProperties.TOPIC + "/airQuality/";
     private int lastAirQuality;
+
+    /**
+     * Instantiates a new Air quality agent.
+     *
+     * @param publisher  the publisher
+     * @param sensorName the sensor name
+     */
     public AirQualityAgent(Publisher publisher, String sensorName){
         super(publisher, sensorName);
 

@@ -19,19 +19,49 @@ import java.security.cert.CertificateFactory;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The type Publisher.
+ */
 public class Publisher {
 
+    /**
+     * The constant TOPIC_AIRQUALITY.
+     */
     public static final String TOPIC_AIRQUALITY = ConfigProperties.TOPIC + "/airQuality/sensor1";
+    /**
+     * The constant TOPIC_TEMPERATURE_SENSOR1.
+     */
     public static final String TOPIC_TEMPERATURE_SENSOR1 = ConfigProperties.TOPIC + "/temperature/sensor1";
+    /**
+     * The constant TOPIC_TEMPERATURE_SENSOR2.
+     */
     public static final String TOPIC_TEMPERATURE_SENSOR2 = ConfigProperties.TOPIC + "/temperature/sensor2";
+    /**
+     * The constant TOPIC_PARKING_SENSOR1.
+     */
     public static final String TOPIC_PARKING_SENSOR1 = ConfigProperties.TOPIC + "/parking/group1/sensor1";
+    /**
+     * The constant TOPIC_PARKING_SENSOR2.
+     */
     public static final String TOPIC_PARKING_SENSOR2 = ConfigProperties.TOPIC + "/parking/group2/sensor1";
+    /**
+     * The constant TOPIC_PARKING_SENSOR3.
+     */
     public static final String TOPIC_PARKING_SENSOR3 = ConfigProperties.TOPIC + "/parking/group2/sensor2";
+    /**
+     * The constant TOPIC_PARKING_SENSOR4.
+     */
     public static final String TOPIC_PARKING_SENSOR4 = ConfigProperties.TOPIC + "/parking/group2/sensor3";
+    /**
+     * The constant TOPIC_PARKING_SENSOR5.
+     */
     public static final String TOPIC_PARKING_SENSOR5 = ConfigProperties.TOPIC + "/parking/group2/sensor4";
 
     private MqttClient client;
 
+    /**
+     * Instantiates a new Publisher.
+     */
     public Publisher() {
 
         String clientId = Utils.getMacAddress() + "-pub";
@@ -78,18 +108,39 @@ public class Publisher {
     }
 
 
+    /**
+     * Publish temperature.
+     *
+     * @param topic       the topic
+     * @param temperature the temperature
+     * @throws MqttException the mqtt exception
+     */
     public void publishTemperature(String topic, Double temperature) throws MqttException {
         final MqttTopic mqttTopic = client.getTopic(topic);
         mqttTopic.publish(new MqttMessage(temperature.toString().getBytes()));
         System.out.println("Published data. Topic: " + mqttTopic.getName() + "  Message: " + temperature.toString());
     }
 
+    /**
+     * Publish airquality.
+     *
+     * @param topic      the topic
+     * @param airquality the airquality
+     * @throws MqttException the mqtt exception
+     */
     public void publishAirquality(String topic, Integer airquality) throws MqttException {
         final MqttTopic mqttTopic = client.getTopic(topic);
         mqttTopic.publish(new MqttMessage(airquality.toString().getBytes()));
         System.out.println("Published data. Topic: " + mqttTopic.getName() + "  Message: " + airquality.toString());
     }
 
+    /**
+     * Publish parking.
+     *
+     * @param topic   the topic
+     * @param parking the parking
+     * @throws MqttException the mqtt exception
+     */
     public void publishParking(String topic, boolean parking) throws MqttException {
         final MqttTopic mqttTopic = client.getTopic(topic);
         mqttTopic.publish(new MqttMessage(String.valueOf(parking).getBytes()));
@@ -97,6 +148,11 @@ public class Publisher {
     }
 
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String... args) {
         final Publisher publisher = new Publisher();
         publisher.start();

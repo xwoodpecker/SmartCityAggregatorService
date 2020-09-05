@@ -4,12 +4,30 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * The type Config properties.
+ */
 public class ConfigProperties {
 
+    /**
+     * The constant BROKER.
+     */
     public static final String BROKER;
+    /**
+     * The constant USERNAME.
+     */
     public static final String USERNAME;
+    /**
+     * The constant PASSWORD.
+     */
     public static final String PASSWORD;
+    /**
+     * The constant CERTIFICATE.
+     */
     public static final String CERTIFICATE;
+    /**
+     * The constant TOPIC.
+     */
     public static final String TOPIC;
 
     static {

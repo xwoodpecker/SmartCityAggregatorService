@@ -15,13 +15,25 @@ import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 
+/**
+ * The type Subscriber.
+ */
 public class Subscriber {
 
+    /**
+     * The constant ALL_SUBTOPICS.
+     */
     public static final String ALL_SUBTOPICS = ConfigProperties.TOPIC + "/#";
 
+    /**
+     * The Client id.
+     */
     String clientId = Utils.getMacAddress() + "-sub";
     private MqttClient mqttClient;
 
+    /**
+     * Instantiates a new Subscriber.
+     */
     public Subscriber() {
 
         try {
@@ -32,6 +44,9 @@ public class Subscriber {
         }
     }
 
+    /**
+     * Start.
+     */
     public void start() {
 
         try {
@@ -55,6 +70,11 @@ public class Subscriber {
         }
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String... args) {
         final Subscriber subscriber = new Subscriber();
         subscriber.start();
