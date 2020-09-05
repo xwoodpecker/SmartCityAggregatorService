@@ -1,5 +1,6 @@
 package htw.smartcity.aggregator.airquality;
 
+import htw.smartcity.aggregator.temperature.Temperature;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * The interface Air quality repository.
@@ -32,4 +34,6 @@ public interface AirQualityRepository extends JpaRepository<AirQuality, Long> {
      * @return the page
      */
     Page findAirQualitiesByTimeAfterAndTimeBefore(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
+
+    List<AirQuality> findAirQualitiesBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime);
 }

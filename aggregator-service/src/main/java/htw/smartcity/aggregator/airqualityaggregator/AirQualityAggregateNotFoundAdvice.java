@@ -1,4 +1,4 @@
-package htw.smartcity.aggregator.temperatureaggregate;
+package htw.smartcity.aggregator.airqualityaggregator;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class TemperatureAggregateNotFoundAdvice
+public class AirQualityAggregateNotFoundAdvice
 {
     @ResponseBody
-    @ExceptionHandler (TemperatureAggregateNotFoundException.class)
+    @ExceptionHandler (AirQualityAggregateNotFoundException.class)
     @ResponseStatus (HttpStatus.NOT_FOUND)
-    String temperatureAggregateNotFoundHandler(TemperatureAggregateNotFoundException ex){
+    String temperatureAggregateNotFoundHandler(AirQualityAggregateNotFoundException ex){
         return ex.getMessage();
     }
 }
