@@ -67,3 +67,48 @@ INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-03 15:41:
 INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-07 15:36:12.000000', 42.2, 8);
 INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-07 15:39:16.000000', 43.45, 8);
 INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-09-07 15:41:19.000000', 45.7, 8);
+
+INSERT INTO temperature_average_daily (value, time, sensor_id) VALUES (20.25, '2020-08-20 01:00:00.000000', 8);
+INSERT INTO temperature_average_daily (value, time, sensor_id) VALUES (32.01, '2020-08-20 01:00:00.000000', 9);
+INSERT INTO temperature_average_daily (value, time, sensor_id) VALUES (5.0, '2020-08-21 01:00:00.000000', 8);
+INSERT INTO temperature_average_daily (value, time, sensor_id) VALUES (10.11, '2020-08-21 01:00:00.000000', 9);
+
+INSERT INTO temperature_average_weekly (value, begin_date, end_date, sensor_id) VALUES (18.35, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 8);
+INSERT INTO temperature_average_weekly (value, begin_date, end_date, sensor_id) VALUES (45.02, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 9);
+INSERT INTO temperature_average_weekly (value, begin_date, end_date, sensor_id) VALUES (-6.1, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 8);
+INSERT INTO temperature_average_weekly (value, begin_date, end_date, sensor_id) VALUES (8.04, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 9);
+
+INSERT INTO temperature_average_monthly (value, begin_date, end_date, sensor_id) VALUES (65.35, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 8);
+INSERT INTO temperature_average_monthly (value, begin_date, end_date, sensor_id) VALUES (12.02, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 9);
+INSERT INTO temperature_average_monthly (value, begin_date, end_date, sensor_id) VALUES (-3.1, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 8);
+INSERT INTO temperature_average_monthly (value, begin_date, end_date, sensor_id) VALUES (5.04, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 9);
+
+INSERT INTO temperature_maximum_daily (value, time, sensor_id) VALUES (20.25, '2020-08-20 01:00:00.000000', 8);
+INSERT INTO temperature_maximum_daily (value, time, sensor_id) VALUES (32.01, '2020-08-20 01:00:00.000000', 9);
+INSERT INTO temperature_maximum_daily (value, time, sensor_id) VALUES (5.0, '2020-08-21 01:00:00.000000', 8);
+INSERT INTO temperature_maximum_daily (value, time, sensor_id) VALUES (10.11, '2020-08-21 01:00:00.000000', 9);
+
+INSERT INTO temperature_maximum_weekly (value, begin_date, end_date, sensor_id) VALUES (18.35, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 8);
+INSERT INTO temperature_maximum_weekly (value, begin_date, end_date, sensor_id) VALUES (45.02, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 9);
+INSERT INTO temperature_maximum_weekly (value, begin_date, end_date, sensor_id) VALUES (-6.1, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 8);
+INSERT INTO temperature_maximum_weekly (value, begin_date, end_date, sensor_id) VALUES (8.04, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 9);
+
+INSERT INTO temperature_maximum_monthly (value, begin_date, end_date, sensor_id) VALUES (65.35, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 8);
+INSERT INTO temperature_maximum_monthly (value, begin_date, end_date, sensor_id) VALUES (12.02, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 9);
+INSERT INTO temperature_maximum_monthly (value, begin_date, end_date, sensor_id) VALUES (-3.1, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 8);
+INSERT INTO temperature_maximum_monthly (value, begin_date, end_date, sensor_id) VALUES (5.04, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 9);
+
+INSERT INTO temperature_minimum_daily (value, time, sensor_id) VALUES (20.25, '2020-08-20 01:00:00.000000', 8);
+INSERT INTO temperature_minimum_daily (value, time, sensor_id) VALUES (32.01, '2020-08-20 01:00:00.000000', 9);
+INSERT INTO temperature_minimum_daily (value, time, sensor_id) VALUES (5.0, '2020-08-21 01:00:00.000000', 8);
+INSERT INTO temperature_minimum_daily (value, time, sensor_id) VALUES (10.11, '2020-08-21 01:00:00.000000', 9);
+
+INSERT INTO temperature_minimum_weekly (value, begin_date, end_date, sensor_id) VALUES (18.35, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 8);
+INSERT INTO temperature_minimum_weekly (value, begin_date, end_date, sensor_id) VALUES (45.02, '2020-08-17 01:00:00.000000', '2020-08-24 01:00:00.000000', 9);
+INSERT INTO temperature_minimum_weekly (value, begin_date, end_date, sensor_id) VALUES (-6.1, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 8);
+INSERT INTO temperature_minimum_weekly (value, begin_date, end_date, sensor_id) VALUES (8.04, '2020-08-24 01:00:00.000000', '2020-08-31 01:00:00.000000', 9);
+
+INSERT INTO temperature_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (65.35, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 8);
+INSERT INTO temperature_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (12.02, '2020-07-01 01:00:00.000000', '2020-08-01 01:00:00.000000', 9);
+INSERT INTO temperature_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (-3.1, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 8);
+INSERT INTO temperature_minimum_monthly (value, begin_date, end_date, sensor_id) VALUES (5.04, '2020-08-01 01:00:00.000000', '2020-09-01 01:00:00.000000', 9);

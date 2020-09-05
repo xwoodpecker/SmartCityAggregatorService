@@ -12,7 +12,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
  * The type Temperature average resource assembler.
  */
 @Component
-public class TemperatureAverageResourceAssembler implements RepresentationModelAssembler<TemperatureAggregate,
+public class TemperatureAggregateResourceAssembler implements RepresentationModelAssembler<TemperatureAggregate,
         EntityModel<TemperatureAggregate>>
 {
     @Override
