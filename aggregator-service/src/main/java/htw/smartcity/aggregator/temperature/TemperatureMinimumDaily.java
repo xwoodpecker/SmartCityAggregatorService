@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 @Table(name = "TEMPERATURE_MINIMUM_DAILY")
 public class TemperatureMinimumDaily extends TemperatureAggregate
 {
-    @Column(name = "date")
+    @Column(name = "time")
     @JsonFormat (pattern = "yyyy-MM-dd")
     private LocalDateTime time;
 
-    public LocalDateTime getDate() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setDate(LocalDateTime time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 }

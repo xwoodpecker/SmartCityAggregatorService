@@ -53,7 +53,7 @@ public class TemperatureAggregateComputationScheduler
                     TemperatureAverageDaily temperatureAverageDaily = new TemperatureAverageDaily();
                     temperatureAverageDaily.setValue(sum.get() / count);
                     temperatureAverageDaily.setSensor(sensor);
-                    temperatureAverageDaily.setDate(LocalDateTime.now().minusDays(1));
+                    temperatureAverageDaily.setTime(LocalDateTime.now().minusDays(1));
                     temperatureAggregateRepository.save(temperatureAverageDaily);
                 }
 
@@ -63,7 +63,7 @@ public class TemperatureAggregateComputationScheduler
                     TemperatureMaximumDaily maximum = new TemperatureMaximumDaily();
                     maximum.setSensor(sensor);
                     maximum.setValue(maxValue.get().getValue());
-                    maximum.setDate(LocalDateTime.now().minusDays(1));
+                    maximum.setTime(LocalDateTime.now().minusDays(1));
                     temperatureAggregateRepository.save(maximum);
                 }
 
@@ -73,7 +73,7 @@ public class TemperatureAggregateComputationScheduler
                     TemperatureMinimumDaily minimum = new TemperatureMinimumDaily();
                     minimum.setSensor(sensor);
                     minimum.setValue(minValue.get().getValue());
-                    minimum.setDate(LocalDateTime.now().minusDays(1));
+                    minimum.setTime(LocalDateTime.now().minusDays(1));
                     temperatureAggregateRepository.save(minimum);
                 }
             }

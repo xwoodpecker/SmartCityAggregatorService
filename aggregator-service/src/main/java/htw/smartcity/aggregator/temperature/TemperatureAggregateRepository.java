@@ -16,13 +16,13 @@ public interface TemperatureAggregateRepository extends JpaRepository<Temperatur
 
     List<TemperatureMaximumDaily> findTemperatureMaximumsDailyBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime);
 
-    TemperatureAverageDaily findTemperatureAverageDailyBySensorIdAndTime(Long SensorId, LocalDateTime time);
+    TemperatureAverageDaily findTemperatureAverageDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
 
     TemperatureAverageWeekly findTemperatureAverageWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
 
     TemperatureAverageMonthly findTemperatureAverageMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
 
-    TemperatureMaximumDaily findTemperatureMaxiumumDailyBySensorIdAndTime(Long sensorId, LocalDateTime time);
+    TemperatureMaximumDaily findTemperatureMaxiumumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
 
     TemperatureMaximumWeekly findTemperatureMaximumWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId,
                                                                                                 LocalDateTime date, LocalDateTime date2);
@@ -30,7 +30,7 @@ public interface TemperatureAggregateRepository extends JpaRepository<Temperatur
     TemperatureMaximumMonthly findTemperatureMaximumMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId,
                                                                                                  LocalDateTime date, LocalDateTime date2);
 
-    TemperatureMinimumDaily findTemperatureMinimumDailyBySensorIdAndTime(Long sensorId, LocalDateTime time);
+    TemperatureMinimumDaily findTemperatureMinimumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
 
     TemperatureMinimumWeekly findTemperatureMinimumWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId,
                                                                                                                        LocalDateTime date, LocalDateTime date2);

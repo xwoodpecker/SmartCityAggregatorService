@@ -4,11 +4,16 @@ import htw.smartcity.aggregator.sensor.SensorRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javafx.scene.input.DataFormat;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The type Temperature average controller.
@@ -65,13 +70,18 @@ public class TemperatureAggregateController
     @Operation (summary = "Get daily average of a sensor at a given date")
     @GetMapping ("/temperatureaverage/daily/{sensorId}")
     public EntityModel<TemperatureAggregate> getDailyAverage(@PathVariable Long sensorId,
-                                                           @RequestParam LocalDateTime date,
+                                                           @RequestParam Instant date,
                                                         @Parameter (hidden = true) Pageable pageable)
     {
-        TemperatureAverageDaily temperatureAverageDaily =
-                temperatureAggregateRepository.findTemperatureAverageDailyBySensorIdAndTime(sensorId, date);
+            TemperatureAverageDaily temperatureAverageDaily =
+                    temperatureAggregateRepository.findTemperatureAverageDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(
+                            sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC).with(LocalTime.MAX),
+                            LocalDateTime.ofInstant(date, ZoneOffset.UTC).with(LocalTime.MIN));
 
-        return one((long) 1);
+            if (temperatureAverageDaily == null)
+                throw new TemperatureNotFoundException(sensorId);
+
+        return temperatureAverageResourceAssembler.toModel(temperatureAverageDaily);
 
     }
 
@@ -85,12 +95,16 @@ public class TemperatureAggregateController
     @Operation (summary = "Get weekly average of a sensor of a given date in the week")
     @GetMapping ("/temperatureaverage/weekly/{sensorId}")
     public EntityModel<TemperatureAggregate> getWeeklyAverage(@PathVariable Long sensorId,
-                                                           @RequestParam LocalDateTime date,
+                                                           @RequestParam Instant date,
                                                          @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureAverageWeekly temperatureAverageWeekly =
-                temperatureAggregateRepository.findTemperatureAverageWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
-        return one((long) 1);
+                temperatureAggregateRepository.findTemperatureAverageWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
+
+        if (temperatureAverageWeekly == null)
+            throw new TemperatureNotFoundException(sensorId);
+
+        return temperatureAverageResourceAssembler.toModel(temperatureAverageWeekly);
     }
 
     /**
@@ -103,80 +117,102 @@ public class TemperatureAggregateController
     @Operation (summary = "Get monthly average of a sensor of a given date in the month")
     @GetMapping ("/temperatureaverage/monthly/{sensorId}")
     public EntityModel<TemperatureAggregate> getMonthlyAverage(@PathVariable Long sensorId,
-                                                           @RequestParam LocalDateTime date,
+                                                           @RequestParam Instant date,
                                                           @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureAverageMonthly temperatureAverageMonthly =
-                temperatureAggregateRepository.findTemperatureAverageMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
-        return one((long) 1);
+                temperatureAggregateRepository.findTemperatureAverageMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
+
+        if (temperatureAverageMonthly == null)
+            throw new TemperatureNotFoundException(sensorId);
+
+        return temperatureAverageResourceAssembler.toModel(temperatureAverageMonthly);
     }
 
     @Operation (summary = "Get daily maximum of a sensor at a given date")
     @GetMapping ("/temperaturemaximum/daily/{sensorId}")
-    public EntityModel<TemperatureAggregate> getDailyMax(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
+    public EntityModel<TemperatureAggregate> getDailyMax(@PathVariable Long sensorId, @RequestParam Instant date,
                                                       @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMaximumDaily temperatureMaximumDaily =
-                temperatureAggregateRepository.findTemperatureMaxiumumDailyBySensorIdAndTime(sensorId, date);
+                temperatureAggregateRepository.findTemperatureMaxiumumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
-        return one((long) 1);
+        if (temperatureMaximumDaily == null)
+            throw new TemperatureNotFoundException(sensorId);
+
+        return temperatureAverageResourceAssembler.toModel(temperatureMaximumDaily);
     }
 
     @Operation (summary = "Get weekly maximum of a sensor of a given date in the week")
     @GetMapping ("/temperaturemaximum/weekly/{sensorId}")
-    public EntityModel<TemperatureAggregate> getWeeklyMax(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
+    public EntityModel<TemperatureAggregate> getWeeklyMax(@PathVariable Long sensorId, @RequestParam Instant date,
                                                          @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMaximumWeekly temperatureMaximumWeekly =
-                temperatureAggregateRepository.findTemperatureMaximumWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
+                temperatureAggregateRepository.findTemperatureMaximumWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
-        return one((long) 1);
+        if (temperatureMaximumWeekly == null)
+            throw new TemperatureNotFoundException(sensorId);
+
+        return temperatureAverageResourceAssembler.toModel(temperatureMaximumWeekly);
     }
 
     @Operation (summary = "Get monthly maximum of a sensor of a given date in the week")
     @GetMapping ("/temperaturemaximum/monthly/{sensorId}")
     public EntityModel<TemperatureAggregate> getMonthlyMax(@PathVariable Long sensorId,
-                                                           @RequestParam LocalDateTime date,
+                                                           @RequestParam Instant date,
                                                           @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMaximumMonthly temperatureMaximumMonthly =
-                temperatureAggregateRepository.findTemperatureMaximumMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
+                temperatureAggregateRepository.findTemperatureMaximumMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
-        return one((long) 1);
+        if (temperatureMaximumMonthly == null)
+            throw new TemperatureNotFoundException(sensorId);
+
+        return temperatureAverageResourceAssembler.toModel(temperatureMaximumMonthly);
     }
 
     @Operation (summary = "Get daily minimum of a sensor at a given date")
     @GetMapping ("/temperatureminimum/daily/{sensorId}")
-    public EntityModel<TemperatureAggregate> getDailyMin(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
+    public EntityModel<TemperatureAggregate> getDailyMin(@PathVariable Long sensorId, @RequestParam Instant date,
                                                          @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMinimumDaily temperatureMinimumDaily =
-                temperatureAggregateRepository.findTemperatureMinimumDailyBySensorIdAndTime(sensorId, date);
+                temperatureAggregateRepository.findTemperatureMinimumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
-        return one((long) 1);
+        if (temperatureMinimumDaily == null)
+            throw new TemperatureNotFoundException(sensorId);
+
+        return temperatureAverageResourceAssembler.toModel(temperatureMinimumDaily);
     }
 
     @Operation (summary = "Get weekly minimum of a sensor of a given date in the week")
     @GetMapping ("/temperatureminimum/weekly/{sensorId}")
-    public EntityModel<TemperatureAggregate> getWeeklyMin(@PathVariable Long sensorId, @RequestParam LocalDateTime date,
+    public EntityModel<TemperatureAggregate> getWeeklyMin(@PathVariable Long sensorId, @RequestParam Instant date,
                                                           @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMinimumWeekly temperatureMinimumWeekly =
-                temperatureAggregateRepository.findTemperatureMinimumWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
+                temperatureAggregateRepository.findTemperatureMinimumWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
-        return one((long) 1);
+        if (temperatureMinimumWeekly == null)
+            throw new TemperatureNotFoundException(sensorId);
+
+        return temperatureAverageResourceAssembler.toModel(temperatureMinimumWeekly);
     }
 
     @Operation (summary = "Get monthly minimum of a sensor of a given date in the week")
     @GetMapping ("/temperatureminimum/monthly/{sensorId}")
     public EntityModel<TemperatureAggregate> getMonthlyMin(@PathVariable Long sensorId,
-                                                           @RequestParam LocalDateTime date,
+                                                           @RequestParam Instant date,
                                                            @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMinimumMonthly temperatureMinimumMonthly =
-                temperatureAggregateRepository.findTemperatureMinimumMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, date, date);
+                temperatureAggregateRepository.findTemperatureMinimumMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC), LocalDateTime.ofInstant(date, ZoneOffset.UTC));
 
-        return one((long) 1);
+        if (temperatureMinimumMonthly == null)
+            throw new TemperatureNotFoundException(sensorId);
+
+        return temperatureAverageResourceAssembler.toModel(temperatureMinimumMonthly);
     }
 
 }

@@ -18,8 +18,7 @@ public class TemperatureAverageResourceAssembler implements RepresentationModelA
     @Override
     public EntityModel<TemperatureAggregate> toModel(TemperatureAggregate entity)
     {
-        EntityModel<TemperatureAggregate> entityModel = EntityModel.of(entity,
-                                  linkTo(methodOn(TemperatureAggregateController.class).one(entity.getId())).withSelfRel());
+        EntityModel<TemperatureAggregate> entityModel = EntityModel.of(entity);
         if(entity.getSensor() != null)
         {
             entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
