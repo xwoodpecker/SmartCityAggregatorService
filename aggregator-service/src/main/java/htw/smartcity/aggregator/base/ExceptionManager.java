@@ -3,6 +3,8 @@ package htw.smartcity.aggregator.base;
 import htw.smartcity.aggregator.security.UserRepository;
 import htw.smartcity.aggregator.sensor.SensorType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -14,27 +16,17 @@ import static java.time.format.DateTimeFormatter.*;
 /**
  * The type Exception manager.
  */
+
+@Component
+@Scope(value = "singleton")
 public class ExceptionManager {
     private int delay = 30*1000;
     private int period = 60*60*1000;
     private List<MailException> mailExpcetions;
     private Timer timer;
 
-    private static ExceptionManager instance;
-
     @Autowired
-    UserRepository userRepository;
-
-    /**
-     * Gets instance.
-     *
-     * @return the instance
-     */
-    public static ExceptionManager getInstance() {
-        if(instance == null)
-            instance = new ExceptionManager();
-        return instance;
-    }
+    private UserRepository userRepository;
 
     private ExceptionManager(){
         try {
@@ -75,8 +67,13 @@ public class ExceptionManager {
                 }
                 String subject = String.format("%d errors during AggregatorService execution", errorCount);
                 String text = sb.toString();
-                Optional<String> optionalMailList = userRepository.findAdmins().stream().map(a -> a.getEmail()).reduce((a1, a2) -> a1 + "," + a2);
-                String mailList = optionalMailList.get();
+                String optionalMailList = null;
+                try {
+                    optionalMailList = userRepository.findAdmins().stream().map(a -> a.getEmail()).reduce((a1, a2) -> a1 + "," + a2).get();
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
+                String mailList = optionalMailList;
                 SendMailHelper.sendMail(subject, text, mailList);
             }
         }

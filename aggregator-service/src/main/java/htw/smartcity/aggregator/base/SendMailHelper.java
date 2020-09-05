@@ -47,21 +47,23 @@ public class SendMailHelper {
         String finalMailList = mailList;
         if(adminList != null)
             finalMailList += "," + adminList;
-        try {
+        if(!finalMailList.isEmpty()) {
+            try {
 
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("smartcityaggregatorservice@gmail.com"));
-            message.setRecipients(
-                    Message.RecipientType.TO,
-                    InternetAddress.parse(finalMailList)
-            );
-            message.setSubject(subject);
-            message.setText(messageText);
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("smartcityaggregatorservice@gmail.com"));
+                message.setRecipients(
+                        Message.RecipientType.TO,
+                        InternetAddress.parse(finalMailList)
+                );
+                message.setSubject(subject);
+                message.setText(messageText);
 
-            Transport.send(message);
+                Transport.send(message);
 
-        } catch (MessagingException e) {
-            e.printStackTrace();
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
         }
     }
 
