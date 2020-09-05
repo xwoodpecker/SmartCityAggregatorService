@@ -9,11 +9,31 @@ INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (7, NULL, 
 INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (8, NULL, 'temperature_sensor1', 'TEMPERATURE', NULL, NULL);
 INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (9, NULL, 'temperature_sensor2', 'TEMPERATURE', NULL, NULL);
 
-INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:31:46.000000', 105, 1);
-INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:32:25.000000', 110, 1);
-INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:36:12.000000', 80, 2);
-INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:39:16.000000', 92, 2);
-INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:41:19.000000', 94, 2);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:31:46.000000', 37, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:32:25.000000', 37, 2);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:36:12.000000', 23, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:39:16.000000', 23, 2);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:41:19.000000', 23, 1);
+
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-01 15:31:46.000000', 13, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-01 15:32:25.000000', 15, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-01 15:36:12.000000', 18, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-01 15:39:16.000000', 19, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-03 15:41:19.000000', 22, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-02 15:31:46.000000', 21, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-02 15:32:25.000000', 19, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-02 15:36:12.000000', 19, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-02 15:39:16.000000', 20, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-02 15:41:19.000000', 20, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-03 15:31:46.000000', 20, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-03 15:32:25.000000', 20, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-03 15:36:12.000000', 21, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-03 15:39:16.000000', 22, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-03 15:41:19.000000', 23, 1);
+
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-07 15:36:12.000000', 42, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-07 15:39:16.000000', 43, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-07 15:41:19.000000', 45, 1);
 
 INSERT INTO parking_data (time, value, sensor_id) VALUES ('2020-07-23 15:31:46.000000', false, 3);
 INSERT INTO parking_data (time, value, sensor_id) VALUES ('2020-07-23 16:42:26.000000', true, 3);
