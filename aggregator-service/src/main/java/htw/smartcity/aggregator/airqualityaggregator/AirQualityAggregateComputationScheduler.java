@@ -31,7 +31,8 @@ public class AirQualityAggregateComputationScheduler
     @Autowired
     AirQualityAggregateRepository airQualityAggregateRepository;
 
-    final ExceptionManager exceptionManager = ExceptionManager.getInstance();
+    @Autowired
+    ExceptionManager exceptionManager;
 
     @Scheduled (cron="0 1 * * *")
     private void computeDaily()
