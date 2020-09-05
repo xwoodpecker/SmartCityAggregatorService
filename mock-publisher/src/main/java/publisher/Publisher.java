@@ -1,5 +1,9 @@
 package publisher;
 
+import agents.Agent;
+import agents.AirQualityAgent;
+import agents.ParkingAgent;
+import agents.TemperatureAgent;
 import util.ConfigProperties;
 import util.Utils;
 import org.eclipse.paho.client.mqttv3.*;
@@ -12,6 +16,7 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Publisher {
@@ -53,24 +58,19 @@ public class Publisher {
 
             client.connect(options);
 
-            while (true) {
+            ArrayList<Agent> agents = new ArrayList<>();
+            agents.add(new TemperatureAgent(this, "Sensor1"));
+            agents.add(new TemperatureAgent(this, "Sensor2"));
+            agents.add(new TemperatureAgent(this, "Sensor3"));
+            agents.add(new AirQualityAgent(this, "Sensor1"));
+            agents.add(new AirQualityAgent(this, "Sensor2"));
+            agents.add(new AirQualityAgent(this, "Sensor3"));
+            agents.add(new ParkingAgent(this, "Sensor1", "group1"));
+            agents.add(new ParkingAgent(this, "Sensor2", "group1"));
+            agents.add(new ParkingAgent(this, "Sensor1", "group2"));
+            agents.add(new ParkingAgent(this, "Sensor2", "group2"));
 
-                publishAirquality();
-                Thread.sleep(500);
-                publishTemperature(TOPIC_TEMPERATURE_SENSOR1);
-                Thread.sleep(500);
-                publishTemperature(TOPIC_TEMPERATURE_SENSOR2);
-                Thread.sleep(500);
-                publishParking(TOPIC_PARKING_SENSOR1);
-                Thread.sleep(500);
-                publishParking(TOPIC_PARKING_SENSOR2);
-                Thread.sleep(500);
-                publishParking(TOPIC_PARKING_SENSOR3);
-                Thread.sleep(500);
-                publishParking(TOPIC_PARKING_SENSOR4);
-                Thread.sleep(500);
-                publishParking(TOPIC_PARKING_SENSOR5);
-            }
+            agents.forEach(Agent::start);
         } catch (MqttException e) {
             e.printStackTrace();
             System.exit(1);
@@ -80,37 +80,22 @@ public class Publisher {
     }
 
 
-    private void publishTemperature(String topic) throws MqttException {
-        final MqttTopic temperatureTopic = client.getTopic(topic);
-
-        final Double temperature = random.nextDouble()*40;
-        final String temperatureString = temperature.toString();
-
-        temperatureTopic.publish(new MqttMessage(temperatureString.getBytes()));
-
-        System.out.println("Published data. Topic: " + temperatureTopic.getName() + "  Message: " + temperatureString);
+    public void publishTemperature(String topic, Double temperature) throws MqttException {
+        final MqttTopic mqttTopic = client.getTopic(topic);
+        mqttTopic.publish(new MqttMessage(temperature.toString().getBytes()));
+        System.out.println("Published data. Topic: " + mqttTopic.getName() + "  Message: " + temperature.toString());
     }
 
-    private void publishAirquality() throws MqttException {
-        final MqttTopic airqualityTopic = client.getTopic(TOPIC_AIRQUALITY);
-
-        final Integer airquality = random.nextInt(500);
-        final String airqualityString = airquality.toString();
-
-        airqualityTopic.publish(new MqttMessage(airqualityString.getBytes()));
-
-        System.out.println("Published data. Topic: " + airqualityTopic.getName() + "   Message: " + airqualityString);
+    public void publishAirquality(String topic, Integer airquality) throws MqttException {
+        final MqttTopic mqttTopic = client.getTopic(topic);
+        mqttTopic.publish(new MqttMessage(airquality.toString().getBytes()));
+        System.out.println("Published data. Topic: " + mqttTopic.getName() + "  Message: " + airquality.toString());
     }
 
-    private void publishParking(String topic) throws MqttException {
-        final MqttTopic parkingTopic = client.getTopic(topic);
-
-        final boolean parking = random.nextBoolean();
-        final String parkingString = String.valueOf(parking);
-
-        parkingTopic.publish(new MqttMessage(parkingString.getBytes()));
-
-        System.out.println("Published data. Topic: " + parkingTopic.getName() + "   Message: " + parkingString);
+    public void publishParking(String topic, boolean parking) throws MqttException {
+        final MqttTopic mqttTopic = client.getTopic(topic);
+        mqttTopic.publish(new MqttMessage(String.valueOf(parking).getBytes()));
+        System.out.println("Published data. Topic: " + mqttTopic.getName() + "  Message: " + parking);
     }
 
 
