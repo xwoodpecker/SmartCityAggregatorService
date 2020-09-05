@@ -27,13 +27,16 @@ public class TemperatureAggregateComputationSchedulerTests
     @Autowired
     TemperatureAggregateComputationScheduler temperatureAggregateComputationScheduler;
 
+    /**
+     * Tests to debug through the computation scheduler
+     * (no asserts, just for looking into the functions)
+     */
     @Test
     public void dailyAggregation()
     {
 
         temperatureAggregateComputationScheduler.computeAggregatesDaily((long) 8, LocalDateTime.of(2020, Month.SEPTEMBER, 1, 0, 0, 0),
                                          LocalDateTime.of(2020, Month.SEPTEMBER, 1, 23, 59, 59));
-
     }
 
     @Test
@@ -46,7 +49,6 @@ public class TemperatureAggregateComputationSchedulerTests
                                                                                                     0),
                                                                         LocalDateTime.of(2020, Month.SEPTEMBER, 6, 23
                                                                                 , 59, 59));
-
     }
 
     @Test
@@ -57,7 +59,5 @@ public class TemperatureAggregateComputationSchedulerTests
                                                                                                     Month.SEPTEMBER, 1, 0, 0, 0),
                                                                          LocalDateTime.of(2020, Month.OCTOBER, 1, 23, 59,
                                                                                           59));
-
     }
-
 }

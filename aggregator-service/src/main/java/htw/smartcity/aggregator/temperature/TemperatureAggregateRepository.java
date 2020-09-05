@@ -22,7 +22,7 @@ public interface TemperatureAggregateRepository extends JpaRepository<Temperatur
 
     TemperatureAverageMonthly findTemperatureAverageMonthlyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
 
-    TemperatureMaximumDaily findTemperatureMaxiumumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
+    TemperatureMaximumDaily findTemperatureMaximumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(Long SensorId, LocalDateTime date, LocalDateTime date2);
 
     TemperatureMaximumWeekly findTemperatureMaximumWeeklyBySensorIdAndBeginDateLessThanEqualAndEndDateGreaterThanEqual(Long SensorId,
                                                                                                 LocalDateTime date, LocalDateTime date2);

@@ -3,6 +3,7 @@ package htw.smartcity.aggregator.temperature;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
@@ -19,6 +20,7 @@ import java.time.ZoneOffset;
 @RestController
 @RequestMapping (path = "/temperatures/aggregations")
 @Tag (name = "Temperature Aggregations", description = "Endpoint to get temperature averages, maximum and minimum")
+@SecurityRequirement (name = "basic")
 public class TemperatureAggregateController
 {
     private TemperatureAggregateRepository        temperatureAggregateRepository;
@@ -133,7 +135,7 @@ public class TemperatureAggregateController
                                                       @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMaximumDaily temperatureMaximumDaily =
-                temperatureAggregateRepository.findTemperatureMaxiumumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC).with(LocalTime.MAX),
+                temperatureAggregateRepository.findTemperatureMaximumDailyBySensorIdAndTimeLessThanEqualAndTimeGreaterThanEqual(sensorId, LocalDateTime.ofInstant(date, ZoneOffset.UTC).with(LocalTime.MAX),
                                                                                                                                  LocalDateTime.ofInstant(date, ZoneOffset.UTC).with(LocalTime.MIN));
 
         if (temperatureMaximumDaily == null)
