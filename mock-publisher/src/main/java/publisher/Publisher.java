@@ -31,11 +31,9 @@ public class Publisher {
     public static final String TOPIC_PARKING_SENSOR5 = ConfigProperties.TOPIC + "/parking/group2/sensor4";
 
     private MqttClient client;
-    private Random random;
 
     public Publisher() {
 
-        random = new Random();
         String clientId = Utils.getMacAddress() + "-pub";
         try {
             client = new MqttClient(ConfigProperties.BROKER, clientId);
