@@ -72,7 +72,6 @@ public abstract class MQTTSubscriber implements MqttCallback {
 
     @Override
     public void messageArrived(String topic, MqttMessage message) {
-        exceptionManager.MonthlyAggregationFailed();
         LocalDateTime time = LocalDateTime.now();
 
         String msg = message.toString();
