@@ -1,4 +1,4 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.temperatureaggregate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

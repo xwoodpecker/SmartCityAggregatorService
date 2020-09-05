@@ -1,4 +1,4 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.temperatureaggregate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;

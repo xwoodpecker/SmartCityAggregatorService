@@ -1,4 +1,4 @@
-package htw.smartcity.aggregator.temperature;
+package htw.smartcity.aggregator.temperatureaggregate;
 
 import htw.smartcity.aggregator.sensor.SensorController;
 import org.springframework.hateoas.EntityModel;
