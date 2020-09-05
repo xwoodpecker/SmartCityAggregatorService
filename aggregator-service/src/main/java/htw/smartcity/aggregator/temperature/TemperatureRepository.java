@@ -3,6 +3,7 @@ package htw.smartcity.aggregator.temperature;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -47,4 +48,7 @@ public interface TemperatureRepository extends JpaRepository<Temperature, Long> 
 
 
     List<Temperature> findTemperaturesBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime);
+
+    @Query(value = "SELECT t from Temperature t JOIN Sensor s group by t.sensor order by t.time desc")
+    Page<Temperature> findLatest(Pageable pageable);
 }

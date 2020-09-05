@@ -73,7 +73,8 @@ public class TemperatureController {
     @GetMapping("/latest")
     ResponseEntity<PagedModel<Temperature>> latest(@Parameter(hidden = true) Pageable pageable)
     {
-        //todo
+        temperatureRepository.findLatest(pageable);
+
         return all(pageable);
     }
 
