@@ -9,10 +9,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The type Temperature agent.
+ */
 public class TemperatureAgent extends Agent {
     private final String TOPIC_PREFIX = ConfigProperties.TOPIC + "/temperatures/";
     private double lastTemp;
 
+    /**
+     * Instantiates a new Temperature agent.
+     *
+     * @param publisher  the publisher
+     * @param sensorName the sensor name
+     */
     public TemperatureAgent(Publisher publisher, String sensorName){
         super(publisher, sensorName);
 

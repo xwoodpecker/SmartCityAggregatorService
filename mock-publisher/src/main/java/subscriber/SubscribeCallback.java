@@ -5,6 +5,9 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import util.ConfigProperties;
 
+/**
+ * The type Subscribe callback.
+ */
 public class SubscribeCallback implements MqttCallback {
 
     @Override
