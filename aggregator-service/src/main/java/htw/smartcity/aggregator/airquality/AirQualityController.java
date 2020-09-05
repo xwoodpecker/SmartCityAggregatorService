@@ -74,20 +74,6 @@ public class AirQualityController {
     }
 
     /**
-     * Latest average entity model.
-     *
-     * @return the entity model
-     */
-    @Operation(summary = "Get the average air quality of the latest measurements of all sensors")
-    @GetMapping("/latest/average")
-    EntityModel<AirQuality> latestAverage()
-    {
-        //todo
-        //todo average entity?
-        return one((long) 1);
-    }
-
-    /**
      * Between response entity.
      *
      * @param startTime the start time
@@ -102,22 +88,6 @@ public class AirQualityController {
     {
         Page p = airQualityRepository.findAirQualitiesByTimeAfterAndTimeBefore(LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC), pageable);
         return new ResponseEntity<PagedModel<AirQuality>>(airQualityPageResourceAssembler.toModel(p, airQualityResourceAssembler), HttpStatus.OK);
-    }
-
-    /**
-     * Between average entity model.
-     *
-     * @param startTime the start time
-     * @param endTime   the end time
-     * @return the entity model
-     */
-    @Operation(summary = "Get the average air quality of all sensors for the given timeframe")
-    @GetMapping("/timeframe/average")
-    EntityModel<AirQuality> betweenAverage(@RequestParam Instant startTime, @RequestParam Instant endTime)
-    {
-        //todo
-        //todo avg entity
-        return one((long) 1);
     }
 
     /**
@@ -178,26 +148,5 @@ public class AirQualityController {
     public EntityModel<AirQuality> bySensorLatest(@PathVariable Long sensorId){
         //todo implement
         return one((long) 1);
-    }
-
-    /**
-     * Average by sensor response entity.
-     *
-     * @param startTime the start time
-     * @param endTime   the end time
-     * @param sensorId  the sensor id
-     * @param pageable  the pageable
-     * @return the response entity
-     */
-    @Operation(summary = "Get the average air quality of a specific sensor within a given timeframe")
-    @GetMapping("bySensor/{sensorId}/timeframe/average")
-    ResponseEntity<PagedModel<AirQuality>> averageBySensor(
-            @RequestParam LocalDateTime startTime,
-            @RequestParam LocalDateTime endTime,
-            @PathVariable Long sensorId,
-            @Parameter(hidden = true) Pageable pageable)
-    {
-        //todo
-        return all(pageable);
     }
 }

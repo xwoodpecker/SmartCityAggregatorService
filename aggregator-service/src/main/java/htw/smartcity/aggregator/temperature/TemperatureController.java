@@ -158,40 +158,4 @@ public class TemperatureController {
         //todo implement
         return one((long) 1);
     }
-
-    /**
-     * Average by sensor response entity.
-     *
-     * @param startTime the start time
-     * @param endTime   the end time
-     * @param sensorId  the sensor id
-     * @param pageable  the pageable
-     * @return the response entity
-     */
-    @Operation(summary = "Get the average temperature of a specific sensor within a given timeframe")
-    @GetMapping("bySensor/{sensorId}/timeframe/average")
-    ResponseEntity<PagedModel<Temperature>> averageBySensor(
-            @RequestParam LocalDateTime startTime,
-            @RequestParam LocalDateTime endTime,
-            @PathVariable Long sensorId,
-            @Parameter(hidden = true) Pageable pageable)
-    {
-        //todo
-        /*Page p = temperatureRepository.findTemperaturesBySensorIdAndByTimeBetween(sensorId, startTime, endTime,
-                                                                                  pageable);
-        List l = p.getContent();
-        double sum = 0, count = 0;
-        for (var ele: l)
-        {
-            sum += Double.parseDouble(ele.toString());
-            count++;
-        }
-        // todo wie auch immer Sensor obj bekommen aus sensorId
-        //Average avg = new Average(sensorId, Average.SensorType.TEMPERATURE, startTime, endTime, sum/count);
-
-        // todo return
-
-         */
-        return all(pageable);
-    }
 }
