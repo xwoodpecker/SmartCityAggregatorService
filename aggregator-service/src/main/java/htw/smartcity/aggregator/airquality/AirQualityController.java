@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 /**
@@ -98,9 +99,9 @@ public class AirQualityController {
     @Operation(summary = "Get all air quality measurements of all sensors in a given timeframe")
     @PageableAsQueryParam
     @GetMapping("/timeframe")
-    ResponseEntity<PagedModel<AirQuality>> between(@RequestParam Instant startTime, @RequestParam Instant endTime, @Parameter(hidden = true) Pageable pageable)
+    ResponseEntity<PagedModel<AirQuality>> between(@RequestParam OffsetDateTime startTime, @RequestParam OffsetDateTime endTime, @Parameter(hidden = true) Pageable pageable)
     {
-        Page p = airQualityRepository.findAirQualitiesByTimeAfterAndTimeBefore(LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC), pageable);
+        Page p = airQualityRepository.findAirQualitiesByTimeAfterAndTimeBefore(startTime, endTime, pageable);
         return new ResponseEntity<PagedModel<AirQuality>>(airQualityPageResourceAssembler.toModel(p, airQualityResourceAssembler), HttpStatus.OK);
     }
 
@@ -113,7 +114,7 @@ public class AirQualityController {
      */
     @Operation(summary = "Get the average air quality of all sensors for the given timeframe")
     @GetMapping("/timeframe/average")
-    EntityModel<AirQuality> betweenAverage(@RequestParam Instant startTime, @RequestParam Instant endTime)
+    EntityModel<AirQuality> betweenAverage(@RequestParam OffsetDateTime startTime, @RequestParam OffsetDateTime endTime)
     {
         //todo
         //todo avg entity
@@ -161,7 +162,7 @@ public class AirQualityController {
      */
     @Operation(summary = "Get all air quality measures of a specific sensor within a given timeframe")
     @GetMapping("/bySensor/{sensorId}/timeframe")
-    public ResponseEntity<PagedModel<AirQuality>> bySensorInTimeframe(@RequestParam Instant startTime, @RequestParam Instant endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
+    public ResponseEntity<PagedModel<AirQuality>> bySensorInTimeframe(@RequestParam OffsetDateTime startTime, @RequestParam OffsetDateTime endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
         //todo
         return all(pageable);

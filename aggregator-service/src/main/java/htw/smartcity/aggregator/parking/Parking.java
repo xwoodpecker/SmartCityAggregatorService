@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 /**
  * The type Parking.
@@ -22,7 +22,7 @@ public class Parking {
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(name = "time")
-    private LocalDateTime time;
+    private OffsetDateTime time;
 
     @ManyToOne
     @JoinColumn(name = "sensor_id")
@@ -46,7 +46,7 @@ public class Parking {
      * @param sensor the sensor
      * @param value  the value
      */
-    public Parking(LocalDateTime time, Sensor sensor, Boolean value) {
+    public Parking(OffsetDateTime time, Sensor sensor, Boolean value) {
         this.time = time;
         this.sensor = sensor;
         this.value = value;
@@ -75,7 +75,7 @@ public class Parking {
      *
      * @return the time
      */
-    public LocalDateTime getTime() {
+    public OffsetDateTime getTime() {
         return time;
     }
 
@@ -84,7 +84,7 @@ public class Parking {
      *
      * @param time the time
      */
-    public void setTime(LocalDateTime time) {
+    public void setTime(OffsetDateTime time) {
         this.time = time;
     }
 

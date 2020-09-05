@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public interface ParkingRepository extends JpaRepository<Parking, Long> {
      * @param pageable  the pageable
      * @return the page
      */
-    Page<Parking> findParkingsByTimeAfterAndTimeBeforeAndSensorId(LocalDateTime startTime, LocalDateTime endTime, Long sensorId, Pageable pageable);
+    Page<Parking> findParkingsByTimeAfterAndTimeBeforeAndSensorId(OffsetDateTime startTime, OffsetDateTime endTime, Long sensorId, Pageable pageable);
 
 
 }

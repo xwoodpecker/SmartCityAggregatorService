@@ -7,7 +7,7 @@ import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,7 +108,7 @@ public class ParkingSubscriber extends MQTTSubscriber {
     }
 
     @Override
-    protected void persistMsg(LocalDateTime time, Sensor sensor, String msg) {
+    protected void persistMsg(OffsetDateTime time, Sensor sensor, String msg) {
         try {
             Parking parking;
             if (!sensorParkingMap.containsKey(sensor))
@@ -130,7 +130,7 @@ public class ParkingSubscriber extends MQTTSubscriber {
         }
     }
 
-    private void persistParkingGroupCounter(LocalDateTime time, ParkingGroup parkingGroup, Boolean free, boolean newSensor) {
+    private void persistParkingGroupCounter(OffsetDateTime time, ParkingGroup parkingGroup, Boolean free, boolean newSensor) {
         try {
             ParkingGroupCounter parkingGroupCounter;
             if (!parkingGroupIdParkingGroupCounterMap.containsKey(parkingGroup.getId()))

@@ -7,7 +7,7 @@ import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 /**
  * The type Air quality subscriber.
@@ -34,7 +34,7 @@ public class AirQualitySubscriber extends MQTTSubscriber {
     }
 
     @Override
-    protected void persistMsg(LocalDateTime time, Sensor sensor, String msg) {
+    protected void persistMsg(OffsetDateTime time, Sensor sensor, String msg) {
         try {
             Integer value = Integer.valueOf(msg);
             AirQuality airQuality = new AirQuality(time, sensor, value);

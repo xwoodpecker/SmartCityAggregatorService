@@ -1,7 +1,5 @@
 package htw.smartcity.aggregator.parking;
 
-import htw.smartcity.aggregator.airquality.AirQuality;
-import htw.smartcity.aggregator.airquality.AirQualityRepository;
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import org.junit.Test;
@@ -15,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +47,7 @@ public class ParkingRepositoryTests {
     @Test
     public void testParkingEntities() {
         Sensor sensor = sensorRepository.findById(PARKING_SENSOR1_ID).get();
-        Parking parking = new Parking(LocalDateTime.now(), sensor, false);
+        Parking parking = new Parking(OffsetDateTime.now(), sensor, false);
         Long id = parkingRepository.save(parking).getId();
         Parking parking2 = parkingRepository.findById(id).get();
         assertNotNull(parking2);

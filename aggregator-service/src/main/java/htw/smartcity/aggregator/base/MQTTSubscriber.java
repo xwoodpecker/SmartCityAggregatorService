@@ -8,7 +8,8 @@ import htw.smartcity.aggregator.util.Utils;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.time.LocalDateTime;
+
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +72,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
 
     @Override
     public void messageArrived(String topic, MqttMessage message) {
-        LocalDateTime time = LocalDateTime.now();
+        OffsetDateTime time = OffsetDateTime.now();
 
         String msg = message.toString();
         System.out.println("Message arrived. Topic: " + topic + "  Message: " + msg);
@@ -141,7 +142,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
      * @param sensor the sensor
      * @param msg    the msg
      */
-    protected abstract void persistMsg(LocalDateTime time, Sensor sensor, String msg);
+    protected abstract void persistMsg(OffsetDateTime time, Sensor sensor, String msg);
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
