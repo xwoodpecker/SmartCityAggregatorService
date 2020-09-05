@@ -137,7 +137,7 @@
 				<executions>
 					<execution>
 						<id>docker-package</id>
-						<phase>package</phase>
+						<phase>install</phase>
 						<goals>
 							<goal>exec</goal>
 						</goals>
