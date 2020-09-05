@@ -1,5 +1,8 @@
 package htw.smartcity.aggregator.airqualityaggregator;
 
+/**
+ * The type Air quality aggregate not found exception.
+ */
 public class AirQualityAggregateNotFoundException extends RuntimeException
 {
     /**

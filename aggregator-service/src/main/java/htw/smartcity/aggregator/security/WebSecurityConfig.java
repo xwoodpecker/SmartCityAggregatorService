@@ -16,6 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 import java.util.HashSet;
 
+/**
+ * The type Web security config.
+ */
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
@@ -27,6 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Password encoder password encoder.
+     *
+     * @return the password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

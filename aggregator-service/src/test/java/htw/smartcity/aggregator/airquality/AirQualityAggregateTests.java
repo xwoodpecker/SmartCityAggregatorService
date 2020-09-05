@@ -18,6 +18,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+/**
+ * The type Air quality aggregate tests.
+ */
 @RunWith (SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase (connection = EmbeddedDatabaseConnection.H2)
@@ -41,9 +44,15 @@ public class AirQualityAggregateTests
     private static final LocalDateTime DAY_IN_MONTH_2   = LocalDateTime.of(2020, Month.AUGUST, 14, 15, 40, 0);
     private static final LocalDateTime NO_DATA_MONTH  = LocalDateTime.of(2020, Month.SEPTEMBER, 14, 15, 40, 0);
 
+    /**
+     * The Air quality aggregate repository.
+     */
     @Autowired
     AirQualityAggregateRepository airQualityAggregateRepository;
 
+    /**
+     * Test average functions.
+     */
     @Test
     public void testAverageFunctions()
     {
@@ -144,6 +153,9 @@ public class AirQualityAggregateTests
         assertNull(airQualityAverageMonthly);
     }
 
+    /**
+     * Test minimum functions.
+     */
     @Test
     public void testMinimumFunctions()
     {
@@ -244,6 +256,9 @@ public class AirQualityAggregateTests
         assertNull(airQualityMinimumMonthly);
     }
 
+    /**
+     * Test maximum functions.
+     */
     @Test
     public void testMaximumFunctions()
     {

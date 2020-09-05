@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+/**
+ * The type Air quality minimum daily.
+ */
 @Entity
 @Table(name = "AIR_QUALITY_MINIMUM_DAILY")
 public class AirQualityMinimumDaily extends AirQualityAggregate
@@ -19,10 +22,20 @@ public class AirQualityMinimumDaily extends AirQualityAggregate
     @Column(name = "value")
     private Integer value;
 
+    /**
+     * Gets time.
+     *
+     * @return the time
+     */
     public LocalDateTime getTime() {
         return time;
     }
 
+    /**
+     * Sets time.
+     *
+     * @param time the time
+     */
     public void setTime(LocalDateTime time) {
         this.time = time;
     }

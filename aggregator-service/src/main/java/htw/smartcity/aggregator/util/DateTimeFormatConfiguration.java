@@ -7,6 +7,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The type Date time format configuration.
+ */
 @Configuration
 public class DateTimeFormatConfiguration implements WebMvcConfigurer {
 

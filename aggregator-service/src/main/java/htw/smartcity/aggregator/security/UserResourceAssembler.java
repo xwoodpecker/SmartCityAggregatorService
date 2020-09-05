@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+/**
+ * The type User resource assembler.
+ */
 @Component
 public class UserResourceAssembler implements RepresentationModelAssembler<User, EntityModel<User>> {
     @Override

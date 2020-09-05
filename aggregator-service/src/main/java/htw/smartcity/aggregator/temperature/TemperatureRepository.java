@@ -47,8 +47,22 @@ public interface TemperatureRepository extends JpaRepository<Temperature, Long> 
             pageable);
 
 
+    /**
+     * Find temperatures by sensor id and time between list.
+     *
+     * @param id        the id
+     * @param startTime the start time
+     * @param endTime   the end time
+     * @return the list
+     */
     List<Temperature> findTemperaturesBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime);
 
+    /**
+     * Find latest page.
+     *
+     * @param pageable the pageable
+     * @return the page
+     */
     @Query(value = "SELECT t from Temperature t JOIN Sensor s group by t.sensor order by t.time desc")
     Page<Temperature> findLatest(Pageable pageable);
 }

@@ -35,7 +35,8 @@ public class TemperatureAggregateController
      *
      * @param temperatureAggregateRepository        the temperature aggregate repository
      * @param temperatureAggregateResourceAssembler the temperature average resource assembler
-     * @param temperatureRepository               the temperature repository
+     * @param temperatureRepository                 the temperature repository
+     * @param sr                                    the sr
      */
     public TemperatureAggregateController(TemperatureAggregateRepository temperatureAggregateRepository,
                                           TemperatureAggregateResourceAssembler temperatureAggregateResourceAssembler,
@@ -66,6 +67,7 @@ public class TemperatureAggregateController
      * Compute daily entity model.
      *
      * @param sensorId the sensor id
+     * @param date     the date
      * @param pageable the pageable
      * @return the entity model
      */
@@ -91,6 +93,7 @@ public class TemperatureAggregateController
      * Compute weekly entity model.
      *
      * @param sensorId the sensor id
+     * @param date     the date
      * @param pageable the pageable
      * @return the entity model
      */
@@ -113,6 +116,7 @@ public class TemperatureAggregateController
      * Compute monthly entity model.
      *
      * @param sensorId the sensor id
+     * @param date     the date
      * @param pageable the pageable
      * @return the entity model
      */
@@ -131,6 +135,14 @@ public class TemperatureAggregateController
         return temperatureAggregateResourceAssembler.toModel(temperatureAverageMonthly);
     }
 
+    /**
+     * Gets daily max.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the daily max
+     */
     @Operation (summary = "Get daily maximum of a sensor at a given date")
     @GetMapping ("/temperaturemaximum/daily/{sensorId}")
     public EntityModel<TemperatureAggregate> getDailyMax(@PathVariable Long sensorId, @RequestParam Instant date,
@@ -146,6 +158,14 @@ public class TemperatureAggregateController
         return temperatureAggregateResourceAssembler.toModel(temperatureMaximumDaily);
     }
 
+    /**
+     * Gets weekly max.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the weekly max
+     */
     @Operation (summary = "Get weekly maximum of a sensor of a given date in the week")
     @GetMapping ("/temperaturemaximum/weekly/{sensorId}")
     public EntityModel<TemperatureAggregate> getWeeklyMax(@PathVariable Long sensorId, @RequestParam Instant date,
@@ -160,6 +180,14 @@ public class TemperatureAggregateController
         return temperatureAggregateResourceAssembler.toModel(temperatureMaximumWeekly);
     }
 
+    /**
+     * Gets monthly max.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the monthly max
+     */
     @Operation (summary = "Get monthly maximum of a sensor of a given date in the week")
     @GetMapping ("/temperaturemaximum/monthly/{sensorId}")
     public EntityModel<TemperatureAggregate> getMonthlyMax(@PathVariable Long sensorId,
@@ -175,6 +203,14 @@ public class TemperatureAggregateController
         return temperatureAggregateResourceAssembler.toModel(temperatureMaximumMonthly);
     }
 
+    /**
+     * Gets daily min.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the daily min
+     */
     @Operation (summary = "Get daily minimum of a sensor at a given date")
     @GetMapping ("/temperatureminimum/daily/{sensorId}")
     public EntityModel<TemperatureAggregate> getDailyMin(@PathVariable Long sensorId, @RequestParam Instant date,
@@ -190,6 +226,14 @@ public class TemperatureAggregateController
         return temperatureAggregateResourceAssembler.toModel(temperatureMinimumDaily);
     }
 
+    /**
+     * Gets weekly min.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the weekly min
+     */
     @Operation (summary = "Get weekly minimum of a sensor of a given date in the week")
     @GetMapping ("/temperatureminimum/weekly/{sensorId}")
     public EntityModel<TemperatureAggregate> getWeeklyMin(@PathVariable Long sensorId, @RequestParam Instant date,
@@ -204,6 +248,14 @@ public class TemperatureAggregateController
         return temperatureAggregateResourceAssembler.toModel(temperatureMinimumWeekly);
     }
 
+    /**
+     * Gets monthly min.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the monthly min
+     */
     @Operation (summary = "Get monthly minimum of a sensor of a given date in the week")
     @GetMapping ("/temperatureminimum/monthly/{sensorId}")
     public EntityModel<TemperatureAggregate> getMonthlyMin(@PathVariable Long sensorId,

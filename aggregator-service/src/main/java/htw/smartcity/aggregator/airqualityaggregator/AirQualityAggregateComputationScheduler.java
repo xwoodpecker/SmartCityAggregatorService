@@ -19,18 +19,33 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Air quality aggregate computation scheduler.
+ */
 @Component
 public class AirQualityAggregateComputationScheduler
 {
+    /**
+     * The Sensor repository.
+     */
     @Autowired
     SensorRepository sensorRepository;
 
+    /**
+     * The Air quality repository.
+     */
     @Autowired
     AirQualityRepository airQualityRepository;
 
+    /**
+     * The Air quality aggregate repository.
+     */
     @Autowired
     AirQualityAggregateRepository airQualityAggregateRepository;
 
+    /**
+     * The Exception manager.
+     */
     @Autowired
     ExceptionManager exceptionManager;
 
@@ -47,6 +62,13 @@ public class AirQualityAggregateComputationScheduler
         }
     }
 
+    /**
+     * Compute aggregates daily.
+     *
+     * @param sensorId the sensor id
+     * @param start    the start
+     * @param end      the end
+     */
     public void computeAggregatesDaily(Long sensorId, LocalDateTime start, LocalDateTime end){
         try {
             List<AirQuality> tList  = airQualityRepository.findAirQualitiesBySensorIdAndTimeBetween(sensorId, start, end);
@@ -102,6 +124,13 @@ public class AirQualityAggregateComputationScheduler
         }
     }
 
+    /**
+     * Compute aggregates weekly.
+     *
+     * @param sensorId the sensor id
+     * @param start    the start
+     * @param end      the end
+     */
     public void computeAggregatesWeekly(Long sensorId, LocalDateTime start, LocalDateTime end){
         try {
             List<AirQuality> tList = airQualityRepository.findAirQualitiesBySensorIdAndTimeBetween(sensorId, start, end);
@@ -160,6 +189,13 @@ public class AirQualityAggregateComputationScheduler
         }
     }
 
+    /**
+     * Compute aggregates monthly.
+     *
+     * @param sensorId the sensor id
+     * @param start    the start
+     * @param end      the end
+     */
     public void computeAggregatesMonthly(Long sensorId, LocalDateTime start, LocalDateTime end) {
         try {
             List<AirQuality> tList = airQualityRepository.findAirQualitiesBySensorIdAndTimeBetween(sensorId, start,
@@ -206,9 +242,22 @@ public class AirQualityAggregateComputationScheduler
         }
     }
 
+    /**
+     * Get max air quality optional.
+     *
+     * @param tList the t list
+     * @return the optional
+     */
     Optional<AirQuality> getMaxAirQuality(List<AirQuality> tList){
         return tList.stream().max(Comparator.comparing(AirQuality::getValue));
     }
+
+    /**
+     * Get min air quality optional.
+     *
+     * @param tList the t list
+     * @return the optional
+     */
     Optional<AirQuality> getMinAirQuality(List<AirQuality> tList){
         return tList.stream().min(Comparator.comparing(AirQuality::getValue));
     }

@@ -5,6 +5,9 @@ import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
 
+/**
+ * The type Air quality aggregate.
+ */
 @MappedSuperclass
 @JsonIgnoreProperties ({"sensor"})
 public class AirQualityAggregate
