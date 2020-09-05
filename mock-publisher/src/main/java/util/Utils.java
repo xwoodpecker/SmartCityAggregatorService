@@ -14,8 +14,16 @@ import java.security.cert.CertificateFactory;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * The type Utils.
+ */
 public class Utils {
 
+    /**
+     * Gets mac address.
+     *
+     * @return the mac address
+     */
     public static String getMacAddress() {
 
         String result = "";
@@ -38,6 +46,13 @@ public class Utils {
         return result;
     }
 
+    /**
+     * Gets socket factory for ca certificate.
+     *
+     * @param caCertificate the ca certificate
+     * @return the socket factory for ca certificate
+     * @throws Exception the exception
+     */
     public static SSLSocketFactory getSocketFactoryForCaCertificate(final String caCertificate)
             throws Exception {
 

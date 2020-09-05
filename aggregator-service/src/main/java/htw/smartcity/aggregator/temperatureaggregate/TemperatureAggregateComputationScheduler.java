@@ -28,7 +28,8 @@ public class TemperatureAggregateComputationScheduler
     @Autowired
     TemperatureAggregateRepository temperatureAggregateRepository;
 
-    final ExceptionManager exceptionManager = ExceptionManager.getInstance();
+    @Autowired
+    ExceptionManager exceptionManager;
 
     @Scheduled (cron="0 1 * * *")
     private void computeDaily()

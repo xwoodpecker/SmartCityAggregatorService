@@ -68,8 +68,7 @@ public class SensorController {
     @GetMapping("/byType/{sensorType}")
     public ResponseEntity<PagedModel<Sensor>> byType(@PathVariable SensorType sensorType, @Parameter(hidden = true) Pageable pageable)
     {
-        //todo implement
-        Page p = sensorRepository.findAll(pageable);
+        Page p = sensorRepository.findBySensorType(sensorType, pageable);
         return new ResponseEntity<PagedModel<Sensor>>(sensorPageResourceAssembler.toModel(p, sensorResourceAssembler), HttpStatus.OK);
     }
 

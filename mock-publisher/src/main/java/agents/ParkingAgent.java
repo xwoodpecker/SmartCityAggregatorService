@@ -8,12 +8,22 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The type Parking agent.
+ */
 public class ParkingAgent extends Agent {
     private final String TOPIC_PREFIX = ConfigProperties.TOPIC + "/parking/";
     private String groupName;
     private boolean currentStatus;
     private long nextChange;
 
+    /**
+     * Instantiates a new Parking agent.
+     *
+     * @param publisher  the publisher
+     * @param sensorName the sensor name
+     * @param groupName  the group name
+     */
     public ParkingAgent(Publisher publisher, String sensorName, String groupName){
         super(publisher, sensorName);
         this.groupName = groupName;
