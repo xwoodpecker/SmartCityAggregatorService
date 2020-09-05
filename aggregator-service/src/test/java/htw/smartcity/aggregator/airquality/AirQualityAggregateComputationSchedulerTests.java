@@ -28,7 +28,8 @@ public class AirQualityAggregateComputationSchedulerTests
     public void dailyAggregation()
     {
 
-        airQualityAggregateComputationScheduler.computeAggregatesDaily((long) 8, LocalDateTime.of(2020, Month.SEPTEMBER, 1, 0, 0, 0),
+        airQualityAggregateComputationScheduler.computeAggregatesDaily((long) 1, LocalDateTime.of(2020,
+                                                                                                  Month.SEPTEMBER, 1, 0, 0, 0),
                                                                         LocalDateTime.of(2020, Month.SEPTEMBER, 1, 23, 59, 59));
     }
 
@@ -36,7 +37,7 @@ public class AirQualityAggregateComputationSchedulerTests
     public void weeklyAggregation()
     {
 
-        airQualityAggregateComputationScheduler.computeAggregatesWeekly((long) 8, LocalDateTime.of(2020,
+        airQualityAggregateComputationScheduler.computeAggregatesWeekly((long) 1, LocalDateTime.of(2020,
                                                                                                     Month.AUGUST, 31, 0
                 , 0,
                                                                                                     0),
@@ -48,7 +49,7 @@ public class AirQualityAggregateComputationSchedulerTests
     public void monthlyAggregation()
     {
 
-        airQualityAggregateComputationScheduler.computeAggregatesMonthly((long) 8, LocalDateTime.of(2020,
+        airQualityAggregateComputationScheduler.computeAggregatesMonthly((long) 1, LocalDateTime.of(2020,
                                                                                                      Month.SEPTEMBER, 1, 0, 0, 0),
                                                                           LocalDateTime.of(2020, Month.OCTOBER, 1, 23, 59,
                                                                                            59));
