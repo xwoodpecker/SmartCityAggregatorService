@@ -16,7 +16,6 @@ import static java.time.format.DateTimeFormatter.*;
 /**
  * The type Exception manager.
  */
-
 @Component
 @Scope(value = "singleton")
 public class ExceptionManager {
@@ -175,13 +174,23 @@ public class ExceptionManager {
         mailExpcetions.add(mailException);
     }
 
+    /**
+     * Daily aggregation failed.
+     */
     public void DailyAggregationFailed() {
         mailExpcetions.add(new MailException(LogException.DAILY_AGGREGATION_FAILED));
     }
 
+    /**
+     * Weekly aggregation failed.
+     */
     public void WeeklyAggregationFailed() {
         mailExpcetions.add(new MailException(LogException.WEEKLY_AGGREGATION_FAILED));
     }
+
+    /**
+     * Monthly aggregation failed.
+     */
     public void MonthlyAggregationFailed() {
         mailExpcetions.add(new MailException(LogException.MONTHLY_AGGREGATION_FAILED));
     }

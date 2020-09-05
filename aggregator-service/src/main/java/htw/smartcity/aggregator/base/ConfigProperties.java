@@ -5,19 +5,52 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
+/**
+ * The type Config properties.
+ */
 public class ConfigProperties {
 
     private ConfigProperties() { }
 
+    /**
+     * The constant BROKER.
+     */
     public static final String BROKER;
+    /**
+     * The constant USERNAME.
+     */
     public static final String USERNAME;
+    /**
+     * The constant PASSWORD.
+     */
     public static final String PASSWORD;
+    /**
+     * The constant CERTIFICATE.
+     */
     public static final String CERTIFICATE;
+    /**
+     * The constant TOPIC.
+     */
     public static final String TOPIC;
+    /**
+     * The constant INITIAL_ADMIN_PASSWORD.
+     */
     public static final String INITIAL_ADMIN_PASSWORD;
+    /**
+     * The constant MAIL_USERNAME.
+     */
     public static final String MAIL_USERNAME;
+    /**
+     * The constant MAIL_PASSWORD.
+     */
     public static final String MAIL_PASSWORD;
+    /**
+     * The constant MAIL_LIST.
+     */
     public static final String MAIL_LIST;
+    /**
+     * The constant MAIL_SEND_PERIOD.
+     */
     public static final String MAIL_SEND_PERIOD;
 
     static {

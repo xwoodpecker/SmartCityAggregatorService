@@ -19,6 +19,9 @@ import org.springframework.web.client.HttpClientErrorException;
 import javax.annotation.security.RolesAllowed;
 import java.security.Principal;
 
+/**
+ * The type User controller.
+ */
 @RestController
 @RequestMapping(path="/users")
 @SecurityRequirement(name = "basic")
@@ -29,6 +32,14 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private UserResourceAssembler userResourceAssembler;
 
+    /**
+     * Instantiates a new User controller.
+     *
+     * @param userDetailsService    the user details service
+     * @param userRepository        the user repository
+     * @param passwordEncoder       the password encoder
+     * @param userResourceAssembler the user resource assembler
+     */
     public UserController(UserDetailsService userDetailsService, UserRepository userRepository, PasswordEncoder passwordEncoder, UserResourceAssembler userResourceAssembler) {
         this.userDetailsService = userDetailsService;
         this.userRepository = userRepository;
@@ -36,6 +47,15 @@ public class UserController {
         this.userResourceAssembler = userResourceAssembler;
     }
 
+    /**
+     * Create new user entity model.
+     *
+     * @param username the username
+     * @param password the password
+     * @param email    the email
+     * @param isAdmin  the is admin
+     * @return the entity model
+     */
     @Operation(summary = "Create a new User")
     @Secured("ROLE_ADMIN")
     @PostMapping("/")
@@ -58,6 +78,13 @@ public class UserController {
         return(model);
     }
 
+    /**
+     * Change own password entity model.
+     *
+     * @param principal   the principal
+     * @param newPassword the new password
+     * @return the entity model
+     */
     @Operation(summary = "Change the password of a user")
     @PostMapping("/password/own")
     EntityModel<User> changeOwnPassword(UsernamePasswordAuthenticationToken principal, @RequestParam String newPassword){
@@ -68,6 +95,13 @@ public class UserController {
         return(userResourceAssembler.toModel(userRepository.save(user)));
     }
 
+    /**
+     * Change someones password entity model.
+     *
+     * @param username    the username
+     * @param newPassword the new password
+     * @return the entity model
+     */
     @Operation(summary = "Change password of a specified user. Admin Role required.")
     @Secured("ROLE_ADMIN")
     @PostMapping("/password/other")

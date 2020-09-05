@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 
+/**
+ * The type Air quality aggregate controller.
+ */
 @RestController
 @RequestMapping (path = "/airQualities/aggregations")
 @Tag (name = "Air Qualities Aggregations", description = "Endpoint to get air quality averages, maximum and minimum")
@@ -28,6 +31,14 @@ public class AirQualityAggregateController
     private SensorRepository                     sr;
 
 
+    /**
+     * Instantiates a new Air quality aggregate controller.
+     *
+     * @param airQualityAggregateRepository        the air quality aggregate repository
+     * @param airQualityAggregateResourceAssembler the air quality aggregate resource assembler
+     * @param airQualityRepository                 the air quality repository
+     * @param sr                                   the sr
+     */
     public AirQualityAggregateController(AirQualityAggregateRepository        airQualityAggregateRepository,
                                          AirQualityAggregateResourceAssembler airQualityAggregateResourceAssembler,
                                          AirQualityRepository                 airQualityRepository,
@@ -38,6 +49,12 @@ public class AirQualityAggregateController
         this.sr                                    = sr;
     }
 
+    /**
+     * One entity model.
+     *
+     * @param airQualityaggregatorId the air qualityaggregator id
+     * @return the entity model
+     */
     @Operation (summary = "Get a single air quality aggregate measurement")
     @GetMapping ("/{airQualityaggregatorId}")
     public EntityModel<AirQualityAggregate> one(@PathVariable Long airQualityaggregatorId)
@@ -49,6 +66,14 @@ public class AirQualityAggregateController
     }
 
 
+    /**
+     * Gets daily average.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the daily average
+     */
     @Operation (summary = "Get daily average of a sensor at a given date")
     @GetMapping ("/airqualityaverage/daily/{sensorId}")
     public EntityModel<AirQualityAggregate> getDailyAverage(@PathVariable Long sensorId,
@@ -68,6 +93,14 @@ public class AirQualityAggregateController
     }
 
 
+    /**
+     * Gets weekly average.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the weekly average
+     */
     @Operation (summary = "Get weekly average of a sensor of a given date in the week")
     @GetMapping ("/airqualityaverage/weekly/{sensorId}")
     public EntityModel<AirQualityAggregate> getWeeklyAverage(@PathVariable Long sensorId,
@@ -84,6 +117,14 @@ public class AirQualityAggregateController
     }
 
 
+    /**
+     * Gets monthly average.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the monthly average
+     */
     @Operation (summary = "Get monthly average of a sensor of a given date in the month")
     @GetMapping ("/airqualityaverage/monthly/{sensorId}")
     public EntityModel<AirQualityAggregate> getMonthlyAverage(@PathVariable Long sensorId,
@@ -99,6 +140,14 @@ public class AirQualityAggregateController
         return airQualityAggregateResourceAssembler.toModel(airQualityAverageMonthly);
     }
 
+    /**
+     * Gets daily max.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the daily max
+     */
     @Operation (summary = "Get daily maximum of a sensor at a given date")
     @GetMapping ("/airqualitymaximum/daily/{sensorId}")
     public EntityModel<AirQualityAggregate> getDailyMax(@PathVariable Long sensorId, @RequestParam Instant date,
@@ -114,6 +163,14 @@ public class AirQualityAggregateController
         return airQualityAggregateResourceAssembler.toModel(airQualityMaximumDaily);
     }
 
+    /**
+     * Gets weekly max.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the weekly max
+     */
     @Operation (summary = "Get weekly maximum of a sensor of a given date in the week")
     @GetMapping ("/airqualitymaximum/weekly/{sensorId}")
     public EntityModel<AirQualityAggregate> getWeeklyMax(@PathVariable Long sensorId, @RequestParam Instant date,
@@ -128,6 +185,14 @@ public class AirQualityAggregateController
         return airQualityAggregateResourceAssembler.toModel(airQualityMaximumWeekly);
     }
 
+    /**
+     * Gets monthly max.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the monthly max
+     */
     @Operation (summary = "Get monthly maximum of a sensor of a given date in the week")
     @GetMapping ("/airqualitymaximum/monthly/{sensorId}")
     public EntityModel<AirQualityAggregate> getMonthlyMax(@PathVariable Long sensorId,
@@ -143,6 +208,14 @@ public class AirQualityAggregateController
         return airQualityAggregateResourceAssembler.toModel(airQualityMaximumMonthly);
     }
 
+    /**
+     * Gets daily min.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the daily min
+     */
     @Operation (summary = "Get daily minimum of a sensor at a given date")
     @GetMapping ("/airqualityminimum/daily/{sensorId}")
     public EntityModel<AirQualityAggregate> getDailyMin(@PathVariable Long sensorId, @RequestParam Instant date,
@@ -158,6 +231,14 @@ public class AirQualityAggregateController
         return airQualityAggregateResourceAssembler.toModel(airQualityMinimumDaily);
     }
 
+    /**
+     * Gets weekly min.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the weekly min
+     */
     @Operation (summary = "Get weekly minimum of a sensor of a given date in the week")
     @GetMapping ("/airqualityminimum/weekly/{sensorId}")
     public EntityModel<AirQualityAggregate> getWeeklyMin(@PathVariable Long sensorId, @RequestParam Instant date,
@@ -172,6 +253,14 @@ public class AirQualityAggregateController
         return airQualityAggregateResourceAssembler.toModel(airQualityMinimumWeekly);
     }
 
+    /**
+     * Gets monthly min.
+     *
+     * @param sensorId the sensor id
+     * @param date     the date
+     * @param pageable the pageable
+     * @return the monthly min
+     */
     @Operation (summary = "Get monthly minimum of a sensor of a given date in the week")
     @GetMapping ("/airqualityminimum/monthly/{sensorId}")
     public EntityModel<AirQualityAggregate> getMonthlyMin(@PathVariable Long sensorId,

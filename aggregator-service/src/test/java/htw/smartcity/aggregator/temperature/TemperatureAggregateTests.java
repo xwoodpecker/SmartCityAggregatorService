@@ -17,6 +17,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+/**
+ * The type Temperature aggregate tests.
+ */
 @RunWith (SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase (connection = EmbeddedDatabaseConnection.H2)
@@ -40,9 +43,15 @@ public class TemperatureAggregateTests
     private static final LocalDateTime DAY_IN_MONTH_2   = LocalDateTime.of(2020, Month.AUGUST, 14, 15, 40, 0);
     private static final LocalDateTime NO_DATA_MONTH  = LocalDateTime.of(2020, Month.SEPTEMBER, 14, 15, 40, 0);
 
+    /**
+     * The Temperature aggregate repository.
+     */
     @Autowired
     TemperatureAggregateRepository temperatureAggregateRepository;
 
+    /**
+     * Test average functions.
+     */
     @Test
     public void testAverageFunctions()
     {
@@ -143,6 +152,9 @@ public class TemperatureAggregateTests
         assertNull(temperatureAverageMonthly);
     }
 
+    /**
+     * Test minimum functions.
+     */
     @Test
     public void testMinimumFunctions()
     {
@@ -243,6 +255,9 @@ public class TemperatureAggregateTests
         assertNull(temperatureMinimumMonthly);
     }
 
+    /**
+     * Test maximum functions.
+     */
     @Test
     public void testMaximumFunctions()
     {

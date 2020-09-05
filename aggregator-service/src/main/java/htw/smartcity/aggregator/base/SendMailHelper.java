@@ -28,6 +28,7 @@ public class SendMailHelper {
      *
      * @param subject     the subject
      * @param messageText the message text
+     * @param adminList   the admin list
      */
     public static void sendMail(String subject, String messageText, String adminList) {
 

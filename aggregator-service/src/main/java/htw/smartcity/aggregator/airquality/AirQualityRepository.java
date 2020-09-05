@@ -35,5 +35,13 @@ public interface AirQualityRepository extends JpaRepository<AirQuality, Long> {
      */
     Page findAirQualitiesByTimeAfterAndTimeBefore(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
 
+    /**
+     * Find air qualities by sensor id and time between list.
+     *
+     * @param id        the id
+     * @param startTime the start time
+     * @param endTime   the end time
+     * @return the list
+     */
     List<AirQuality> findAirQualitiesBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime);
 }

@@ -108,6 +108,9 @@ public class TemperatureRepositoryTests {
 
     }
 
+    /**
+     * Test find temperatures by sensor id and time between.
+     */
     @Test
     public void testFindTemperaturesBySensorIdAndTimeBetween() {
         List<Temperature> temperatures = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(TEMPERATURE_SENSOR2_ID, TimeFrom, TimeTo);

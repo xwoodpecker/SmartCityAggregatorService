@@ -16,18 +16,33 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Temperature aggregate computation scheduler.
+ */
 @Component
 public class TemperatureAggregateComputationScheduler
 {
+    /**
+     * The Sensor repository.
+     */
     @Autowired
     SensorRepository sensorRepository;
 
+    /**
+     * The Temperature repository.
+     */
     @Autowired
     TemperatureRepository temperatureRepository;
 
+    /**
+     * The Temperature aggregate repository.
+     */
     @Autowired
     TemperatureAggregateRepository temperatureAggregateRepository;
 
+    /**
+     * The Exception manager.
+     */
     @Autowired
     ExceptionManager exceptionManager;
 
@@ -44,6 +59,13 @@ public class TemperatureAggregateComputationScheduler
         }
     }
 
+    /**
+     * Compute aggregates daily.
+     *
+     * @param sensorId the sensor id
+     * @param start    the start
+     * @param end      the end
+     */
     public void computeAggregatesDaily(Long sensorId, LocalDateTime start, LocalDateTime end){
         try {
             List<Temperature> tList  = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, start, end);
@@ -99,6 +121,13 @@ public class TemperatureAggregateComputationScheduler
         }
     }
 
+    /**
+     * Compute aggregates weekly.
+     *
+     * @param sensorId the sensor id
+     * @param start    the start
+     * @param end      the end
+     */
     public void computeAggregatesWeekly(Long sensorId, LocalDateTime start, LocalDateTime end){
         try {
             List<Temperature> tList = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, start, end);
@@ -157,6 +186,13 @@ public class TemperatureAggregateComputationScheduler
         }
     }
 
+    /**
+     * Compute aggregates monthly.
+     *
+     * @param sensorId the sensor id
+     * @param start    the start
+     * @param end      the end
+     */
     public void computeAggregatesMonthly(Long sensorId, LocalDateTime start, LocalDateTime end) {
         try {
             List<Temperature> tList = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, start, end);
@@ -202,9 +238,22 @@ public class TemperatureAggregateComputationScheduler
         }
     }
 
+    /**
+     * Get max temperature optional.
+     *
+     * @param tList the t list
+     * @return the optional
+     */
     Optional<Temperature> getMaxTemperature(List<Temperature> tList){
         return tList.stream().max(Comparator.comparing(Temperature::getValue));
     }
+
+    /**
+     * Get min temperature optional.
+     *
+     * @param tList the t list
+     * @return the optional
+     */
     Optional<Temperature> getMinTemperature(List<Temperature> tList){
         return tList.stream().min(Comparator.comparing(Temperature::getValue));
     }

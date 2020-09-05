@@ -12,11 +12,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
 import java.time.Month;
 
+/**
+ * The type Temperature aggregate computation scheduler tests.
+ */
 @RunWith (SpringRunner.class)
 @SpringBootTest
 @AutoConfigureTestDatabase (connection = EmbeddedDatabaseConnection.H2)
 public class TemperatureAggregateComputationSchedulerTests
 {
+    /**
+     * The Temperature aggregate computation scheduler.
+     */
     @Autowired
     TemperatureAggregateComputationScheduler temperatureAggregateComputationScheduler;
 
@@ -32,6 +38,9 @@ public class TemperatureAggregateComputationSchedulerTests
                                          LocalDateTime.of(2020, Month.SEPTEMBER, 1, 23, 59, 59));
     }
 
+    /**
+     * Weekly aggregation.
+     */
     @Test
     public void weeklyAggregation()
     {
@@ -44,6 +53,9 @@ public class TemperatureAggregateComputationSchedulerTests
                                                                                 , 59, 59));
     }
 
+    /**
+     * Monthly aggregation.
+     */
     @Test
     public void monthlyAggregation()
     {
