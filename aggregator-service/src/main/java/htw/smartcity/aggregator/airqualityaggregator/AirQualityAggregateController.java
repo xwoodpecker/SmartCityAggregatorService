@@ -76,7 +76,7 @@ public class AirQualityAggregateController
      */
     @Operation (summary = "Get daily average of a sensor at a given date")
     @GetMapping ("/airqualityaverage/daily/{sensorId}")
-    public EntityModel<AirQualityAggregate> getDailyAverage(@PathVariable Long sensorId,
+    public EntityModel<AirQualityAverageDaily> getDailyAverage(@PathVariable Long sensorId,
                                                              @RequestParam Instant date,
                                                              @Parameter (hidden = true) Pageable pageable)
     {
@@ -103,7 +103,7 @@ public class AirQualityAggregateController
      */
     @Operation (summary = "Get weekly average of a sensor of a given date in the week")
     @GetMapping ("/airqualityaverage/weekly/{sensorId}")
-    public EntityModel<AirQualityAggregate> getWeeklyAverage(@PathVariable Long sensorId,
+    public EntityModel<AirQualityAverageWeekly> getWeeklyAverage(@PathVariable Long sensorId,
                                                               @RequestParam Instant date,
                                                               @Parameter (hidden = true) Pageable pageable)
     {
@@ -127,7 +127,7 @@ public class AirQualityAggregateController
      */
     @Operation (summary = "Get monthly average of a sensor of a given date in the month")
     @GetMapping ("/airqualityaverage/monthly/{sensorId}")
-    public EntityModel<AirQualityAggregate> getMonthlyAverage(@PathVariable Long sensorId,
+    public EntityModel<AirQualityAverageMonthly> getMonthlyAverage(@PathVariable Long sensorId,
                                                                @RequestParam Instant date,
                                                                @Parameter (hidden = true) Pageable pageable)
     {
@@ -150,7 +150,7 @@ public class AirQualityAggregateController
      */
     @Operation (summary = "Get daily maximum of a sensor at a given date")
     @GetMapping ("/airqualitymaximum/daily/{sensorId}")
-    public EntityModel<AirQualityAggregate> getDailyMax(@PathVariable Long sensorId, @RequestParam Instant date,
+    public EntityModel<AirQualityMaximumDaily> getDailyMax(@PathVariable Long sensorId, @RequestParam Instant date,
                                                          @Parameter (hidden = true) Pageable pageable)
     {
         AirQualityMaximumDaily airQualityMaximumDaily =
@@ -173,7 +173,7 @@ public class AirQualityAggregateController
      */
     @Operation (summary = "Get weekly maximum of a sensor of a given date in the week")
     @GetMapping ("/airqualitymaximum/weekly/{sensorId}")
-    public EntityModel<AirQualityAggregate> getWeeklyMax(@PathVariable Long sensorId, @RequestParam Instant date,
+    public EntityModel<AirQualityMaximumWeekly> getWeeklyMax(@PathVariable Long sensorId, @RequestParam Instant date,
                                                           @Parameter (hidden = true) Pageable pageable)
     {
         AirQualityMaximumWeekly airQualityMaximumWeekly =
@@ -195,7 +195,7 @@ public class AirQualityAggregateController
      */
     @Operation (summary = "Get monthly maximum of a sensor of a given date in the week")
     @GetMapping ("/airqualitymaximum/monthly/{sensorId}")
-    public EntityModel<AirQualityAggregate> getMonthlyMax(@PathVariable Long sensorId,
+    public EntityModel<AirQualityMaximumMonthly> getMonthlyMax(@PathVariable Long sensorId,
                                                            @RequestParam Instant date,
                                                            @Parameter (hidden = true) Pageable pageable)
     {
@@ -218,7 +218,7 @@ public class AirQualityAggregateController
      */
     @Operation (summary = "Get daily minimum of a sensor at a given date")
     @GetMapping ("/airqualityminimum/daily/{sensorId}")
-    public EntityModel<AirQualityAggregate> getDailyMin(@PathVariable Long sensorId, @RequestParam Instant date,
+    public EntityModel<AirQualityMinimumDaily> getDailyMin(@PathVariable Long sensorId, @RequestParam Instant date,
                                                          @Parameter (hidden = true) Pageable pageable)
     {
         AirQualityMinimumDaily airQualityMinimumDaily =
@@ -241,7 +241,7 @@ public class AirQualityAggregateController
      */
     @Operation (summary = "Get weekly minimum of a sensor of a given date in the week")
     @GetMapping ("/airqualityminimum/weekly/{sensorId}")
-    public EntityModel<AirQualityAggregate> getWeeklyMin(@PathVariable Long sensorId, @RequestParam Instant date,
+    public EntityModel<AirQualityMinimumWeekly> getWeeklyMin(@PathVariable Long sensorId, @RequestParam Instant date,
                                                           @Parameter (hidden = true) Pageable pageable)
     {
         AirQualityMinimumWeekly airQualityMinimumWeekly =
@@ -263,7 +263,7 @@ public class AirQualityAggregateController
      */
     @Operation (summary = "Get monthly minimum of a sensor of a given date in the week")
     @GetMapping ("/airqualityminimum/monthly/{sensorId}")
-    public EntityModel<AirQualityAggregate> getMonthlyMin(@PathVariable Long sensorId,
+    public EntityModel<AirQualityMinimumMonthly> getMonthlyMin(@PathVariable Long sensorId,
                                                            @RequestParam Instant date,
                                                            @Parameter (hidden = true) Pageable pageable)
     {

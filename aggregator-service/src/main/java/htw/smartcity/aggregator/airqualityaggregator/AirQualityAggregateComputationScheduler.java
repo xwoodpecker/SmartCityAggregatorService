@@ -6,9 +6,6 @@ import htw.smartcity.aggregator.base.ExceptionManager;
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import htw.smartcity.aggregator.sensor.SensorType;
-import htw.smartcity.aggregator.temperature.Temperature;
-import htw.smartcity.aggregator.temperature.TemperatureRepository;
-import htw.smartcity.aggregator.temperatureaggregate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -114,7 +111,7 @@ public class AirQualityAggregateComputationScheduler
     @Scheduled (cron="0 1 */7 * *")
     private void computeWeekly()
     {
-        List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.TEMPERATURE);
+        List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.AIR_QUALITY);
 
         for(Sensor sensor : sensors)
         {
@@ -179,7 +176,7 @@ public class AirQualityAggregateComputationScheduler
     @Scheduled (cron="0 1 1 * *")
     private void computeMonthly()
     {
-        List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.TEMPERATURE);
+        List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.AIR_QUALITY);
 
         for(Sensor sensor : sensors)
         {

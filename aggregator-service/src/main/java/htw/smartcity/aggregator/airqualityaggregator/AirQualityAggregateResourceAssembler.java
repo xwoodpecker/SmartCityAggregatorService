@@ -25,4 +25,94 @@ public class AirQualityAggregateResourceAssembler implements RepresentationModel
         }
         return entityModel;
     }
+
+    public EntityModel<AirQualityAverageDaily> toModel(AirQualityAverageDaily entity)
+    {
+        EntityModel<AirQualityAverageDaily> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<AirQualityAverageWeekly> toModel(AirQualityAverageWeekly entity)
+    {
+        EntityModel<AirQualityAverageWeekly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<AirQualityAverageMonthly> toModel(AirQualityAverageMonthly entity)
+    {
+        EntityModel<AirQualityAverageMonthly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<AirQualityMaximumDaily> toModel(AirQualityMaximumDaily entity)
+    {
+        EntityModel<AirQualityMaximumDaily> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<AirQualityMaximumWeekly> toModel(AirQualityMaximumWeekly entity)
+    {
+        EntityModel<AirQualityMaximumWeekly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<AirQualityMaximumMonthly> toModel(AirQualityMaximumMonthly entity)
+    {
+        EntityModel<AirQualityMaximumMonthly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<AirQualityMinimumDaily> toModel(AirQualityMinimumDaily entity)
+    {
+        EntityModel<AirQualityMinimumDaily> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<AirQualityMinimumWeekly> toModel(AirQualityMinimumWeekly entity)
+    {
+        EntityModel<AirQualityMinimumWeekly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<AirQualityMinimumMonthly> toModel(AirQualityMinimumMonthly entity)
+    {
+        EntityModel<AirQualityMinimumMonthly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
 }
