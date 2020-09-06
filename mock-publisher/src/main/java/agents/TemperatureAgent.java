@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * The type Temperature agent.
  */
 public class TemperatureAgent extends Agent {
-    private final String TOPIC_PREFIX = ConfigProperties.TOPIC + "/temperatures/";
+    private final String TOPIC_PREFIX = ConfigProperties.TOPIC + "/temperature/";
     private double lastTemp;
 
     /**

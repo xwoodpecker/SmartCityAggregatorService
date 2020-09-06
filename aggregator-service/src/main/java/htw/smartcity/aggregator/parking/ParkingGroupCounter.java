@@ -147,14 +147,14 @@ public class ParkingGroupCounter {
      * Increment free.
      */
     public void incrementFree(){
-        this.free++;
+            this.free++;
     }
 
     /**
      * Increment used.
      */
     public void incrementUsed(){
-        this.used++;
+            this.used++;
     }
 
     /**
