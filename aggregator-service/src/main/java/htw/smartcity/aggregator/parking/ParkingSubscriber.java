@@ -117,12 +117,12 @@ public class ParkingSubscriber extends MQTTSubscriber {
                 parking = sensorParkingMap.get(sensor);
 
             boolean newSensor = parking == null;
-            if(newSensor || !parking.getValue().equals(msg)){
-                Boolean parked = Boolean.getBoolean(msg);
+            Boolean parked = Boolean.parseBoolean(msg);
+            if(newSensor || !parking.getValue().equals(parked)){
                 parking = new Parking(time, sensor, parked);
                 parkingRepository.save(parking);
                 sensorParkingMap.put(sensor, parking);
-                persistParkingGroupCounter(time, sensorParkingGroupMap.get(sensor), parked, newSensor);
+                persistParkingGroupCounter(time, sensorParkingGroupMap.get(sensor), !parked, newSensor);
             }
         }catch (Exception e) {
             e.printStackTrace();
