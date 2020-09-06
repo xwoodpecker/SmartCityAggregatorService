@@ -156,6 +156,7 @@ public class ParkingSubscriber extends MQTTSubscriber {
             }
 
             parkingGroupCounter.setId(null);
+            parkingGroupCounter.setTime(time);
             parkingGroupCounter = parkingGroupCounterRepository.save(parkingGroupCounter);
             parkingGroupIdParkingGroupCounterMap.put(parkingGroup.getId(), parkingGroupCounter);
         }catch (Exception e) {
