@@ -25,4 +25,94 @@ public class TemperatureAggregateResourceAssembler implements RepresentationMode
         }
         return entityModel;
     }
+
+    public EntityModel<TemperatureAverageDaily> toModel(TemperatureAverageDaily entity)
+    {
+        EntityModel<TemperatureAverageDaily> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<TemperatureAverageWeekly> toModel(TemperatureAverageWeekly entity)
+    {
+        EntityModel<TemperatureAverageWeekly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<TemperatureAverageMonthly> toModel(TemperatureAverageMonthly entity)
+    {
+        EntityModel<TemperatureAverageMonthly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<TemperatureMaximumDaily> toModel(TemperatureMaximumDaily entity)
+    {
+        EntityModel<TemperatureMaximumDaily> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<TemperatureMaximumWeekly> toModel(TemperatureMaximumWeekly entity)
+    {
+        EntityModel<TemperatureMaximumWeekly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<TemperatureMaximumMonthly> toModel(TemperatureMaximumMonthly entity)
+    {
+        EntityModel<TemperatureMaximumMonthly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<TemperatureMinimumDaily> toModel(TemperatureMinimumDaily entity)
+    {
+        EntityModel<TemperatureMinimumDaily> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<TemperatureMinimumWeekly> toModel(TemperatureMinimumWeekly entity)
+    {
+        EntityModel<TemperatureMinimumWeekly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
+
+    public EntityModel<TemperatureMinimumMonthly> toModel(TemperatureMinimumMonthly entity)
+    {
+        EntityModel<TemperatureMinimumMonthly> entityModel = EntityModel.of(entity);
+        if(entity.getSensor() != null)
+        {
+            entityModel.add(linkTo(methodOn(SensorController.class).one(entity.getSensor().getId())).withRel("sensor"));
+        }
+        return entityModel;
+    }
 }

@@ -73,7 +73,7 @@ public class TemperatureAggregateController
      */
     @Operation (summary = "Get daily average of a sensor at a given date")
     @GetMapping ("/temperatureaverage/daily/{sensorId}")
-    public EntityModel<TemperatureAggregate> getDailyAverage(@PathVariable Long sensorId,
+    public EntityModel<TemperatureAverageDaily> getDailyAverage(@PathVariable Long sensorId,
                                                            @RequestParam Instant date,
                                                         @Parameter (hidden = true) Pageable pageable)
     {
@@ -99,7 +99,7 @@ public class TemperatureAggregateController
      */
     @Operation (summary = "Get weekly average of a sensor of a given date in the week")
     @GetMapping ("/temperatureaverage/weekly/{sensorId}")
-    public EntityModel<TemperatureAggregate> getWeeklyAverage(@PathVariable Long sensorId,
+    public EntityModel<TemperatureAverageWeekly> getWeeklyAverage(@PathVariable Long sensorId,
                                                            @RequestParam Instant date,
                                                          @Parameter (hidden = true) Pageable pageable)
     {
@@ -122,7 +122,7 @@ public class TemperatureAggregateController
      */
     @Operation (summary = "Get monthly average of a sensor of a given date in the month")
     @GetMapping ("/temperatureaverage/monthly/{sensorId}")
-    public EntityModel<TemperatureAggregate> getMonthlyAverage(@PathVariable Long sensorId,
+    public EntityModel<TemperatureAverageMonthly> getMonthlyAverage(@PathVariable Long sensorId,
                                                            @RequestParam Instant date,
                                                           @Parameter (hidden = true) Pageable pageable)
     {
@@ -145,7 +145,7 @@ public class TemperatureAggregateController
      */
     @Operation (summary = "Get daily maximum of a sensor at a given date")
     @GetMapping ("/temperaturemaximum/daily/{sensorId}")
-    public EntityModel<TemperatureAggregate> getDailyMax(@PathVariable Long sensorId, @RequestParam Instant date,
+    public EntityModel<TemperatureMaximumDaily> getDailyMax(@PathVariable Long sensorId, @RequestParam Instant date,
                                                       @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMaximumDaily temperatureMaximumDaily =
@@ -168,7 +168,7 @@ public class TemperatureAggregateController
      */
     @Operation (summary = "Get weekly maximum of a sensor of a given date in the week")
     @GetMapping ("/temperaturemaximum/weekly/{sensorId}")
-    public EntityModel<TemperatureAggregate> getWeeklyMax(@PathVariable Long sensorId, @RequestParam Instant date,
+    public EntityModel<TemperatureMaximumWeekly> getWeeklyMax(@PathVariable Long sensorId, @RequestParam Instant date,
                                                          @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMaximumWeekly temperatureMaximumWeekly =
@@ -190,7 +190,7 @@ public class TemperatureAggregateController
      */
     @Operation (summary = "Get monthly maximum of a sensor of a given date in the week")
     @GetMapping ("/temperaturemaximum/monthly/{sensorId}")
-    public EntityModel<TemperatureAggregate> getMonthlyMax(@PathVariable Long sensorId,
+    public EntityModel<TemperatureMaximumMonthly> getMonthlyMax(@PathVariable Long sensorId,
                                                            @RequestParam Instant date,
                                                           @Parameter (hidden = true) Pageable pageable)
     {
@@ -213,7 +213,7 @@ public class TemperatureAggregateController
      */
     @Operation (summary = "Get daily minimum of a sensor at a given date")
     @GetMapping ("/temperatureminimum/daily/{sensorId}")
-    public EntityModel<TemperatureAggregate> getDailyMin(@PathVariable Long sensorId, @RequestParam Instant date,
+    public EntityModel<TemperatureMinimumDaily> getDailyMin(@PathVariable Long sensorId, @RequestParam Instant date,
                                                          @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMinimumDaily temperatureMinimumDaily =
@@ -236,7 +236,7 @@ public class TemperatureAggregateController
      */
     @Operation (summary = "Get weekly minimum of a sensor of a given date in the week")
     @GetMapping ("/temperatureminimum/weekly/{sensorId}")
-    public EntityModel<TemperatureAggregate> getWeeklyMin(@PathVariable Long sensorId, @RequestParam Instant date,
+    public EntityModel<TemperatureMinimumWeekly> getWeeklyMin(@PathVariable Long sensorId, @RequestParam Instant date,
                                                           @Parameter (hidden = true) Pageable pageable)
     {
         TemperatureMinimumWeekly temperatureMinimumWeekly =
@@ -258,7 +258,7 @@ public class TemperatureAggregateController
      */
     @Operation (summary = "Get monthly minimum of a sensor of a given date in the week")
     @GetMapping ("/temperatureminimum/monthly/{sensorId}")
-    public EntityModel<TemperatureAggregate> getMonthlyMin(@PathVariable Long sensorId,
+    public EntityModel<TemperatureMinimumMonthly> getMonthlyMin(@PathVariable Long sensorId,
                                                            @RequestParam Instant date,
                                                            @Parameter (hidden = true) Pageable pageable)
     {
