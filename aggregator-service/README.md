@@ -1,8 +1,12 @@
 # Aggregator Service
-Bei dem Aggregator Service handelt es sich um einen auf Spring Boot basierten Cloud-Service, der Messungen aus einem SmartCity-Testfeld durch einen MQTT-Broker in Echtzeit 
-verarbeitet und speichert. Aus Messwerten werden Aggregate sowohl in Echtzeit als auch zeitverzögert durch Batch-Processing-Routinen gebildet. Über eine REST-Schnittstelle 
-können die Daten abgefragt werden. Dazu wird eine Vielzahl von Endpunkten bereitgestellt, mit denen genau die Daten gefiltert werden können, die benötigt werden. Die 
-FrontEnds müssen dann lediglich die Daten im entsprechenden Format anzeigen.
+Das Internet of Things (IoT) erhält zunehmend Einzug in Bereiche des Alltags. Insbesondere steigt das Interesse an Smart-City-Anwendungen. Diese sollen Prozesse
+im städtischen Umfeld optimieren und durch den Einsatz von intelligenter Hardware das Leben einfacher gestalten. Wesentlicher Bestandteil einer Smart-City-
+Infrastruktur stellen Sensoren dar, die verschiedenste Daten messen. Temperatur-, Luftqualitäts- und Parkplatzdaten sind für das Projekt relevant. 
+Um neuste Technologien zu erforschen, wird das SmartCity-Testfeld aufgebaut. Ein wesentlicher Bestandteil des Testfelds ist der Aggregrator-Service.
+Hierbei handelt es sich um einen auf Spring Boot basierten Cloud-Service,
+der Messungen von Sensoren verarbeitet und speichert. Aus Messwerten werden Aggregate sowohl in Echtzeit als auch zeitverzögert durch 
+Batch-Processing-Routinen gebildet. Über eine REST-Schnittstelle können die Daten abgefragt werden. Dazu wird eine Vielzahl von Endpunkten bereitgestellt, 
+mit denen genau die Daten gefiltert werden können, die benötigt werden. Die FrontEnds müssen dann lediglich die Daten im entsprechenden Format anzeigen.
 
 ## Architektur
 todo
@@ -58,10 +62,89 @@ Stellen Sie die Architektur Ihres Projekts dar. Beginnen Sie mit einem Abschnitt
 
 
 #### Lösungsstrategie
-todo
+Die Lösung wurde in Java 11 implementiert. eclipse paho wurde eingesetzt,
+eine Open-Source-MQTT-Implementierung. Die Bibliothek stellt Logik für Clients,
+also Publisher und Subscriber bereit. Im Folgenden wird die Methodik der Umsetzung
+beschrieben. Es wurden Sensoren simuliert, die am MQTT-Broker ihre
+Daten bereitstellen. Der Aggregator-Service wurde als Microservice implementiert.
+Dadurch kann er unabhängig und einfach bereitgestellt und gewartet werden. Er hat
+die Aufgabe, Daten vom Broker zu beziehen und zu verarbeiten. Die Speicherung der
+Daten erfolgt in einer MySQL-Datenbank. Zur Abbildung der Datenbank-Entitäten
+in Java wurde JPA (Java Persistence API) und Hibernate eingesetzt. Bei Hibernate
+handelt es sich um ein ORM-Tool. ORM steht für Object-relational mapping, was
+eine Technik zur Umwandlung von Daten in Objekte ist.
 
-Geben Sie eine kompakte Beschreibung der Kernidee Ihres Lösungsansatzes. Begründen Sie wichtige Designentscheidungen. Z.B. die Wahl der Middleware, 
-der Programmiersprache, des Architekturansatzes etc.
+#####HiveMQ als Plattform und MQTT-Broker
+HiveMQ ist eine MQTT-basierte Plattform, welche alle Features von MQTT bereitstellt.
+Es wird ein MQTT-Broker zur Verfügung gestellt, der bereit zur Installation
+ist. Die Implementierung von HiveMQ deckt alle Features ab, die benötigt werden.
+Es werden die verschiedenen QoS-Levels unterstützt, sowie Clean Sessions, LWT
+und Topics mit Wildcards. Zudem zeigt ein Benchmark, dass die Implementierung
+auch unter großer Last sehr stabil ist. Ein einzelner Server-Cluster kann zehn Millionen
+Client-Verbindungen tragen. Der HiveMQ Broker wurde auf einem Server
+installiert und konfiguriert. Die Verbindung erfolgt über TLS (Transport Layer Security).
+Dadurch wird kryptographische Sicherheit gewährleistet. Gemäß des CIA-Prinzips
+sind Bedrohungen festgelegt als Verlust von Vertraulichkeit, Integrität und
+Verfügbarkeit. TLS reagiert auf diese, indem es ein Handshake-Protokoll zur Authentifizierung
+der Kommunikationspartner und ein Record-Protokoll zur Sicherung
+der Datenübertragung implementiert. Zusätzlich zur Authentifizierung
+per Username und Passwort wurde auf dem Server ein von einer Zertifizierungsstelle
+(Certificate Authority) signiertes Zertifikat installiert. Möchte ein Client eine
+Verbindung aufbauen, so muss er eine Truststore Datei (.pem Zertifikat) mitgeben.
+Diese beinhaltet Informationen zum Server. Der Server verifiziert den Inhalt der
+Datei. Bei erfolgreicher Prüfung akzeptiert er die Verbindung, andernfalls lehnt er
+sie ab.
+
+###### Funktionsweise der MQTT-Publisher
+Als Sensoren sollen später Raspberry Pis verwendet werden. Diese messen die Temperatur
+in Grad Celsius, die Luftqualität und ob ein Parkplatz belegt ist oder nicht.
+Die erstellte Simulation bildet das Verhalten der Sensoren ab.
+Zur Simulation der Sensoren wurde ein Service erstellt. Dieser baut eine Verbindung
+zum MQTT-Broker auf und generiert zufällige, aber realitätsnahe Daten, welche
+er dann auf dem jeweiligen Topic publiziert. Dazu wird die Verbindung wie oben beschrieben mit
+Username, Password und Zertifikat aufgebaut. Anschließend werden
+in kurzen Zeitabständen die verschiedenen Sensordaten erzeugt und bereitgestellt.
+
+
+###### AggregatorService Echtzeitdatenverarbeitung
+Der AggregatorService soll die von den Sensoren bereitgestellten Daten sammeln,
+verarbeiten und speichern. Dazu wurden mehrere MQTT-Subscriber entwickelt. Um den Code
+schlank und portabel zu halten, wurde ein generischer MQTT-Subscriber entwickelt.
+Die abstrakte Klasse ist die Basis fur die Logik aller Subscriber. Nach der Konfiguration der Verbindung
+und dem Abonnement des jeweiligen Topics wird auf den Eingang einer
+Nachricht gewartet. Kommt eine Nachricht an, so wird der Sensor, falls er noch
+nicht vorhanden ist, in der MySQL-Datenbank gespeichert. Die empfangenen Daten
+werden verarbeitet und es erfolgt das Speichern der Messung mit Zeit und Sensor.
+Wie genau die Daten verarbeitet werden, ist vom jeweiligen Sensortyp abhängig.
+Bei den Parkplätzen zum Beispiel ist eine zusätzliche Echtzeitverarbeitung sinnvoll,
+die uber das schlichte Speichern von eingehenden Messdaten hinausgeht. Es ist nur
+notwendig Änderungen von Parkplatzbelegungen zu speichern. Zudem wurde Logik
+implementiert, die vom Topic auf die Zugehörigkeit eines Sensors zu einer Gruppe
+schliet. Eine Gruppe von Parkplatzsensoren kann, z.B. als Parkhaus interpretiert
+werden. Es werden in Echtzeit für eine solche Gruppe Zähler erfasst, welche die
+aktuell freien und belegten Parkplätze abbilden. Diese Zähler werden, sobald sich
+der Status eines Sensors in seiner Gruppe ändert inkrementiert oder dekrementiert
+und anschließend gespeichert.
+
+###### AggregatorService Aggregationsroutine
+Zusätzlich zu der Verarbeitung in Echtzeit werden in einer separaten Routine Aggregate
+der Daten gespeichert. Dazu zählen Mittelwerte, Maxima und Minima. Täglich,
+wöchentlich und monatlich werden gespeicherte Daten geladen und Aggregate berechnet.
+Diese werden dann wiederum in eigenen Tabellen abgespeichert. Dadurch,
+dass diese Daten nicht in Echtzeit aggregiert werden, kann Rechenzeit gespart werden.
+Bei den meisten Aggregaten ist es ohnehin nicht notwendig, dass diese unmittelbar
+zur Verfügung stehen.
+
+###### Bereitstellung für beliebige FrontEnds
+Die in Echtzeit gespeicherten und aggregierten Daten werden mittels einer REST-Schnittstelle
+bereitgestellt. Hierbei wurden einfache und komplexe Abfragen implementiert.
+Die Auswertung uber verschiedene Zeiträume ermöglicht eine umfangreiche
+Auswertung der Sensordaten. Verschiedene Filter ermöglichen die Auswahl der
+passenden Daten. Es ist beispielsweise möglich nach Sensor oder Sensortyp zu filtern.
+Die Daten können in beliegen FrontEnds dargestellt werden. Die FrontEnds
+müssen lediglich die Daten abfragen, die fur sie relevant sind. Eine Darstellung kann
+dann grafisch oder tabellarisch erfolgen.
+
 
 #### Statisches Modell
 
