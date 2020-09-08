@@ -120,7 +120,6 @@ public class ParkingGroupController {
     @GetMapping("/overview")
     ResponseEntity<List<PagedModel<ParkingGroupCounter>>> groupOverview(@Parameter(hidden = true) Pageable pageable)
     {
-        //todo julain sagt das is broken
         List<PagedModel<ParkingGroupCounter>> parkingGroupCounterList = new ArrayList<>();
         parkingGroupRepository.findAll().forEach(parkingGroup -> {
             Page p = parkingGroupCounterRepository.findAllByParkingGroupId(pageable, parkingGroup.getId());
