@@ -54,7 +54,7 @@ Stellen Sie die Architektur Ihres Projekts dar. Beginnen Sie mit einem Abschnitt
 * Administrative Verwaltung von Sensoren und Nutzern
 
 ###### Nichtfunktionale Anforderungen:
-* Hot-/Cold-Store für Datenhaltung einführen (nicht realisiert)
+* Hot-/Cold-Store für Datenhaltung einführen
 
 
 #### Lösungsstrategie
@@ -76,7 +76,7 @@ todo
 Die Verteilungssicht stellt dar, auf welchen physischen Rechnern die einzelnen Komponenten Ihres Systems ausgeführt werden und wie diese Verbunden sind.
 
 ###### Klassendiagramme
-todo
+![](../markdown-images/classdia0.png)
 
 
 ###### API
@@ -88,9 +88,22 @@ Die JSON-basierte OpenAPI-Spezifikation steht unter `/v3/api-docs` bereit.
 
 
 #### Dynamisches Modell
+Hier eine simple Darstellung der Verarbeitung von eingehenden Daten:
 
+![](../markdown-images/sequenz0.png)
 
-Beschreiben Sie den Ablauf Ihres Programms in Form von Aktivitäts- und oder Sequenzdiagrammen.
+Eine erweiterte Darstellung des Ablaufs bei eingehenden Sensorwerten:
+![](../markdown-images/sequenz1.png)
+
+Die oben dargestellten Sequenzdiagramme stellen die Datenverarbeitung und Aggregation in Echtzeit dar. Parallel dazu laufen zwei weitere Routinen:
+* Sensorwertabfrage über REST-Schnittstelle
+
+![](../markdown-images/sequenz2.png)
+
+* Aggregation
+
+    Die Aggregration erfolgt täglich, wöchentlich und monatlich. Es werden die Aggregate, also Minima, Maxima und Mittelwerte berechnet. Dazu werden die Daten des Vortags, bzw. der vorigen Woche oder des vorigen Monats analysiert. Die berechneten Aggregate werden in einer eigenen Tabelle gespeichert. Diese können wie normale Messwerte über die REST-Schnittstelle abgefragt werden.
+    Im Falle eines Fehlers hat ein Admin die Möglichkeit die Berechnung zu einem späteren Zeitpunkt manuell zu wiederholen. Eine solche Wiederholung kann über einen Endpunkt der REST-Schnittstelle ausgelöst werden.
 
 
 ## Getting Started
@@ -112,28 +125,13 @@ Es müssen folgende Abhängigkeiten auf dem Rechner installiert sein:
 - [Docker](https://www.docker.com/get-started) (für Maven Phasen `install`, `deploy`)
 
 #### Installation und Deployment
-Das Docker-Image kann mit `docker run {registry}/htw.smartcity/aggregator:1.0-SNAPSHOT` ausgeführt werden, wobei `{registry}`
-durch die entsprechende Registry ersetzt werden muss.
 
-Um die MySQL-Datenbank ebenfalls als Container auf dem selben Host bereitzustellen ist es erforderlich, via `docker network create --driver bridge {name}` ein Docker-Netzwerk anzulegen und beide Container mit diesem Netwerk zu verbinden. Dazu muss der `docker run`-Befehl um `--net={name}` erweitert werden.
-Es empfiehlt sich, dem Datenbank-Container explizit einen Namen zu geben, denn dadurch kann der Aggregator-Service die IP auflösen (siehe "Konfiguration")
+Beschreiben Sie die Installation und das Starten ihrer Software Schritt für Schritt.
 
-###### Konfiguration
-Sämtliche Konfigurationseigenschaften können entweder in `src/main/resources/application.properties` eingetragen, oder beim Erstellen des Containers als Umgebungsvariablen übergeben werden. Die wichtigsten Konfigurationseigenschaften sind:
-* `BROKER`: URL des MQTT-Brokers mit Protokoll und Port, z.B. `ssl://134.96.216.46:8883`
-* `USERNAME`: Username zur Authentifizierung gegenüber dem MQTT-Broker
-* `PASSWORD`: Password zur Authentifizierung gegenüber dem MQTT-Broker
-* `TOPIC`: MQTT-Topic, welches der Aggregator-Service subskribiert
-* `CERTIFICATE`: Pfad zur `truststore.pem` (zur Authentifizierung gegenüber dem Broker). Bitte beachten, dass es sich dabei um den Pfad innerhalb des Containers beachtet, falls der Aggregator-Service als Container ausgeführt wird. Die `truststore.pem` sollte in einem Ordner auf dem Host-System liegen, und mittels `--volume` an den entsprechend konfigurierten Container-internen Pfad gebunden werden. 
-* `spring.datasource.url`: JDBC-Url zur Datenbank. Bei der Ausführung der Datenbank als Container im selben Docker-Netzwerk kann anstelle einer IP oder eines Hostnamens der Name des entsprechenden Docker-Containers eingetragen werden.
-* `spring.datasource.username`: Username zur Authentifizierung gegenüber der Datenbank 
-* `spring.datasource.password`: Password zur Authentifizierung gegenüber der Datenbank
-* `INITIAL_ADMIN_PASSWORD`: Initiales Admin-Passwort zum Authentifizieren gegenüber der REST-Schnittstelle des Aggregator-Services
-* `logging.file.path`: Pfad, unter dem Log-Dateien gespeichert werden sollen. In-Container-Pfad, siehe `CERTIFICATE`
-* `MAIL_USERNAME`: Username zur Authentifizierung gegenüber des Mail-Servers
-* `MAIL_PASSWORD`: Password zur Authentifizierung gegenüber des Mail-Servers
-* `MAIL_LIST`: Kommagetrennte Liste von E-Mail-Addressen, die bei auftretenden Fehlern informiert werden sollen.
-* `MAIL_SEND_PERIOD`: Wie oft eventuell auftretende Fehler per E-Mail versendet weren sollen
+Das Docker-Image kann mit `docker run htw.smartcity/aggregator:1.0-SNAPSHOT` lokal ausgeführt werden.
+todo: Anleitung zum Deployment auf einem Remote Host
+todo: fix, outdated
+
 
 ## Built With
 todo mehr?
