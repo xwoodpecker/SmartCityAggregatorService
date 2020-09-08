@@ -23,7 +23,7 @@ public interface AirQualityRepository extends JpaRepository<AirQuality, Long> {
      * @param pageable the pageable
      * @return the page
      */
-    Page findAirQualitiesBySensorId(Long sensorId, Pageable pageable);
+    Page<AirQuality> findAirQualitiesBySensorId(Long sensorId, Pageable pageable);
 
     /**
      * Find air qualities by time after and time before page.
@@ -33,7 +33,7 @@ public interface AirQualityRepository extends JpaRepository<AirQuality, Long> {
      * @param pageable  the pageable
      * @return the page
      */
-    Page findAirQualitiesByTimeAfterAndTimeBefore(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
+    Page<AirQuality> findAirQualitiesByTimeAfterAndTimeBefore(LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
 
     /**
      * Find air qualities by sensor id and time between list.
@@ -43,5 +43,11 @@ public interface AirQualityRepository extends JpaRepository<AirQuality, Long> {
      * @param endTime   the end time
      * @return the list
      */
+    Page<AirQuality> findAirQualitiesBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime, Pageable pageable);
+
     List<AirQuality> findAirQualitiesBySensorIdAndTimeBetween(Long id, LocalDateTime startTime, LocalDateTime endTime);
+
+    AirQuality findFirstBySensorIdOrderByTimeDesc(Long sensorId);
+
+    Page findLatest(Pageable pageable);
 }

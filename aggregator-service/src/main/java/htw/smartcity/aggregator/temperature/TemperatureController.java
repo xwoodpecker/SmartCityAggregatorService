@@ -73,9 +73,8 @@ public class TemperatureController {
     @GetMapping("/latest")
     ResponseEntity<PagedModel<Temperature>> latest(@Parameter(hidden = true) Pageable pageable)
     {
-        temperatureRepository.findLatest(pageable);
-
-        return all(pageable);
+        Page p = temperatureRepository.findLatest(pageable);
+        return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
     /**
@@ -139,12 +138,10 @@ public class TemperatureController {
     @GetMapping("/bySensor/{sensorId}/timeframe")
     public ResponseEntity<PagedModel<Temperature>> bySensorInTimeframe(@RequestParam Instant startTime, @RequestParam Instant endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
-        //todo
         Page p = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC),
                                                                                   pageable);
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p,
         temperatureResourceAssembler), HttpStatus.OK);
-         //return all(pageable);
     }
 
     /**
@@ -156,7 +153,7 @@ public class TemperatureController {
     @Operation(summary = "Get the latest measurement of a specific sensor")
     @GetMapping("/bySensor/{sensorId}/latest")
     public EntityModel<Temperature> bySensorLatest(@PathVariable Long sensorId){
-        //todo implement
-        return one((long) 1);
+        Temperature temperature = temperatureRepository.findFirstBySensorIdOrderByTimeDesc(sensorId);
+        return temperatureResourceAssembler.toModel(temperature);
     }
 }

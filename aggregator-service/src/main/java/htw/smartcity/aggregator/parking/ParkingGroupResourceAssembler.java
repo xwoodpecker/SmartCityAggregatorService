@@ -16,8 +16,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class ParkingGroupResourceAssembler implements RepresentationModelAssembler<ParkingGroup, EntityModel<ParkingGroup>> {
     @Override
     public EntityModel<ParkingGroup> toModel(ParkingGroup parkingGroup){
-        EntityModel<ParkingGroup> entityModel = EntityModel.of(parkingGroup);
-                //todo
+        EntityModel<ParkingGroup> entityModel = EntityModel.of(parkingGroup,
+                linkTo(methodOn(ParkingGroupController.class).oneGroupOverview(Pageable.unpaged(), parkingGroup.getId())).withRel("counter"));
         return entityModel;
     }
 }

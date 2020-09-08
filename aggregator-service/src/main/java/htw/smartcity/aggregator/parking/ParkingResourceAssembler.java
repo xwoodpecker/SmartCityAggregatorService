@@ -18,10 +18,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class ParkingResourceAssembler implements RepresentationModelAssembler<Parking, EntityModel<Parking>> {
     @Override
     public EntityModel<Parking> toModel(Parking parking){
-        EntityModel<Parking> entityModel = EntityModel.of(parking);
-                //linkTo(methodOn(ParkingController.class).one(parking.getId())).withSelfRel(),
-                //linkTo(methodOn(ParkingController.class).all(Pageable.unpaged())).withRel("parking"));
-            //todo
+        EntityModel<Parking> entityModel = EntityModel.of(parking,
+                linkTo(methodOn(SensorController.class).one(parking.getSensor().getId())).withRel("sensor"));
         if(parking.getSensor() != null)
         {
             entityModel.add(linkTo(methodOn(SensorController.class).one(parking.getSensor().getId())).withRel("sensor"));

@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -87,12 +89,12 @@ public class UserController {
      */
     @Operation(summary = "Change the password of a user")
     @PostMapping("/password/own")
-    EntityModel<User> changeOwnPassword(UsernamePasswordAuthenticationToken principal, @RequestParam String newPassword){
-        //todo return status code instead of entitymodel
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    void changeOwnPassword(UsernamePasswordAuthenticationToken principal, @RequestParam String newPassword){
         UserDetails userDetails = (UserDetails) principal.getPrincipal();
         User user = userRepository.findUserByUsername(userDetails.getUsername());
         user.setPassword(passwordEncoder.encode(newPassword));
-        return(userResourceAssembler.toModel(userRepository.save(user)));
+        userRepository.save(user);
     }
 
     /**
@@ -105,10 +107,10 @@ public class UserController {
     @Operation(summary = "Change password of a specified user. Admin Role required.")
     @Secured("ROLE_ADMIN")
     @PostMapping("/password/other")
-    EntityModel<User> changeSomeonesPassword(String username, String newPassword){
-        //todo return status code instead of entitymodel
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    void changeSomeonesPassword(String username, String newPassword){
         User user = userRepository.findUserByUsername(username);
         user.setPassword(passwordEncoder.encode(newPassword));
-        return(userResourceAssembler.toModel(userRepository.save(user)));
+        userRepository.save(user);
     }
 }

@@ -65,4 +65,6 @@ public interface TemperatureRepository extends JpaRepository<Temperature, Long> 
      */
     @Query(value = "SELECT t from Temperature t JOIN Sensor s group by t.sensor order by t.time desc")
     Page<Temperature> findLatest(Pageable pageable);
+
+    Temperature findFirstBySensorIdOrderByTimeDesc(Long sensorId);
 }
