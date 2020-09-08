@@ -30,8 +30,8 @@ import static org.junit.Assert.assertNotNull;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class TemperatureRepositoryTests {
 
-    private static final Long TEMPERATURE_SENSOR1_ID = 1L;
-    private static final Long TEMPERATURE_SENSOR2_ID = 2L;
+    private static final Long TEMPERATURE_SENSOR1_ID = 8L;
+    private static final Long TEMPERATURE_SENSOR2_ID = 9L;
     private static final LocalDateTime TimeFrom = LocalDateTime.of(2020, Month.JULY, 23, 15, 36, 0);
     private static final LocalDateTime TimeTo = LocalDateTime.of(2020, Month.JULY, 23, 15, 40, 0);
 
@@ -84,7 +84,7 @@ public class TemperatureRepositoryTests {
         Sensor sensor2 = sensorRepository.findById(TEMPERATURE_SENSOR2_ID).get();
         long elementsSensor1 = temperatureRepository.findTemperaturesBySensorId(sensor1.getId(), null).getTotalElements();
         long elementsSensor2 = temperatureRepository.findTemperaturesBySensorId(sensor2.getId(), null).getTotalElements();
-        assertEquals(elementsSensor1, 2);
+        assertEquals(elementsSensor1, 20);
         assertEquals(elementsSensor2, 3);
     }
 
