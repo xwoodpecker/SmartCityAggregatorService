@@ -1,27 +1,61 @@
 # Aggregator Service
-Ein auf Spring Boot basierender Cloud-Service, der Messungen aus einem SmartCity-Testfeld durch einen MQTT-Broker aggregiert und
-über eine REST-Schnittstelle bereitstellt.
+Bei dem Aggregator Service handelt es sich um einen auf Spring Boot basierten Cloud-Service, der Messungen aus einem SmartCity-Testfeld durch einen MQTT-Broker in Echtzeit 
+verarbeitet und speichert. Aus Messwerten werden Aggregate sowohl in Echtzeit als auch zeitverzögert durch Batch-Processing-Routinen gebildet. Über eine REST-Schnittstelle 
+können die Daten abgefragt werden. Dazu wird eine Vielzahl von Endpunkten bereitgestellt, mit denen genau die Daten gefiltert werden können, die benötigt werden. Die 
+FrontEnds müssen dann lediglich die Daten im entsprechenden Format anzeigen.
 
 ## Architektur
 todo
 
-Stellen Sie die Architektur Ihres Projekts dar. Beginnen Sie mit einem Abschnitt zur Lösungsstrategie. D.h. eine kompakte Beschreibung der Kernidee und des Lösungsansatzes. Beschreiben Sie wichtige Designentscheidungen und Begründen Sie diese.
+
+Stellen Sie die Architektur Ihres Projekts dar. Beginnen Sie mit einem Abschnitt zur Lösungsstrategie.
+ D.h. eine kompakte Beschreibung der Kernidee und des Lösungsansatzes. Beschreiben Sie wichtige Designentscheidungen und Begründen Sie diese.
 
 #### Use Cases / User Stories
-todo
-
-Beschreiben Sie Use Cases und/oder User Stories
+* Daten müssen gesammelt und aggregiert werden
+* Historische und aktuelle Daten müssen abrufbar sein
+* Aktuelle Messwerte und aggregierte Daten müssen abrufbar sein
+* Verschiedene Sensordaten müssen modelliert werden
+* Es sollen ohne viel Aufwand neue Sensoren hinzugefügt werden können
+* Nutzer sollten authentifiziert werden
+* Nutzer sollten von Fehlersituationen benachrichtigt werden
 
 #### Anforderungen
-todo
 
-Darstellung der Anfoderungen unterteilt nach funktionalen und nichtfunktionalen Anforderungen sowie nach Must-, Should-, und Could-Have Anfoderungen
+##### Must-Have-Anforderungen:
 
-###### Funktionale Anforderungen
-todo
+###### Funktionale Anforderungen:
+* Daten sollen Luftqualität, Temperatur und Parkplatzbelegung umfassen 
+* Daten sammeln und vereinheitlichen
+* Daten in Echtzeit speichern und aggregieren
+* Historische Daten aggregieren (Tages-, Wochen-, Monatsaggregate)
+* Aggregate sollen Mittelwerte, Minima und Maxima umfassen
+* Daten nach verschiedenen Kriterien abrufbar
+* Simulator für Sensordaten
 
-###### Nichtfunktionale Anforderungen
-todo
+###### Nichtfunktionale Anforderungen:
+* Microservice bereitstellen
+* Containerisierung mit Docker
+* Nutzung von Spring
+* REST-Schnittstelle zur Bereitstellung verwenden
+
+##### Should-Have-Anforderungen:
+
+###### Funktionale Anforderungen:
+* Serverseitige Nutzerverwaltung
+* Dynamisch neue Sensordaten anlegen
+* Auswertung von Daten bereitstellen
+
+
+##### Nice-To-Have-Anforderungen:
+
+###### Funktionale Anforderungen:
+* E-Mail-Alerts bei Fehlersituationen versenden
+* Administrative Verwaltung von Sensoren und Nutzern
+
+###### Nichtfunktionale Anforderungen:
+* Hot-/Cold-Store für Datenhaltung einführen (nicht realisiert)
+
 
 #### Lösungsstrategie
 todo
@@ -54,7 +88,7 @@ Die JSON-basierte OpenAPI-Spezifikation steht unter `/v3/api-docs` bereit.
 
 
 #### Dynamisches Modell
-todo
+
 
 Beschreiben Sie den Ablauf Ihres Programms in Form von Aktivitäts- und oder Sequenzdiagrammen.
 

@@ -52,6 +52,18 @@ public class ConfigProperties {
      * The constant MAIL_SEND_PERIOD.
      */
     public static final String MAIL_SEND_PERIOD;
+    /**
+     * The constant MAIL_HOST
+     */
+    public static final String MAIL_HOST;
+    /**
+     * The constant MAIL_PORT
+     */
+    public static final String MAIL_PORT;
+    /**
+     * The constant MAIL_SENDER
+     */
+    public static final String MAIL_SENDER;
 
     static {
         URL root = ConfigProperties.class.getProtectionDomain().getCodeSource().getLocation();
@@ -78,5 +90,8 @@ public class ConfigProperties {
         MAIL_LIST = properties.getProperty("MAIL_LIST");
         MAIL_SEND_PERIOD = properties.getProperty("MAIL_SEND_PERIOD");
         INITIAL_ADMIN_PASSWORD = properties.getProperty("INITIAL_ADMIN_PASSWORD");
+        MAIL_HOST = properties.getProperty("MAIL_HOST");
+        MAIL_PORT = properties.getProperty("MAIL_PORT");
+        MAIL_SENDER= properties.getProperty("MAIL_SENDER");
     }
 }

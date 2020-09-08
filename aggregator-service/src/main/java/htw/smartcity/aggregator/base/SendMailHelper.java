@@ -16,6 +16,10 @@ public class SendMailHelper {
     private static final String mailUsername = ConfigProperties.MAIL_USERNAME;
     private static final String mailPassword = ConfigProperties.MAIL_PASSWORD;
     private static final String mailList = ConfigProperties.MAIL_LIST;
+    private static final String mailHost = ConfigProperties.MAIL_HOST;
+    private static final String mailPort = ConfigProperties.MAIL_PORT;
+    private static final String mailSender =  ConfigProperties.MAIL_SENDER;
+
 
 
     private SendMailHelper() {}
@@ -30,8 +34,8 @@ public class SendMailHelper {
     public static void sendMail(String subject, String messageText, String adminList) {
 
         Properties prop = new Properties();
-        prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.host", mailHost);
+        prop.put("mail.smtp.port", mailPort);
         prop.put("mail.smtp.auth", "true");
         prop.put("mail.smtp.starttls.enable", "true"); //TLS
 
@@ -49,7 +53,7 @@ public class SendMailHelper {
             try {
 
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("smartcityaggregatorservice@gmail.com"));
+                message.setFrom(new InternetAddress(mailSender));
                 message.setRecipients(
                         Message.RecipientType.TO,
                         InternetAddress.parse(finalMailList)
