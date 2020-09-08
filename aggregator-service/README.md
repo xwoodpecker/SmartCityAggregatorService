@@ -110,17 +110,17 @@ in kurzen Zeitabständen die verschiedenen Sensordaten erzeugt und bereitgestell
 Der AggregatorService soll die von den Sensoren bereitgestellten Daten sammeln,
 verarbeiten und speichern. Dazu wurden mehrere MQTT-Subscriber entwickelt. Um den Code
 schlank und portabel zu halten, wurde ein generischer MQTT-Subscriber entwickelt.
-Die abstrakte Klasse ist die Basis fur die Logik aller Subscriber. Nach der Konfiguration der Verbindung
+Die abstrakte Klasse ist die Basis für die Logik aller Subscriber. Nach der Konfiguration der Verbindung
 und dem Abonnement des jeweiligen Topics wird auf den Eingang einer
 Nachricht gewartet. Kommt eine Nachricht an, so wird der Sensor, falls er noch
 nicht vorhanden ist, in der MySQL-Datenbank gespeichert. Die empfangenen Daten
 werden verarbeitet und es erfolgt das Speichern der Messung mit Zeit und Sensor.
 Wie genau die Daten verarbeitet werden, ist vom jeweiligen Sensortyp abhängig.
 Bei den Parkplätzen zum Beispiel ist eine zusätzliche Echtzeitverarbeitung sinnvoll,
-die uber das schlichte Speichern von eingehenden Messdaten hinausgeht. Es ist nur
+die über das schlichte Speichern von eingehenden Messdaten hinausgeht. Es ist nur
 notwendig Änderungen von Parkplatzbelegungen zu speichern. Zudem wurde Logik
 implementiert, die vom Topic auf die Zugehörigkeit eines Sensors zu einer Gruppe
-schliet. Eine Gruppe von Parkplatzsensoren kann, z.B. als Parkhaus interpretiert
+schließt. Eine Gruppe von Parkplatzsensoren kann, z.B. als Parkhaus interpretiert
 werden. Es werden in Echtzeit für eine solche Gruppe Zähler erfasst, welche die
 aktuell freien und belegten Parkplätze abbilden. Diese Zähler werden, sobald sich
 der Status eines Sensors in seiner Gruppe ändert inkrementiert oder dekrementiert
@@ -138,11 +138,11 @@ zur Verfügung stehen.
 ###### Bereitstellung für beliebige FrontEnds
 Die in Echtzeit gespeicherten und aggregierten Daten werden mittels einer REST-Schnittstelle
 bereitgestellt. Hierbei wurden einfache und komplexe Abfragen implementiert.
-Die Auswertung uber verschiedene Zeiträume ermöglicht eine umfangreiche
+Die Auswertung über verschiedene Zeiträume ermöglicht eine umfangreiche
 Auswertung der Sensordaten. Verschiedene Filter ermöglichen die Auswahl der
 passenden Daten. Es ist beispielsweise möglich nach Sensor oder Sensortyp zu filtern.
 Die Daten können in beliegen FrontEnds dargestellt werden. Die FrontEnds
-müssen lediglich die Daten abfragen, die fur sie relevant sind. Eine Darstellung kann
+müssen lediglich die Daten abfragen, die für sie relevant sind. Eine Darstellung kann
 dann grafisch oder tabellarisch erfolgen.
 
 
