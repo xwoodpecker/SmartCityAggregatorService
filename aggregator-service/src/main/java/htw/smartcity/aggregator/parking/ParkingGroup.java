@@ -4,7 +4,6 @@ import htw.smartcity.aggregator.sensor.Sensor;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -28,7 +27,7 @@ public class ParkingGroup {
 
     @JoinTable(name = "PARKING_GROUP_SENSORS")
     @OneToMany(fetch=FetchType.EAGER)
-    private Set<Sensor> sensors  = new HashSet<>();;
+    private Set<Sensor> sensors  = new HashSet<>();
 
     /**
      * Default constructor for JPA only.

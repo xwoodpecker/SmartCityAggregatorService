@@ -11,13 +11,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * The type Parking group repository tests.
@@ -58,7 +55,7 @@ public class ParkingGroupRepositoryTests {
         assertEquals(parkingGroup.getSensors().size(), 2);
         parkingGroupRepository.delete(parkingGroup);
         boolean isPresent = parkingGroupRepository.findById(id).isPresent();
-        assertEquals(isPresent, false);
+        assertFalse(isPresent);
     }
 
     /**
@@ -71,7 +68,7 @@ public class ParkingGroupRepositoryTests {
         ParkingGroup parkingGroup = parkingGroups.get(0);
         assertEquals((long)parkingGroup.getId(), 1L);
         assertEquals(parkingGroup.getName(), "parking_group1");
-        assertEquals(parkingGroup.getInformation(), null);
+        assertNull(parkingGroup.getInformation());
         int numberOfSensors = parkingGroup.getSensors().size();
         assertEquals(numberOfSensors, 4);
     }

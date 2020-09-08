@@ -1,16 +1,12 @@
 package htw.smartcity.aggregator.temperature;
 
-import htw.smartcity.aggregator.sensor.SensorController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
@@ -20,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.List;
 
 /**
  * The type Temperature controller.
@@ -73,9 +68,8 @@ public class TemperatureController {
     @GetMapping("/latest")
     ResponseEntity<PagedModel<Temperature>> latest(@Parameter(hidden = true) Pageable pageable)
     {
-        temperatureRepository.findLatest(pageable);
-
-        return all(pageable);
+        Page p = temperatureRepository.findLatest(pageable);
+        return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p, temperatureResourceAssembler), HttpStatus.OK);
     }
 
     /**
@@ -139,12 +133,10 @@ public class TemperatureController {
     @GetMapping("/bySensor/{sensorId}/timeframe")
     public ResponseEntity<PagedModel<Temperature>> bySensorInTimeframe(@RequestParam Instant startTime, @RequestParam Instant endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
-        //todo
         Page p = temperatureRepository.findTemperaturesBySensorIdAndTimeBetween(sensorId, LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC),
                                                                                   pageable);
         return new ResponseEntity<PagedModel<Temperature>>(temperaturePageResourceAssembler.toModel(p,
         temperatureResourceAssembler), HttpStatus.OK);
-         //return all(pageable);
     }
 
     /**
@@ -156,7 +148,7 @@ public class TemperatureController {
     @Operation(summary = "Get the latest measurement of a specific sensor")
     @GetMapping("/bySensor/{sensorId}/latest")
     public EntityModel<Temperature> bySensorLatest(@PathVariable Long sensorId){
-        //todo implement
-        return one((long) 1);
+        Temperature temperature = temperatureRepository.findFirstBySensorIdOrderByTimeDesc(sensorId);
+        return temperatureResourceAssembler.toModel(temperature);
     }
 }

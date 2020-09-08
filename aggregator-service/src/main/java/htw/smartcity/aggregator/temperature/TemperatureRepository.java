@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,4 +64,6 @@ public interface TemperatureRepository extends JpaRepository<Temperature, Long> 
      */
     @Query(value = "SELECT t from Temperature t JOIN Sensor s group by t.sensor order by t.time desc")
     Page<Temperature> findLatest(Pageable pageable);
+
+    Temperature findFirstBySensorIdOrderByTimeDesc(Long sensorId);
 }

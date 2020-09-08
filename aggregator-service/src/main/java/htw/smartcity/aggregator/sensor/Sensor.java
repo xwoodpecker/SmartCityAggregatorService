@@ -1,9 +1,6 @@
 package htw.smartcity.aggregator.sensor;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * The type Sensor.
@@ -181,6 +178,6 @@ public class Sensor {
 
     @Override
     public String toString() {
-        return name.toString();
+        return name;
     }
 }

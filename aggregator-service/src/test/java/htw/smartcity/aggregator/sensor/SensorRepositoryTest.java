@@ -1,7 +1,5 @@
 package htw.smartcity.aggregator.sensor;
 
-import htw.smartcity.aggregator.airquality.AirQuality;
-import htw.smartcity.aggregator.parking.Parking;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * The type Sensor repository test.
@@ -52,7 +45,7 @@ public class SensorRepositoryTest {
         assertEquals(sensor2.getInformation(), sensor.getInformation());
         sensorRepository.delete(sensor2);
         boolean isPresent = sensorRepository.findById(id).isPresent();
-        assertEquals(isPresent, false);
+        assertFalse(isPresent);
     }
 
 

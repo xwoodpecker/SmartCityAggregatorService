@@ -25,26 +25,29 @@ public class AirQualityAggregateComputationScheduler
     /**
      * The Sensor repository.
      */
-    @Autowired
     SensorRepository sensorRepository;
 
     /**
      * The Air quality repository.
      */
-    @Autowired
     AirQualityRepository airQualityRepository;
 
     /**
      * The Air quality aggregate repository.
      */
-    @Autowired
     AirQualityAggregateRepository airQualityAggregateRepository;
 
     /**
      * The Exception manager.
      */
-    @Autowired
     ExceptionManager exceptionManager;
+
+    public AirQualityAggregateComputationScheduler(SensorRepository sensorRepository, AirQualityRepository airQualityRepository, AirQualityAggregateRepository airQualityAggregateRepository, ExceptionManager exceptionManager) {
+        this.sensorRepository = sensorRepository;
+        this.airQualityRepository = airQualityRepository;
+        this.airQualityAggregateRepository = airQualityAggregateRepository;
+        this.exceptionManager = exceptionManager;
+    }
 
     @Scheduled (cron="0 0 1 * * ?")
     private void computeDaily()

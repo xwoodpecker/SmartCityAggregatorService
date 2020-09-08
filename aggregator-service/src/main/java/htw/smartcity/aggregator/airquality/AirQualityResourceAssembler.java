@@ -1,8 +1,6 @@
 package htw.smartcity.aggregator.airquality;
 
 import htw.smartcity.aggregator.sensor.SensorController;
-import htw.smartcity.aggregator.temperature.Temperature;
-import htw.smartcity.aggregator.temperature.TemperatureController;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

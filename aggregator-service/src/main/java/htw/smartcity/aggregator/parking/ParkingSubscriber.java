@@ -26,20 +26,24 @@ public class ParkingSubscriber extends MQTTSubscriber {
     /**
      * The Parking repository.
      */
-    @Autowired
     ParkingRepository parkingRepository;
 
     /**
      * The Parking group repository.
      */
-    @Autowired
     ParkingGroupRepository parkingGroupRepository;
 
     /**
      * The Parking group counter repository.
      */
-    @Autowired
+    final
     ParkingGroupCounterRepository parkingGroupCounterRepository;
+
+    public ParkingSubscriber(ParkingRepository parkingRepository, ParkingGroupRepository parkingGroupRepository, ParkingGroupCounterRepository parkingGroupCounterRepository) {
+        this.parkingRepository = parkingRepository;
+        this.parkingGroupRepository = parkingGroupRepository;
+        this.parkingGroupCounterRepository = parkingGroupCounterRepository;
+    }
 
     @Override
     protected String getSubTopic() {

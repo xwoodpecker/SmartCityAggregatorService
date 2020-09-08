@@ -1,6 +1,5 @@
 package htw.smartcity.aggregator.temperature;
 
-import htw.smartcity.aggregator.airquality.AirQuality;
 import htw.smartcity.aggregator.temperature.Temperature;
 import htw.smartcity.aggregator.temperature.TemperatureRepository;
 import htw.smartcity.aggregator.sensor.Sensor;
@@ -19,8 +18,7 @@ import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * The type Temperature repository tests.
@@ -57,7 +55,7 @@ public class TemperatureRepositoryTests {
         assertEquals(temperature2.getSensor().getId(), temperature.getSensor().getId());
         temperatureRepository.delete(temperature);
         boolean isPresent = temperatureRepository.findById(id).isPresent();
-        assertEquals(isPresent, false);
+        assertFalse(isPresent);
     }
 
     /**

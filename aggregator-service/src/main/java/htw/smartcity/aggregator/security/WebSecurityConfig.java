@@ -3,7 +3,6 @@ package htw.smartcity.aggregator.security;
 import htw.smartcity.aggregator.base.ConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,9 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.sql.DataSource;
-import java.util.HashSet;
-
 /**
  * The type Web security config.
  */
@@ -24,11 +20,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
     private final String INITIAL_ADMIN_PASSWORD = ConfigProperties.INITIAL_ADMIN_PASSWORD;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+
+    public WebSecurityConfig(UserDetailsService userDetailsService, UserRepository userRepository) {
+        this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
+    }
 
     /**
      * Password encoder password encoder.

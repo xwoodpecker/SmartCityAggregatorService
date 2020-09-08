@@ -1,5 +1,8 @@
 package htw.smartcity.aggregator.sensor;
 
+import htw.smartcity.aggregator.airquality.AirQualityController;
+import htw.smartcity.aggregator.parking.ParkingController;
+import htw.smartcity.aggregator.parking.ParkingGroupController;
 import htw.smartcity.aggregator.temperature.TemperatureController;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
@@ -22,9 +25,8 @@ public class SensorResourceAssembler implements RepresentationModelAssembler<Sen
         );
 
         switch(sensor.getSensorType()){
-            case PARKING:
-                break;
             case AIR_QUALITY:
+                entityModel.add(linkTo(methodOn(AirQualityController.class).bySensor(sensor.getId(), Pageable.unpaged())).withRel("data"));
                 break;
             case TEMPERATURE:
                 entityModel.add(linkTo(methodOn(TemperatureController.class).bySensor(sensor.getId(), Pageable.unpaged())).withRel("data"));

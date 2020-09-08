@@ -16,8 +16,7 @@ import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * The type Air quality repository tests.
@@ -54,7 +53,7 @@ public class AirQualityRepositoryTests {
         assertEquals(airQuality2.getSensor().getId(), airQuality.getSensor().getId());
         airQualityRepository.delete(airQuality2);
         boolean isPresent = airQualityRepository.findById(id).isPresent();
-        assertEquals(isPresent, false);
+        assertFalse(isPresent);
     }
 
     /**

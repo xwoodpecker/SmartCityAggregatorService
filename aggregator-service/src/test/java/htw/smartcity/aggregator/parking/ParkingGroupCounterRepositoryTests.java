@@ -1,24 +1,17 @@
 package htw.smartcity.aggregator.parking;
 
-import htw.smartcity.aggregator.sensor.Sensor;
-import htw.smartcity.aggregator.sensor.SensorRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * The type Parking group counter repository tests.
@@ -54,7 +47,7 @@ public class ParkingGroupCounterRepositoryTests {
         assertEquals(parkingGroupCounter1.getParkingGroup().getId(), parkingGroup.getId());
         parkingGroupCounterRepository.delete(parkingGroupCounter);
         boolean isPresent = parkingGroupCounterRepository.findById(id).isPresent();
-        assertEquals(isPresent, false);
+        assertFalse(isPresent);
     }
 
 

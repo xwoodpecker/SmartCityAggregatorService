@@ -1,7 +1,6 @@
 package htw.smartcity.aggregator.airquality;
 
 import htw.smartcity.aggregator.airqualityaggregator.*;
-import htw.smartcity.aggregator.temperatureaggregate.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

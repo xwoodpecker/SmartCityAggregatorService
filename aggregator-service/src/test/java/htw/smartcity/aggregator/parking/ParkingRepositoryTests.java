@@ -1,7 +1,5 @@
 package htw.smartcity.aggregator.parking;
 
-import htw.smartcity.aggregator.airquality.AirQuality;
-import htw.smartcity.aggregator.airquality.AirQualityRepository;
 import htw.smartcity.aggregator.sensor.Sensor;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import org.junit.Test;
@@ -18,8 +16,7 @@ import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * The type Parking repository tests.
@@ -57,7 +54,7 @@ public class ParkingRepositoryTests {
         assertEquals(parking2.getSensor().getId(), parking.getSensor().getId());
         parkingRepository.delete(parking2);
         boolean isPresent = parkingRepository.findById(id).isPresent();
-        assertEquals(isPresent, false);
+        assertFalse(isPresent);
     }
 
     /**
@@ -108,9 +105,9 @@ public class ParkingRepositoryTests {
         boolean valueParking1 = parkingList.get(0).getValue();
         boolean valueParking2 = parkingList.get(1).getValue();
         boolean valueParking3 = parkingList.get(2).getValue();
-        assertEquals(valueParking1, true);
-        assertEquals(valueParking2, false);
-        assertEquals(valueParking3, true);
+        assertTrue(valueParking1);
+        assertFalse(valueParking2);
+        assertTrue(valueParking3);
 
     }
 

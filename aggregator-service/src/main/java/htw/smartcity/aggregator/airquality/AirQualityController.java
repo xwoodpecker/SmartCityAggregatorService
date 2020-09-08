@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
@@ -69,8 +68,8 @@ public class AirQualityController {
     @GetMapping("/latest")
     ResponseEntity<PagedModel<AirQuality>> latest(@Parameter(hidden = true) Pageable pageable)
     {
-        //todo Prio
-        return all(pageable);
+        Page p = airQualityRepository.findLatest(pageable);
+        return new ResponseEntity<PagedModel<AirQuality>>(airQualityPageResourceAssembler.toModel(p, airQualityResourceAssembler), HttpStatus.OK);
     }
 
     /**
@@ -133,8 +132,10 @@ public class AirQualityController {
     @GetMapping("/bySensor/{sensorId}/timeframe")
     public ResponseEntity<PagedModel<AirQuality>> bySensorInTimeframe(@RequestParam Instant startTime, @RequestParam Instant endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
-        //todo Prio
-        return all(pageable);
+        Page p = airQualityRepository.findAirQualitiesBySensorIdAndTimeBetween(sensorId, LocalDateTime.ofInstant(startTime, ZoneOffset.UTC), LocalDateTime.ofInstant(endTime, ZoneOffset.UTC),
+                pageable);
+        return new ResponseEntity<PagedModel<AirQuality>>(airQualityPageResourceAssembler.toModel(p,
+                airQualityResourceAssembler), HttpStatus.OK);
     }
 
     /**
@@ -146,7 +147,7 @@ public class AirQualityController {
     @Operation(summary = "Get the latest air quality measurement of a specific sensor")
     @GetMapping("/bySensor/{sensorId}/latest")
     public EntityModel<AirQuality> bySensorLatest(@PathVariable Long sensorId){
-        //todo Prio
-        return one((long) 1);
+        AirQuality airQuality = airQualityRepository.findFirstBySensorIdOrderByTimeDesc(sensorId);
+        return airQualityResourceAssembler.toModel(airQuality);
     }
 }

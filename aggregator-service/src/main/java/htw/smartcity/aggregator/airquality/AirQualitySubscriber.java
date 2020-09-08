@@ -20,8 +20,12 @@ public class AirQualitySubscriber extends MQTTSubscriber {
     /**
      * The Air quality repository.
      */
-    @Autowired
+    final
     AirQualityRepository airQualityRepository;
+
+    public AirQualitySubscriber(AirQualityRepository airQualityRepository) {
+        this.airQualityRepository = airQualityRepository;
+    }
 
     @Override
     protected String getSubTopic() {
