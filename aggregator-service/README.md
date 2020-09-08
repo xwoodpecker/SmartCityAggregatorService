@@ -166,7 +166,7 @@ Der Aggregator-Service und die Datenbank laufen in separaten Containern auf ders
 FrontEnds können auf beliebigen Client-Maschinen realisiert werden. 
 ![](../markdown-images/pizza.png)
 
-###### Klassendiagramme
+###### Klassendiagramm
 ![](../markdown-images/classdia0.png)
 
 
