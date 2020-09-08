@@ -7,7 +7,6 @@ import htw.smartcity.aggregator.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 /**
@@ -21,8 +20,12 @@ public class TemperatureSubscriber extends MQTTSubscriber {
     /**
      * The Temperature repository.
      */
-    @Autowired
+    final
     TemperatureRepository temperatureRepository;
+
+    public TemperatureSubscriber(TemperatureRepository temperatureRepository) {
+        this.temperatureRepository = temperatureRepository;
+    }
 
     @Override
     protected String getSubTopic() {

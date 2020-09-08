@@ -27,24 +27,17 @@ public class TemperatureAggregateController
 {
     private TemperatureAggregateRepository        temperatureAggregateRepository;
     private TemperatureAggregateResourceAssembler temperatureAggregateResourceAssembler;
-    private TemperatureRepository                 temperatureRepository;
-    private SensorRepository                      sr;
 
     /**
      * Instantiates a new Temperature average controller.
      *
      * @param temperatureAggregateRepository        the temperature aggregate repository
      * @param temperatureAggregateResourceAssembler the temperature average resource assembler
-     * @param temperatureRepository                 the temperature repository
-     * @param sr                                    the sr
      */
     public TemperatureAggregateController(TemperatureAggregateRepository temperatureAggregateRepository,
-                                          TemperatureAggregateResourceAssembler temperatureAggregateResourceAssembler,
-                                          TemperatureRepository temperatureRepository, SensorRepository sr) {
+                                          TemperatureAggregateResourceAssembler temperatureAggregateResourceAssembler) {
         this.temperatureAggregateRepository        = temperatureAggregateRepository;
         this.temperatureAggregateResourceAssembler = temperatureAggregateResourceAssembler;
-        this.temperatureRepository                 = temperatureRepository;
-        this.sr                                    = sr;
     }
 
     /**

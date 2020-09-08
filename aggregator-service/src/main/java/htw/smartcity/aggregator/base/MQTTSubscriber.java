@@ -130,7 +130,7 @@ public abstract class MQTTSubscriber implements MqttCallback {
      */
     protected Sensor persistSensor(String sensorName){
         Sensor sensor = new Sensor(sensorName, getSensorType(), null, null, null);
-        sensor = sensorRepository.save(sensor);;
+        sensor = sensorRepository.save(sensor);
         sensorNameSensorMap.put(sensorName, sensor);
         return sensor;
     }

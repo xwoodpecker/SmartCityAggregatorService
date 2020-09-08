@@ -1,7 +1,5 @@
 package htw.smartcity.aggregator.airqualityaggregator;
 
-import htw.smartcity.aggregator.temperatureaggregate.TemperatureAggregate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;

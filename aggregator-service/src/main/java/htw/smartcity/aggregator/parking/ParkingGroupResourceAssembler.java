@@ -1,6 +1,5 @@
 package htw.smartcity.aggregator.parking;
 
-import htw.smartcity.aggregator.sensor.SensorController;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -12,6 +11,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 /**
  * The type Parking group resource assembler.
  */
+@SuppressWarnings("UnnecessaryLocalVariable")
 @Component
 public class ParkingGroupResourceAssembler implements RepresentationModelAssembler<ParkingGroup, EntityModel<ParkingGroup>> {
     @Override

@@ -4,7 +4,7 @@ import htw.smartcity.aggregator.temperature.Temperature;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -49,5 +49,6 @@ public interface AirQualityRepository extends JpaRepository<AirQuality, Long> {
 
     AirQuality findFirstBySensorIdOrderByTimeDesc(Long sensorId);
 
-    Page findLatest(Pageable pageable);
+    @Query(value = "SELECT a from AirQuality a JOIN Sensor s group by a.sensor order by a.time desc")
+    Page<AirQuality> findLatest(Pageable pageable);
 }

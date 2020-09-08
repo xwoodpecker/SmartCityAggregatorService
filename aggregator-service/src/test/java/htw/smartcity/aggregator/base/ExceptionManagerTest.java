@@ -1,6 +1,5 @@
 package htw.smartcity.aggregator.base;
 
-import htw.smartcity.aggregator.temperatureaggregate.TemperatureAggregateComputationScheduler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

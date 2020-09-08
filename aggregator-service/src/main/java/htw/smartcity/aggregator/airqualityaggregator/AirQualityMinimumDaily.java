@@ -1,7 +1,6 @@
 package htw.smartcity.aggregator.airqualityaggregator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import htw.smartcity.aggregator.temperatureaggregate.TemperatureAggregate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

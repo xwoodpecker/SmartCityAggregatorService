@@ -25,26 +25,30 @@ public class TemperatureAggregateComputationScheduler
     /**
      * The Sensor repository.
      */
-    @Autowired
     SensorRepository sensorRepository;
 
     /**
      * The Temperature repository.
      */
-    @Autowired
     TemperatureRepository temperatureRepository;
 
     /**
      * The Temperature aggregate repository.
      */
-    @Autowired
     TemperatureAggregateRepository temperatureAggregateRepository;
 
     /**
      * The Exception manager.
      */
-    @Autowired
+    final
     ExceptionManager exceptionManager;
+
+    public TemperatureAggregateComputationScheduler(SensorRepository sensorRepository, TemperatureRepository temperatureRepository, TemperatureAggregateRepository temperatureAggregateRepository, ExceptionManager exceptionManager) {
+        this.sensorRepository = sensorRepository;
+        this.temperatureRepository = temperatureRepository;
+        this.temperatureAggregateRepository = temperatureAggregateRepository;
+        this.exceptionManager = exceptionManager;
+    }
 
     @Scheduled (cron="0 0 1 * * ?")
     private void computeDaily()

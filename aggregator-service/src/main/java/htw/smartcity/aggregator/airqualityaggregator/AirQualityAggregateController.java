@@ -1,6 +1,5 @@
 package htw.smartcity.aggregator.airqualityaggregator;
 
-import htw.smartcity.aggregator.airquality.AirQuality;
 import htw.smartcity.aggregator.airquality.AirQualityRepository;
 import htw.smartcity.aggregator.sensor.SensorRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,26 +26,17 @@ public class AirQualityAggregateController
 {
     private AirQualityAggregateRepository        airQualityAggregateRepository;
     private AirQualityAggregateResourceAssembler airQualityAggregateResourceAssembler;
-    private AirQualityRepository                 airQualityRepository;
-    private SensorRepository                     sr;
-
 
     /**
      * Instantiates a new Air quality aggregate controller.
      *
      * @param airQualityAggregateRepository        the air quality aggregate repository
      * @param airQualityAggregateResourceAssembler the air quality aggregate resource assembler
-     * @param airQualityRepository                 the air quality repository
-     * @param sr                                   the sr
      */
     public AirQualityAggregateController(AirQualityAggregateRepository        airQualityAggregateRepository,
-                                         AirQualityAggregateResourceAssembler airQualityAggregateResourceAssembler,
-                                         AirQualityRepository                 airQualityRepository,
-                                         SensorRepository                     sr) {
+                                         AirQualityAggregateResourceAssembler airQualityAggregateResourceAssembler) {
         this.airQualityAggregateRepository        = airQualityAggregateRepository;
         this.airQualityAggregateResourceAssembler = airQualityAggregateResourceAssembler;
-        this.airQualityRepository                 = airQualityRepository;
-        this.sr                                    = sr;
     }
 
     /**

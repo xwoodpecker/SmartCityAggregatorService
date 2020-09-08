@@ -1,6 +1,5 @@
 package htw.smartcity.aggregator.parking;
 
-import htw.smartcity.aggregator.sensor.SensorController;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

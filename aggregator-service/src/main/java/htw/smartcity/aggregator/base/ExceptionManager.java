@@ -24,10 +24,9 @@ public class ExceptionManager {
     private List<MailException> mailExpcetions;
     private Timer timer;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private ExceptionManager(){
+    private ExceptionManager(UserRepository userRepository){
         try {
             period = Integer.parseInt(ConfigProperties.MAIL_SEND_PERIOD)*60*1000;
         }catch (NumberFormatException ne) {
@@ -36,6 +35,7 @@ public class ExceptionManager {
         mailExpcetions = Collections.synchronizedList(new ArrayList<>());
         timer = new Timer();
         timer.scheduleAtFixedRate(new ExceptionManagerTask(), delay, period);
+        this.userRepository = userRepository;
     }
 
     /**

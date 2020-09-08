@@ -1,8 +1,6 @@
 package htw.smartcity.aggregator.airquality;
 
 
-import htw.smartcity.aggregator.temperature.Temperature;
-import htw.smartcity.aggregator.temperature.TemperatureResourceAssembler;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.stereotype.Component;
 

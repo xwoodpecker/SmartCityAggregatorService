@@ -1,8 +1,5 @@
 package htw.smartcity.aggregator.base;
 
-import htw.smartcity.aggregator.security.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -17,7 +14,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class SendMailHelper {
     private static final String mailUsername = ConfigProperties.MAIL_USERNAME;
-    private static final String mailPassword = ConfigProperties.MAIL_PASSWORD;;
+    private static final String mailPassword = ConfigProperties.MAIL_PASSWORD;
     private static final String mailList = ConfigProperties.MAIL_LIST;
 
 
