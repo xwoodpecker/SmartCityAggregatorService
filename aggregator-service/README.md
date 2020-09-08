@@ -179,6 +179,8 @@ können auf dieser Oberfläche sämtliche Endpunkte ausprobiert werden.
 
 Die JSON-basierte OpenAPI-Spezifikation steht unter `/v3/api-docs` bereit.
 
+![](../markdown-images/swagger.png)
+
 
 #### Dynamisches Modell
 Hier eine simple Darstellung der Verarbeitung von eingehenden Daten:
