@@ -86,7 +86,7 @@ public class ParkingGroupRepositoryTests {
         List<Sensor> sensorList1 = (List<Sensor>) page1.get().collect(Collectors.toList());
         List<Sensor> sensorList2 = (List<Sensor>) page2.get().collect(Collectors.toList());
         assertEquals(sensorList1.size(), 4);
-        assertEquals(sensorList1.size(), 1);
+        assertEquals(sensorList2.size(), 1);
         Sensor sensor1Group1 = sensorList1.get(0);
         assertEquals(sensor1Group1.getName(), "parking_sensor1");
         Sensor sensor4Group1 = sensorList1.get(3);

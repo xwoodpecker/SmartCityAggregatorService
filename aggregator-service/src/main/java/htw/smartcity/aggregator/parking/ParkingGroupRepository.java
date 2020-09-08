@@ -30,6 +30,6 @@ public interface ParkingGroupRepository extends JpaRepository<ParkingGroup, Long
      * @param pageable the pageable
      * @return the page
      */
-    @Query(value = "select s from ParkingGroup p join Sensor s ON s member of p.sensors")
+    @Query(value = "select s from ParkingGroup p join Sensor s ON s member of p.sensors where p.id=:groupId")
     Page<Sensor> findParkingSensorsByGroupId(Long groupId, Pageable pageable);
 }

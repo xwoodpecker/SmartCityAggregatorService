@@ -69,7 +69,7 @@ public class AirQualityController {
     @GetMapping("/latest")
     ResponseEntity<PagedModel<AirQuality>> latest(@Parameter(hidden = true) Pageable pageable)
     {
-        //todo
+        //todo Prio
         return all(pageable);
     }
 
@@ -133,7 +133,7 @@ public class AirQualityController {
     @GetMapping("/bySensor/{sensorId}/timeframe")
     public ResponseEntity<PagedModel<AirQuality>> bySensorInTimeframe(@RequestParam Instant startTime, @RequestParam Instant endTime, @PathVariable Long sensorId, @Parameter(hidden = true) Pageable pageable)
     {
-        //todo
+        //todo Prio
         return all(pageable);
     }
 
@@ -146,7 +146,7 @@ public class AirQualityController {
     @Operation(summary = "Get the latest air quality measurement of a specific sensor")
     @GetMapping("/bySensor/{sensorId}/latest")
     public EntityModel<AirQuality> bySensorLatest(@PathVariable Long sensorId){
-        //todo implement
+        //todo Prio
         return one((long) 1);
     }
 }

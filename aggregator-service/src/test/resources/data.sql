@@ -9,11 +9,11 @@ INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (7, NULL, 
 INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (8, NULL, 'temperature_sensor1', 'TEMPERATURE', NULL, NULL);
 INSERT INTO sensors (id, information, name, sensor_type, x, y) VALUES (9, NULL, 'temperature_sensor2', 'TEMPERATURE', NULL, NULL);
 
-INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:31:46.000000', 37, 1);
-INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:32:25.000000', 37, 2);
-INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:36:12.000000', 23, 1);
-INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:39:16.000000', 23, 2);
-INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:41:19.000000', 23, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:31:46.000000', 105, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:32:25.000000', 110, 1);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:36:12.000000', 80, 2);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:39:16.000000', 92, 2);
+INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-07-23 15:41:19.000000', 94, 2);
 
 INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-01 15:31:46.000000', 13, 1);
 INSERT INTO air_quality_data (time, value, sensor_id) VALUES ('2020-09-01 15:32:25.000000', 15, 1);
@@ -64,7 +64,7 @@ INSERT INTO parking_group_counters(free, time, used, parking_group_id) VALUES (3
 
 INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:31:46.000000', 37.2, 8);
 INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:32:25.000000', 37.5, 9);
-INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:36:12.000000', 23.2, 8);
+INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:36:12.000000', 23.2, 9);
 INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:39:16.000000', 23.45, 9);
 INSERT INTO temperature_data (time, value, sensor_id) VALUES ('2020-07-23 15:41:19.000000', 23.7, 8);
 

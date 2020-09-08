@@ -66,7 +66,7 @@ public class AirQualityRepositoryTests {
         Sensor sensor2 = sensorRepository.findById(AIRQUALITY_SENSOR2_ID).get();
         long elementsSensor1 = airQualityRepository.findAirQualitiesBySensorId(sensor1.getId(), null).getTotalElements();
         long elementsSensor2 = airQualityRepository.findAirQualitiesBySensorId(sensor2.getId(), null).getTotalElements();
-        assertEquals(elementsSensor1, 2);
+        assertEquals(elementsSensor1, 20);
         assertEquals(elementsSensor2, 3);
     }
 
