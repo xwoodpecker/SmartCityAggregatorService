@@ -150,13 +150,17 @@ Sämtliche Konfigurationseigenschaften können entweder in `src/main/resources/a
 
 
 ## Built With
-todo mehr?
 
-* [Spring Boot](https://spring.io/projects/spring-boot)  - ?
+* [Spring Boot](https://spring.io/projects/spring-boot)  - Framework zur Erstellung eines Micro Services
 * [Eclipse Paho](https://www.eclipse.org/paho/) - The MQTT Client used
 * [Swagger](https://swagger.io/) / [springdoc](https://springdoc.org/) - OpenAPI compliant API specification
 * [Maven](https://maven.apache.org/) - Dependency Management
-
+* [Hibernate](https://hibernate.org/orm/) - Object-relational mapping
+* [Spring Data JPA](https://spring.io/projects/spring-data-jpa) - Library zur Datenabfrage  
+* [MySQL](https://www.mysql.com/) - Datenbanksystem
+* [JUnit](https://junit.org/) - Framework zum Testen
+* [H2 Database Engine](https://www.h2database.com/html/main.html) - Java SQL database
+* [Logback](http://logback.qos.ch/) - Integriertes Application Logging
 
 ## License
 This project is licensed under the GNU General Public License v3.0
