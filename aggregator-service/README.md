@@ -158,15 +158,13 @@ dann grafisch oder tabellarisch erfolgen.
 
 
 ###### Bausteinsicht
+Im Folgenden ist eine grafische Darstellung der Systembausteine und die eingesetzten Technlogien und Frameworks zu sehen.
 ![](../markdown-images/lego.png)
 
-Die Bausteinsicht beschreibt die logischen Komponenten Ihres Systems und deren Zusammenwirken. Stellen Sie auch die eingesetzte Technologien, Frameworks etc. dar.
-
-
 ###### Verteilungssicht
+Der Aggregator-Service und die Datenbank laufen in separaten Containern auf derselben Maschine. Der MQTT-Broker läuft Remote auf einem anderen System. 
+FrontEnds können auf beliebigen Client-Maschinen realisiert werden. 
 ![](../markdown-images/pizza.png)
-
-Die Verteilungssicht stellt dar, auf welchen physischen Rechnern die einzelnen Komponenten Ihres Systems ausgeführt werden und wie diese Verbunden sind.
 
 ###### Klassendiagramme
 ![](../markdown-images/classdia0.png)
@@ -174,7 +172,7 @@ Die Verteilungssicht stellt dar, auf welchen physischen Rechnern die einzelnen K
 
 ###### API
 Der Aggregator-Service ist konform mit der OpenAPI-Spezifikation und stellt unter dem Endpunkt
-`/swagger-ui.html` eine graphische Oberfläche mit Details zur Spezifikation bereit. Desweiteren
+`/swagger-ui.html` eine grafische Oberfläche mit Details zur Spezifikation bereit. Desweiteren
 können auf dieser Oberfläche sämtliche Endpunkte ausprobiert werden.
 
 Die JSON-basierte OpenAPI-Spezifikation steht unter `/v3/api-docs` bereit.
