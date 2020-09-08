@@ -9,11 +9,13 @@ import org.springdoc.core.converters.models.Pageable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * The type Aggregator application.
  */
 @SpringBootApplication
+@EnableScheduling
 public class AggregatorApplication {
 
 	/**

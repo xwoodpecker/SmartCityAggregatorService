@@ -46,7 +46,7 @@ public class AirQualityAggregateComputationScheduler
     @Autowired
     ExceptionManager exceptionManager;
 
-    @Scheduled (cron="0 1 * * *")
+    @Scheduled (cron="0 0 1 * * ?")
     private void computeDaily()
     {
         List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.AIR_QUALITY);
@@ -108,7 +108,7 @@ public class AirQualityAggregateComputationScheduler
         }
     }
 
-    @Scheduled (cron="0 1 */7 * *")
+    @Scheduled (cron="0 0 1 * * MON")
     private void computeWeekly()
     {
         List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.AIR_QUALITY);
@@ -173,7 +173,7 @@ public class AirQualityAggregateComputationScheduler
         }
     }
 
-    @Scheduled (cron="0 1 1 * *")
+    @Scheduled (cron="0 0 1 1 * ?")
     private void computeMonthly()
     {
         List<Sensor> sensors = sensorRepository.findBySensorType(SensorType.AIR_QUALITY);
