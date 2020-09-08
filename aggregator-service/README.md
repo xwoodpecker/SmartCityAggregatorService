@@ -2,9 +2,15 @@
 Das Internet of Things (IoT) erhält zunehmend Einzug in Bereiche des Alltags. Insbesondere steigt das Interesse an Smart-City-Anwendungen. Diese sollen Prozesse
 im städtischen Umfeld optimieren und durch den Einsatz von intelligenter Hardware das Leben einfacher gestalten. Wesentlicher Bestandteil einer Smart-City-
 Infrastruktur stellen Sensoren dar, die verschiedenste Daten messen. Temperatur-, Luftqualitäts- und Parkplatzdaten sind für das Projekt relevant. 
-Um neuste Technologien zu erforschen, wird das SmartCity-Testfeld aufgebaut. Ein wesentlicher Bestandteil des Testfelds ist der Aggregrator-Service.
-Hierbei handelt es sich um einen auf Spring Boot basierten Cloud-Service,
-der Messungen von Sensoren verarbeitet und speichert. Aus Messwerten werden Aggregate sowohl in Echtzeit als auch zeitverzögert durch 
+Um neuste Technologien zu erforschen, wird das SmartCity-Testfeld aufgebaut, welches im Folgenden zu sehen ist.
+
+![](../markdown-images/architecture.png)
+
+Der Kern des Systems ist der MQTT-Broker, über den die gesamte Kommunikation abläuft. Er entscheidet, welche Nachrichten an welche Client weitergeleitet werden.
+
+Ein weiterer Bestandteil des Testfelds ist der Aggregrator-Service.
+Hierbei handelt es sich um einen auf Spring Boot basierten Cloud-Service, der mit dem MQTT-Broker kommuniziert.
+Seine Hauptaufgabe ist die Verarbeitung und Speicherung von Sensormessungen. Aus Messwerten werden Aggregate sowohl in Echtzeit als auch zeitverzögert durch 
 Batch-Processing-Routinen gebildet. Über eine REST-Schnittstelle können die Daten abgefragt werden. Dazu wird eine Vielzahl von Endpunkten bereitgestellt, 
 mit denen genau die Daten gefiltert werden können, die benötigt werden. Die FrontEnds müssen dann lediglich die Daten im entsprechenden Format anzeigen.
 
@@ -147,15 +153,18 @@ dann grafisch oder tabellarisch erfolgen.
 
 
 #### Statisches Modell
+###### ERM-Modell
+![](../markdown-images/ERM.png)
+
 
 ###### Bausteinsicht
-todo
+![](../markdown-images/lego.png)
 
 Die Bausteinsicht beschreibt die logischen Komponenten Ihres Systems und deren Zusammenwirken. Stellen Sie auch die eingesetzte Technologien, Frameworks etc. dar.
 
 
 ###### Verteilungssicht
-todo
+![](../markdown-images/pizza.png)
 
 Die Verteilungssicht stellt dar, auf welchen physischen Rechnern die einzelnen Komponenten Ihres Systems ausgeführt werden und wie diese Verbunden sind.
 
