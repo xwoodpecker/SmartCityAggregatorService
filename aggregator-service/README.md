@@ -1,7 +1,7 @@
 # Aggregator Service
 Das Internet of Things (IoT) erhält zunehmend Einzug in Bereiche des Alltags. Insbesondere steigt das Interesse an Smart-City-Anwendungen. Diese sollen Prozesse
 im städtischen Umfeld optimieren und durch den Einsatz von intelligenter Hardware das Leben einfacher gestalten. Wesentlicher Bestandteil einer Smart-City-
-Infrastruktur stellen Sensoren dar, die verschiedenste Daten messen. Temperatur-, Luftqualitäts- und Parkplatzdaten sind für das Projekt relevant. 
+Infrastruktur stellen Sensoren dar, die verschiedenste Daten messen. Temperatur-, Luftqualität- und Parkplatzdaten sind für das Projekt relevant. 
 Um neuste Technologien zu erforschen, wird das SmartCity-Testfeld aufgebaut, welches im Folgenden zu sehen ist.
 
 ![](../markdown-images/architecture.png)
@@ -203,13 +203,13 @@ Die oben dargestellten Sequenzdiagramme stellen die Datenverarbeitung und Aggreg
 
 
 ## Getting Started
-Um dieses Projekt lokal aufzusetzen muss zuerst dieses Git-Repository geklont werden:
+Um dieses Projekt lokal aufzusetzen, muss zuerst dieses Git-Repository geklont werden:
 ````
 git clone https://github.com/htw-saar/SmartCityAggregatorService.git
 ````
 Anschließend kann das Projekt in einer beliebigen IDE bearbeitet werden.
 
-Der Buildprozess ist mit Maven realisiert. Wichtige Phasen:
+Der Build-Prozess ist mit Maven realisiert. Wichtige Phasen:
 - `mvn package`: Kompiliert das Projekt, erstellt eine ausführbare `.jar` mit allen benötigten Dependencies
 - `mvn install`: Erstellt ein Docker-Image, welches eine JRE sowie die ausführbare `.jar` als Entry-Point enthält. Wird im lokalen Docker Repository abgelegt. 
 Ein Docker-Agent muss lokal verfügbar sein, um diese Phase auszuführen.
@@ -225,8 +225,8 @@ Es müssen folgende Abhängigkeiten auf dem Rechner installiert sein:
 Das Docker-Image kann mit `docker run {registry}/htw.smartcity/aggregator:1.0-SNAPSHOT` ausgeführt werden, wobei `{registry}`
 durch die entsprechende Registry ersetzt werden muss.
 
-Um die MySQL-Datenbank ebenfalls als Container auf dem selben Host bereitzustellen ist es erforderlich, via `docker network create --driver bridge {name}` ein Docker-Netzwerk anzulegen und 
-beide Container mit diesem Netwerk zu verbinden. Dazu muss der `docker run`-Befehl um `--net={name}` erweitert werden.
+Um die MySQL-Datenbank ebenfalls als Container auf demselben Host bereitzustellen ist es erforderlich, via `docker network create --driver bridge {name}` ein Docker-Netzwerk anzulegen und 
+beide Container mit diesem Network zu verbinden. Dazu muss der `docker run`-Befehl um `--net={name}` erweitert werden.
 Es empfiehlt sich, dem Datenbank-Container explizit einen Namen zu geben, denn dadurch kann der Aggregator-Service die IP auflösen (siehe "Konfiguration")
 
 ###### Konfiguration
@@ -265,6 +265,7 @@ Hostnamens der Name des entsprechenden Docker-Containers eingetragen werden.
 * [JUnit](https://junit.org/) - Framework zum Testen
 * [H2 Database Engine](https://www.h2database.com/html/main.html) - In-Memory Datenbank
 * [Logback](http://logback.qos.ch/) - Integriertes Application Logging
+* [Docker](https://www.docker.com/) - Anwendung zur Containervirtualisierung
 
 ## License
 This project is licensed under the GNU General Public License v3.0
