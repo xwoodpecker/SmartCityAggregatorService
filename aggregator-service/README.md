@@ -157,7 +157,9 @@ Hostnamens der Name des entsprechenden Docker-Containers eingetragen werden.
 * `MAIL_PASSWORD`: Password zur Authentifizierung gegenüber des Mail-Servers
 * `MAIL_LIST`: Kommagetrennte Liste von E-Mail-Adressen, die bei auftretenden Fehlern informiert werden sollen.
 * `MAIL_SEND_PERIOD`: Wie oft eventuell auftretende Fehler per E-Mail versendet weren sollen
-
+* `MAIL_SEND_HOST`: Der Mail-Webserver über den die Kommunikation abgewickelt werden soll
+* `MAIL_SEND_PORT`: Der Port des Mail-Webservers
+* `MAIL_SEND_SENDER`: Der Absender der generierten Mails
 
 ## Built With
 
