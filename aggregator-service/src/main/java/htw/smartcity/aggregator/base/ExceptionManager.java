@@ -66,13 +66,14 @@ public class ExceptionManager {
                 }
                 String subject = String.format("%d errors during AggregatorService execution", errorCount);
                 String text = sb.toString();
-                String optionalMailList = null;
+                String mailList = null;
                 try {
-                    optionalMailList = userRepository.findAdmins().stream().map(a -> a.getEmail()).reduce((a1, a2) -> a1 + "," + a2).get();
+                    Optional<String> optional = userRepository.findAdmins().stream().map(a -> a.getEmail()).reduce((a1, a2) -> a1 + "," + a2);
+                    if(optional.isPresent())
+                        mailList = optional.get();
                 }catch(Exception e) {
                     e.printStackTrace();
                 }
-                String mailList = optionalMailList;
                 SendMailHelper.sendMail(subject, text, mailList);
             }
         }
@@ -92,7 +93,7 @@ public class ExceptionManager {
      */
     public void MQTTSubscriptionFailed(String topic){
         MailException mailException = new MailException(LogException.MQTT_SUBSCRIPTION_FAILED);
-        mailException.addAdditionalInfos("Tried subscribing to Topic: " + topic);
+        mailException.addAdditionalInfos("Tried subscribing to topic: " + topic);
         mailExpcetions.add(mailException);
 
     }
@@ -105,7 +106,7 @@ public class ExceptionManager {
      */
     public void MQTTSensorPersistenceFailed(String sensorName, SensorType sensorType){
         MailException mailException = new MailException(LogException.MQTT_SENSOR_PERSISTENCE_FAILED);
-        mailException.addAdditionalInfos("Sensor Type: " + sensorType);
+        mailException.addAdditionalInfos("Sensor type: " + sensorType);
         mailException.addAdditionalInfos("Sensor name: " + sensorName);
         mailExpcetions.add(mailException);
     }
@@ -118,6 +119,7 @@ public class ExceptionManager {
      */
     public void MQTTAirQualityPersistenceFailed(String sensorName, String msg){
         MailException mailException = new MailException(LogException.MQTT_AIR_QUALITY_PERSISTENCE_FAILED);
+        mailException.addAdditionalInfos("Sensor type: " + SensorType.AIR_QUALITY);
         MQTTMeasurementPersistenceFailed(mailException, sensorName, msg);
     }
 
@@ -129,6 +131,7 @@ public class ExceptionManager {
      */
     public void MQTTTemperaturePersistenceFailed(String sensorName, String msg){
         MailException mailException = new MailException(LogException.MQTT_TEMPERATURE_PERSISTENCE_FAILED);
+        mailException.addAdditionalInfos("Sensor type: " + SensorType.TEMPERATURE);
         MQTTMeasurementPersistenceFailed(mailException, sensorName, msg);
     }
 
@@ -140,6 +143,7 @@ public class ExceptionManager {
      */
     public void MQTTParkingPersistenceFailed(String sensorName, String msg){
         MailException mailException = new MailException(LogException.MQTT_PARKING_PERSISTENCE_FAILED);
+        mailException.addAdditionalInfos("Sensor type: " + SensorType.PARKING);
         MQTTMeasurementPersistenceFailed(mailException, sensorName, msg);
     }
 
@@ -168,7 +172,6 @@ public class ExceptionManager {
     }
 
     private void MQTTMeasurementPersistenceFailed(MailException mailException, String sensorName, String msg){
-        mailException.addAdditionalInfos("Sensor Type: " + SensorType.AIR_QUALITY);
         mailException.addAdditionalInfos("Sensor name: " + sensorName);
         mailException.addAdditionalInfos("Message: " + msg);
         mailExpcetions.add(mailException);
