@@ -74,7 +74,7 @@ in Java wurde JPA (Java Persistence API) und Hibernate eingesetzt. Bei Hibernate
 handelt es sich um ein ORM-Tool. ORM steht für Object-relational mapping, was
 eine Technik zur Umwandlung von Daten in Objekte ist.
 
-#####HiveMQ als Plattform und MQTT-Broker
+##### HiveMQ als Plattform und MQTT-Broker
 HiveMQ ist eine MQTT-basierte Plattform, welche alle Features von MQTT bereitstellt.
 Es wird ein MQTT-Broker zur Verfügung gestellt, der bereit zur Installation
 ist. Die Implementierung von HiveMQ deckt alle Features ab, die benötigt werden.
