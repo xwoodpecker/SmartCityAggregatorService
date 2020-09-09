@@ -273,5 +273,11 @@ This project is licensed under the GNU General Public License v3.0
 ## Acknowledgments
 todo
 * [Prof. Dr. Markus Esch](https://www.htwsaar.de/htw/ingwi/fakultaet/personen/profile/markus-esch) - Projektbetreuung
+* [SystemTechnikLabor der htw saar](https://stl.htwsaar.de/) - Bereitstellen des Servers
 * [Baeldung](https://www.baeldung.com/) - Große Auswahl an Spring Boot-fokussierten Guides
+* [Sprint Data JPA - Reference Documentation](https://docs.spring.io/spring-data/jpa/docs/1.5.0.RELEASE/reference/html/index.html) - Dokumentation über Spring Data JPA
+* [MQTT Version 5.0](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html) - Vollständige MQTT Dokumentation
+* [phpMyAdmin](https://www.phpmyadmin.net/) - Bereitstellung von MySQL-Datenbanken
+* [Cron Expression Generator](https://www.freeformatter.com/cron-expression-generator-quartz.html) - Hilfe bei der Erstellung von Cron Expressions für den Scheduler
+* [JavaMail](https://javaee.github.io/javamail/) - Java API zum Versenden von Mails
 * [Stackoverflow](https://stackoverflow.com/) - :ok_man:
