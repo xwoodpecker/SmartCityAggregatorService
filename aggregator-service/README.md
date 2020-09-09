@@ -15,11 +15,9 @@ Batch-Processing-Routinen gebildet. Über eine REST-Schnittstelle können die Da
 mit denen genau die Daten gefiltert werden können, die benötigt werden. Die FrontEnds müssen dann lediglich die Daten im entsprechenden Format anzeigen.
 
 ## Architektur
-todo
-
-
-Stellen Sie die Architektur Ihres Projekts dar. Beginnen Sie mit einem Abschnitt zur Lösungsstrategie.
- D.h. eine kompakte Beschreibung der Kernidee und des Lösungsansatzes. Beschreiben Sie wichtige Designentscheidungen und Begründen Sie diese.
+Wie oben beschrieben ist, handelt es sich um einen Microservice, der Teil des Backends ist. Der Aggregator Service ist in seiner Funktionalität abhänig vom MQTT Broker.
+Bei der Erarbeitung der Lösungsstrategie musste die Datenverarbeitung der Sensormesswerte festgelegt werden. Als separate Aspekte musste die Batch-Aggregation und
+die Datenbereitstellung konzipiert werden. Diese drei Kernfunktionen des Service konnten im Einzelnen konzipiert werden. Im Folgenden werden diese beschrieben.
 
 #### Use Cases / User Stories
 * Daten müssen gesammelt und aggregiert werden
@@ -151,26 +149,49 @@ Die Daten können in beliegen FrontEnds dargestellt werden. Die FrontEnds
 müssen lediglich die Daten abfragen, die für sie relevant sind. Eine Darstellung kann
 dann grafisch oder tabellarisch erfolgen.
 
+###### Administrative Verwaltung
+Man kann über die REST-Schnittstelle Nutzer anlegen. Bei der Verbindung mit der REST-Schnittstelle wird der erstellte Nutzer authentifiziert. Bei der
+Nutzeranlage können auch verschiedene Rollen vergeben werden. Die Admin-Rolle kann auf alle Endpunkte zugreifen, während die User-Rolle nur Datenabfragen kann.
+Ebenso ist es für Admins möglich Daten über Endpunkte einzupflegen so, z.B. die Koordinaten der Sensoren. Admins können auch die Aggregationsroutine manuell 
+starten über dafür erstellte REST-Endpunkte.
+
+###### Fehlerbehandlung
+Im Falle eines Fehlers bei Verbindung, Konfiguration oder Speichern von Metadaten zu Sensoren oder Messwerten werden Admins informiert. Es ist ebenfalls möglich
+zusätzliche Mail-Adressen in der Konfigurationsdatei zu hinterlegen, welche zusätzlich benachrichtigt werden. Die verschiedene Fehlermeldungen werden im Programm
+gesammelt und mit hilfreichen Informationen angereichert. So wird beispielsweise zu einem Fehler bei dem Einfügen von Messdaten der Sensor, dessen Typ und die
+erhaltene Nachricht vermerkt. Die Fehler werden zentral gesammelt und in konfigurierbaren Intervallen an die Mail-Liste versandt. Dadurch kann ein Mail-Spam 
+verhindert werden.
 
 #### Statisches Modell
-###### ERM-Modell
+##### ERM-Modell
 ![](../markdown-images/ERM.png)
 
 
-###### Bausteinsicht
-Im Folgenden ist eine grafische Darstellung der Systembausteine und die eingesetzten Technlogien und Frameworks zu sehen.
+##### Bausteinsicht
+Im Folgenden ist eine grafische Darstellung der Systembausteine und die eingesetzten Technologien und Frameworks zu sehen.
 ![](../markdown-images/lego.png)
 
-###### Verteilungssicht
+##### Verteilungssicht
 Der Aggregator-Service und die Datenbank laufen in separaten Containern auf derselben Maschine. Der MQTT-Broker läuft Remote auf einem anderen System. 
 FrontEnds können auf beliebigen Client-Maschinen realisiert werden. 
 ![](../markdown-images/pizza.png)
 
-###### Klassendiagramm
+##### Klassendiagramm
 ![](../markdown-images/classdia0.png)
 
 
-###### API
+##### API
+
+###### MQTT-Topics
+* Main-Topic in Konfigurationsdatei festlegbar
+* Temperatur-Topic: /temperature
+* Luftqualität-Topic: /airQuality
+* Park-Topic: /parking
+* Für Parking können Gruppen definiert werden, um ein Parkplatz oder ein Parkhaus zu simulieren:
+    /parking/groupName/sensorName
+
+
+###### Rest
 Der Aggregator-Service ist konform mit der OpenAPI-Spezifikation und stellt unter dem Endpunkt
 `/swagger-ui.html` eine grafische Oberfläche mit Details zur Spezifikation bereit. Desweiteren
 können auf dieser Oberfläche sämtliche Endpunkte ausprobiert werden.
@@ -254,7 +275,6 @@ Hostnamens der Name des entsprechenden Docker-Containers eingetragen werden.
 * `MAIL_SEND_SENDER`: Der Absender der generierten Mails
 
 ## Built With
-
 * [Spring Boot](https://spring.io/projects/spring-boot)  - Framework zur Erstellung von Microservices
 * [Eclipse Paho](https://www.eclipse.org/paho/) - MQTT-Client
 * [Swagger](https://swagger.io/) / [springdoc](https://springdoc.org/) - OpenAPI-Konforme Schnittstellenspezifikation
@@ -271,7 +291,6 @@ Hostnamens der Name des entsprechenden Docker-Containers eingetragen werden.
 This project is licensed under the GNU General Public License v3.0
 
 ## Acknowledgments
-todo
 * [Prof. Dr. Markus Esch](https://www.htwsaar.de/htw/ingwi/fakultaet/personen/profile/markus-esch) - Projektbetreuung
 * [SystemTechnikLabor der htw saar](https://stl.htwsaar.de/) - Bereitstellen des Servers
 * [Baeldung](https://www.baeldung.com/) - Große Auswahl an Spring Boot-fokussierten Guides
