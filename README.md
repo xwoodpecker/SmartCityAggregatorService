@@ -202,25 +202,23 @@ Die JSON-basierte OpenAPI-Spezifikation steht unter `/v3/api-docs` bereit.
 
 
 #### Dynamisches Modell
-Hier eine simple Darstellung der Verarbeitung von eingehenden Daten:
-
+###### Verarbeitung von eingehenden Daten
 ![](markdown-images/sequenz0.png)
 
 Eine erweiterte Darstellung des Ablaufs bei eingehenden Sensorwerten:
 ![](markdown-images/sequenz1.png)
 
-Die oben dargestellten Sequenzdiagramme stellen die Datenverarbeitung und Aggregation in Echtzeit dar. Parallel dazu laufen zwei weitere Routinen:
-* Sensorwertabfrage über REST-Schnittstelle
+Die oben dargestellten Sequenzdiagramme stellen die Datenverarbeitung und Aggregation in Echtzeit dar. Parallel dazu laufen zwei weitere Routinen.
 
+###### Sensorwertabfrage über REST-Schnittstelle
 ![](markdown-images/sequenz2.png)
 
-* Aggregation
-
-    Die Aggregration erfolgt täglich, wöchentlich und monatlich. Es werden die Aggregate, also Minima, Maxima und Mittelwerte berechnet. 
-    Dazu werden die Daten des Vortags, bzw. der vorigen Woche oder des vorigen Monats analysiert. Die berechneten Aggregate werden in einer eigenen Tabelle gespeichert. 
-    Diese können wie normale Messwerte über die REST-Schnittstelle abgefragt werden.
-    Im Falle eines Fehlers hat ein Admin die Möglichkeit die Berechnung zu einem späteren Zeitpunkt manuell zu wiederholen. 
-    Eine solche Wiederholung kann über einen Endpunkt der REST-Schnittstelle ausgelöst werden.
+###### Aggregation
+Die Aggregration erfolgt täglich, wöchentlich und monatlich. Es werden die Aggregate, also Minima, Maxima und Mittelwerte berechnet. 
+Dazu werden die Daten des Vortags, bzw. der vorigen Woche oder des vorigen Monats analysiert. Die berechneten Aggregate werden in einer eigenen Tabelle gespeichert. 
+Diese können wie normale Messwerte über die REST-Schnittstelle abgefragt werden.
+Im Falle eines Fehlers hat ein Admin die Möglichkeit die Berechnung zu einem späteren Zeitpunkt manuell zu wiederholen. 
+Eine solche Wiederholung kann über einen Endpunkt der REST-Schnittstelle ausgelöst werden.
 
 
 ## Getting Started
